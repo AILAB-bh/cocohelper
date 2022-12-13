@@ -1,0 +1,99 @@
+[tool.poetry]
+name = "cocohelper"
+version = "0.3.1b"
+description = "Object Oriented library to manage MS-COCO-like datasets efficiently. "
+authors = [
+    "delchiaro-bh <Riccardo.DelChiaro@bakerhughes.com>",
+    "valvgab-bh <gabriele.valvano@bakerhughes.com>",
+    "lotteli <elia.lotti@bakerhughes.com>",
+    "andreap-bh <andrea.panizza@bakerhughes.com>"
+]
+
+readme = "readme.md"
+homepage = "https://github.com/AILAB-bh/coco-helper"
+repository = "https://github.com/AILAB-bh/coco-helper"
+documentation = "https://ailab-bh.github.io/coco-helper/"
+keywords = ["coco", "mscoco", "dataset"]
+
+
+[tool.ailab.template.package]
+version = "0.5.0a"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "7.2"
+pytest-cov = "^4.0.0"
+twine = "^4.0.1"
+tox = "^3.27.1"
+jupyter = "^1.0.0"
+pytest-runner = "^6.0.0"
+mypy = "^0.991"
+types-pillow = "^9.3.0.4"
+ailab-apigen = "^1.0.3"
+
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pycocotools = "^2.0.6"
+pandas = "^1.5.1"
+opencv-python = "^4.6.0.66"
+numpy = "^1.23.4"
+scikit-learn = "^1.1.3"
+tqdm = "^4.64.1"
+pillow = "^9.3.0"
+shapely= "~1.8.2"
+
+
+[[tool.poetry.source]]
+name = "ailab"
+url = "https://tps-innovation-dev.np-0000111.npaeuw1.bakerhughes.com/ailab-pypiserver/simple/"
+secondary = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src/"
+]
+
+
+
+[tool.mypy]
+
+[[tool.mypy.overrides]]
+module = "pandas.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "sklearn.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "pycocotools.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "cv2.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "matplotlib.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "scipy.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tqdm.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "shapely.*"
+ignore_missing_imports = true
+
+

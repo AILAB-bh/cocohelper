@@ -1,0 +1,20 @@
+name: cocohelper
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - pip
+  - pip:
+    - poetry>=1.2
+
+# HOW TO CREATE THE ENVIRONMENT WITH CONDA:
+# conda env create -f environment.yml
+# mamba env create -f environment.yml
+
+# HOW TO INSTALL PROJECT AS DEVELOPER:
+# 1. Activate the conda environment:
+#  `conda activate cocohelper`
+#
+# 2. Install poetry project:
+#   `poetry install`
+#

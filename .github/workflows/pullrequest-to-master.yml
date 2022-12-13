@@ -1,0 +1,147 @@
+name: Production Validation Pipeline
+
+# Controls when the workflows will run
+on:
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches: [ master ]
+  
+  # Allows you to run these workflows manually from the Actions tab
+  workflow_dispatch:
+  
+# A workflows run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+#############################################################################################
+############################# JOB 0 - Setup Self Hosted Runner ##############################
+#############################################################################################
+  setup-self-hosted-runner:
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: Setup Conda Environment
+        uses: AILAB-bh/gh-actions@setup-conda-poetry-env--1.0.1
+
+#############################################################################################
+############################# JOB 1 - Unit Tests and Code Coverage ##########################
+#############################################################################################
+          
+  # Run Unit Tests
+  unit-tests:
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+    
+    needs: setup-self-hosted-runner
+    
+    permissions:
+      checks: write
+      # only needed unless run with comment_mode: off
+      pull-requests: write
+      # only needed for private repository
+      contents: read
+      # only needed for private repository
+      issues: read
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Run Tests
+        run: |
+          source /opt/conda/etc/profile.d/conda.sh
+          conda activate ${{ github.event.repository.name }}
+          PACKAGE_NAME=$(ls src | head -n 1)
+          python -m pytest --cov=src/$PACKAGE_NAME --cov-report xml tests/ --junitxml=out_report.xml
+
+      - name: Check
+        if: always()
+        run: |
+          cat out_report.xml
+          cat coverage.xml
+          
+      - name: Publish Coverage Report
+        uses: AILAB-bh/gh-actions@coverage-comment--1.0.0
+        if: always()
+        with:
+          coverage_report: "coverage.xml"
+      
+      - name: Publish Test Results
+        uses: AILAB-bh/gh-actions@publish-unit-test-results--2.0.0
+        if: always()
+        with:
+          junit_files: "out_report.xml"
+
+#############################################################################################
+############################# JOB 2 - Static code analysis ##################################
+#############################################################################################
+  
+  # lint our code
+  static-code-analysis:
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+    # we need the conda environment to be setup
+    needs: setup-self-hosted-runner
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: static code analysis
+        uses: AILAB-bh/gh-actions@lint--1.0.0
+
+#############################################################################################
+############################# JOB 3 - Check existing release ################################
+#############################################################################################
+  
+  # Check if we have already released the current version
+  check-version:
+    
+    # We will not run on template repository
+    if: ${{ !github.event.repository.is_template }}
+    
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: check version
+        id: check_version
+        uses: AILAB-bh/gh-actions@check-version-poetry--master
+
+      - name: fail if exists
+        if: ${{ steps.check_version.outputs.is_released == 'true'}}
+        run: |
+          echo "Tag ${{ steps.check_version.outputs.version }} already exists. Kindly update setup.cfg with a new version"
+          exit 1
+
+#############################################################################################
+############################# JOB 4 - Test Doc Build ########################################
+#############################################################################################
+
+  # test if we can build doc
+  doc-build-test:
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+    # we need the conda environment to be setup
+    needs: setup-self-hosted-runner
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: doc build
+        uses: AILAB-bh/gh-actions@doc-deploy--1.0.0
+        with:
+          cicd_token: ${{ secrets.CICD_TOKEN}}
+          only_build: true
