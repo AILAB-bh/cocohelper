@@ -14,7 +14,19 @@ runs:
   using: "composite"
 
   steps:
-    - uses: conda-incubator/setup-miniconda@v2
+    - name: Cache conda
+      uses: actions/cache@v2
+      env:
+        # Increase this value to reset cache if etc/example-environment.yml has not changed
+        CACHE_NUMBER: "0"
+      with:
+        path: ~/conda_pkgs_dir
+        key:
+          ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
+          hashFiles('etc/example-environment.yml') }}
+
+    - name: Cache Env Installation
+      uses: conda-incubator/setup-miniconda@v2
       with:
         miniconda-version: "latest"
         auto-update-conda: true
@@ -24,7 +36,12 @@ runs:
         environment-file: environment.yml
         auto-activate-base: false
 
-    - name: Install Dependencies with Poetry
-      shell: bash -el {0}
-      run: |
-        poetry install
+    - name: Poetry Cache
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+        cache: 'poetry'
+
+    - name: Install poetry dependencies
+      shell: bash
+      run: poetry install
