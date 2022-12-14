@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Setup Conda Environment
-        uses: ./.github/actions/create-environment
+        uses: ./.github/actions/env-create
 
 
 
