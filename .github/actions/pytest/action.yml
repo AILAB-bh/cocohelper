@@ -12,6 +12,7 @@ runs:
         python -m pytest --cov=src --cov-report xml tests/ --junitxml=out_report.xml
 
     - name: Check PyTest Output
+      shell: bash
       if: always()
       run: |
         cat out_report.xml
