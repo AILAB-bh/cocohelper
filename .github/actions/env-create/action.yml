@@ -35,12 +35,13 @@ runs:
         environment-file: environment.yml
         auto-activate-base: false
 
+    - name: Install Dependencies with Poetry
+      shell: bash -el {0}
+      run: |
+        poetry install
+
 #    - name: Poetry Cache
 #      uses: actions/setup-python@v4
 #      with:
 #        python-version: '3.8'
 #        cache: 'poetry'
-
-    - name: Install poetry dependencies
-      shell: bash
-      run: poetry install
