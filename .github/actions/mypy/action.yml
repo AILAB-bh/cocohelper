@@ -10,7 +10,7 @@ runs:
   using: "composite"
   steps:
     - name: Install dependencies
-      shell: bash
+      shell: bash -el {0}
       run: |
         source /opt/conda/etc/profile.d/conda.sh
         conda activate ${{ github.event.repository.name }}
@@ -38,4 +38,4 @@ runs:
         else
             echo "mypy error"
         fi
-      shell: bash
+      shell: bash -el {0}

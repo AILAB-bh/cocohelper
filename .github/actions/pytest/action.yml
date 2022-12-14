@@ -7,7 +7,7 @@ runs:
   steps:
 
     - name: Run mypy
-      shell: bash
+      shell: bash -el {0}
       run: |
         python -m pytest --cov=src --cov-report xml tests/ --junitxml=out_report.xml
 
