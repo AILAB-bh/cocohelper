@@ -15,7 +15,6 @@ runs:
 
   steps:
     - uses: conda-incubator/setup-miniconda@v2
-      shell: bash -el {0}
       with:
         miniconda-version: "latest"
         auto-update-conda: true
