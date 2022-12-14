@@ -48,14 +48,11 @@ jobs:
 
     steps:
 
-#      - name: Download Repository
-#        uses: actions/checkout@v2
+      - name: Download Repository
+        uses: actions/checkout@v2
 
-      # Run PyTest
-      - name: Activate Environment
-        run: |
-          source /opt/conda/etc/profile.d/conda.sh
-          conda activate ${{ github.event.repository.name }}
+      - name: Activate Conda Environment
+        uses: ./.github/actions/env-activate
 
       - name: Run PyTest
         uses: ./.github/actions/pytest
@@ -91,8 +88,11 @@ jobs:
     needs: setup-runner
     
     steps:
-#      - name: Download Repository
-#        uses: actions/checkout@v2
-      
+      - name: Download Repository
+        uses: actions/checkout@v2
+
+      - name: Activate Conda Environment
+        uses: ./.github/actions/env-activate
+
       - name: static code analysis
         uses:  ./.github/actions/mypy
