@@ -1,0 +1,30 @@
+name: "PyTest"
+description: "Run python tests with PyTest"
+
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Run mypy
+      shell: bash
+      run: |
+        python -m pytest --cov=src --cov-report xml tests/ --junitxml=out_report.xml
+
+    - name: Check PyTest Output
+      if: always()
+      run: |
+        cat out_report.xml
+        cat coverage.xml
+
+    - name: Publish Coverage Report
+      uses: AILAB-bh/gh-actions@coverage-comment--1.0.0
+      if: always()
+      with:
+        coverage_report: "coverage.xml"
+
+    - name: Publish Test Results
+      uses: AILAB-bh/gh-actions@publish-unit-test-results--2.0.0
+      if: always()
+      with:
+        junit_files: "out_report.xml"

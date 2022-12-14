@@ -1,0 +1,41 @@
+name: "Lint python code"
+description: "Lint python code"
+inputs:
+  extra-mypy-options:
+    description: "Extra options: mypy $(extra-mypy-options) $(python-root-list)"
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install dependencies
+      shell: bash
+      run: |
+        source /opt/conda/etc/profile.d/conda.sh
+        conda activate ${{ github.event.repository.name }}
+        pip install -r ${{ github.action_path }}/requirements.txt
+
+    - name: Run mypy
+      run: |
+        source /opt/conda/etc/profile.d/conda.sh
+        conda activate ${{ github.event.repository.name }}
+        
+        MATCHERS=$GITHUB_ACTION_PATH/matchers/*.json
+        
+        for matcher in $MATCHERS
+        do
+          echo adding matcher $matcher
+          echo "::add-matcher::${matcher}"
+        done
+        
+        echo "TERM: changing from $TERM -> xterm"
+        export TERM=xterm
+        mypy --show-column-numbers ${{ inputs.extra-mypy-options }} src
+        exit_code=$?
+        if [ "$exit_code" = "0" ]; then
+            echo "mypy ok"
+        else
+            echo "mypy error"
+        fi
+      shell: bash
