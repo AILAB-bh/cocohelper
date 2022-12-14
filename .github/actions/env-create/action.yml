@@ -24,8 +24,8 @@ runs:
 
     - name: Create Environment
       shell: bash
-      #source /opt/conda/etc/profile.d/conda.sh
       run: |
+        source /opt/conda/etc/profile.d/conda.sh
         conda env create -f environment.yml -n ${{ github.event.repository.name }}
 
     - name: Activate Environment
