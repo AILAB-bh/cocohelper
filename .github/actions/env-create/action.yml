@@ -35,11 +35,11 @@ runs:
         environment-file: environment.yml
         auto-activate-base: false
 
-    - name: Poetry Cache
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.8'
-        cache: 'poetry'
+#    - name: Poetry Cache
+#      uses: actions/setup-python@v4
+#      with:
+#        python-version: '3.8'
+#        cache: 'poetry'
 
     - name: Install poetry dependencies
       shell: bash
