@@ -42,13 +42,13 @@ runs:
     - name: Create Environment
       shell: bash
       run: |
-        source /opt/conda/etc/profile.d/conda.sh
+        source /usr/share/miniconda3/etc/profile.d/conda.sh
         conda env create -f environment.yml -n ${{ github.event.repository.name }}
 
     - name: Activate Environment
       shell: bash
       run: |
-        source /opt/conda/etc/profile.d/conda.sh
+        source /usr/share/miniconda3/etc/profile.d/conda.sh
         conda activate ${{ github.event.repository.name }}
 
     - name: Install Dependencies with Poetry
