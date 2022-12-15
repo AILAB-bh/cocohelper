@@ -1,0 +1,31 @@
+name: 'Create or Update Conda Env'
+description: 'Create or Update conda env for the repository'
+inputs:
+  github_token:
+    description: 'GitHub API Access Token'
+    default: ${{ github.token }}
+    required: false
+  repository:
+    description: 'GitHub Repository name'
+    default: ${{ github.event.repository.name }}
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Create or Update Conda Environment
+      shell: bash
+      run: |
+        sed -i "/name:/c\name: ${{ inputs.repository }}" environment.yml
+        sed -i "/prefix:/c\prefix: \/opt\/conda\/envs\/${{ inputs.repository }}" environment.yml
+        head -1 environment.yml
+        tail -1 environment.yml
+        source /opt/conda/etc/profile.d/conda.sh
+        if conda env list | grep '${{ inputs.repository }}\s'; then
+          conda activate ${{ inputs.repository }}
+          conda env update --file environment.yml --prune;
+          poetry install
+        else
+          conda env create -n '${{ inputs.repository }}' --file environment.yml
+          conda activate ${{ inputs.repository }};
+          poetry install
+        fi
