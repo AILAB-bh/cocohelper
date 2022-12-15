@@ -14,6 +14,14 @@ runs:
   using: "composite"
 
   steps:
-    - uses: conda-incubator/setup-miniconda@v2
-      with:
-        activate-environment: ${{ github.event.repository.name }}
+
+#    - uses: conda-incubator/setup-miniconda@v2
+#      with:
+#        activate-environment: ${{ github.event.repository.name }}
+
+
+  - name: Activate Environment
+    shell: bash
+    run: |
+      source /opt/conda/etc/profile.d/conda.sh
+      conda activate ${{ github.event.repository.name }}

@@ -14,34 +14,44 @@ runs:
   using: "composite"
 
   steps:
-    - name: Cache conda
-      uses: actions/cache@v2
-      env:
-        # Increase this value to reset cache if etc/example-environment.yml has not changed
-        CACHE_NUMBER: "0"
-      with:
-        path: ~/conda_pkgs_dir
-        key:
-          ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment.yml') }}
 
-    - name: Cache Env Installation
-      uses: conda-incubator/setup-miniconda@v2
+#    - name: Cache Env Installation
+#      uses: conda-incubator/setup-miniconda@v2
+#      with:
+#        miniconda-version: "latest"
+#        auto-update-conda: true
+#        channels: conda-forge
+#        use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
+#        activate-environment: ${{ github.event.repository.name }}
+#        environment-file: environment.yml
+#        auto-activate-base: false
+#
+#    - name: Install Dependencies with Poetry
+#      shell: bash -el {0}
+#      run: |
+#        poetry install
+
+    - uses: conda-incubator/setup-miniconda@v2
       with:
         miniconda-version: "latest"
-        auto-update-conda: true
         channels: conda-forge
-        use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
-        activate-environment: ${{ github.event.repository.name }}
-        environment-file: environment.yml
-        auto-activate-base: false
+        #use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
+        auto-update-conda: true
+        auto-activate-base: true
+
+    - name: Create Environment
+      shell: bash
+      run: |
+        source /opt/conda/etc/profile.d/conda.sh
+        conda env create -f environment.yml -n ${{ github.event.repository.name }}
+
+    - name: Activate Environment
+      shell: bash
+      run: |
+        source /opt/conda/etc/profile.d/conda.sh
+        conda activate ${{ github.event.repository.name }}
 
     - name: Install Dependencies with Poetry
-      shell: bash -el {0}
+      shell: bash
       run: |
         poetry install
-
-#    - name: Poetry Cache
-#      uses: actions/setup-python@v4
-#      with:
-#        python-version: '3.8'
-#        cache: 'poetry'

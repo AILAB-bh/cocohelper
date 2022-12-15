@@ -10,7 +10,7 @@ runs:
       uses: ./.github/actions/env-activate
 
     - name: Run PyTest
-      shell: bash -el {0}
+      shell: bash
       run: |
         python -m pytest --cov=src --cov-report xml tests/ --junitxml=out_report.xml
 
@@ -43,7 +43,7 @@ runs:
         path: code-coverage-results.md
 
     - name: Write to Job Summary
-      shell: bash -el {0}
+      shell: bash
       run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
 
     - name: Publish Test Results

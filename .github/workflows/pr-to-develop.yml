@@ -20,8 +20,6 @@ jobs:
     defaults:
       run:
         shell: bash -el {0}
-
-
     name: Setup Runner
     runs-on: ubuntu-latest
     # WE ARE NOT USING ANY CONTAINER FOR NOW -- RUNNING ON THE HOST

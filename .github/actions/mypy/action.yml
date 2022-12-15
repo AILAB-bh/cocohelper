@@ -15,7 +15,7 @@ runs:
       uses: ./.github/actions/env-activate
 
     - name: Run mypy
-      shell: bash -el {0}
+      shell: bash
       run: |
         source /opt/conda/etc/profile.d/conda.sh
         conda activate ${{ github.event.repository.name }}
