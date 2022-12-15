@@ -15,43 +15,21 @@ runs:
 
   steps:
 
-#    - name: Cache Env Installation
-#      uses: conda-incubator/setup-miniconda@v2
-#      with:
-#        miniconda-version: "latest"
-#        auto-update-conda: true
-#        channels: conda-forge
-#        use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
-#        activate-environment: ${{ github.event.repository.name }}
-#        environment-file: environment.yml
-#        auto-activate-base: false
-#
-#    - name: Install Dependencies with Poetry
-#      shell: bash -el {0}
-#      run: |
-#        poetry install
-
     - uses: conda-incubator/setup-miniconda@v2
       with:
         miniconda-version: "latest"
         channels: conda-forge
+        mamba-version: "*"
         #use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
         auto-update-conda: true
-        auto-activate-base: true
+        activate-environment: ${{ github.event.repository.name }}
+        environment-file: environment.yml
 
-    - name: Create Environment
-      shell: bash
-      run: |
-        source /usr/share/miniconda3/etc/profile.d/conda.sh
-        conda env create -f environment.yml -n ${{ github.event.repository.name }}
-
-    - name: Activate Environment
-      shell: bash
-      run: |
-        source /usr/share/miniconda3/etc/profile.d/conda.sh
-        conda activate ${{ github.event.repository.name }}
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: ${{ github.event.repository.name }}
 
     - name: Install Dependencies with Poetry
-      shell: bash
+      shell: bash -el {0}
       run: |
         poetry install
