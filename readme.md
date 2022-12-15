@@ -9,7 +9,8 @@
   [![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://ailab-bh.github.io/cocohelper/apigen.html)
 </div>
 
-Here we are trying devops pipeline!
+Testing new pipelines
+
 
 # Mission 
 Microsoft COCO is both a large-scale dataset and a data annotation format.
