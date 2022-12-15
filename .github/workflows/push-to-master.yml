@@ -42,6 +42,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: doc build
-        uses: AILAB-bh/gh-actions@doc-deploy--1.0.0
+        uses:  ./.github/actions/doc-deploy
         with:
           cicd_token: ${{ secrets.CICD_TOKEN}}
