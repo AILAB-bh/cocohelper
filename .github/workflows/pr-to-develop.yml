@@ -15,24 +15,24 @@ on:
 # A workflows run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-########### JOB 1 - Setup Runner ###############################################
-  setup-runner:
-    defaults:
-      run:
-        shell: bash -el {0}
-    name: Setup Runner
-    runs-on: ubuntu-latest
-    # WE ARE NOT USING ANY CONTAINER FOR NOW -- RUNNING ON THE HOST
-    # container: node:latest
-
-    # Setup runner host
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Download Repository
-        uses: actions/checkout@v2
-      
-      - name: Setup Conda Environment
-        uses: ./.github/actions/env-create
+############ JOB 1 - Setup Runner ###############################################
+#  setup-runner:
+#    defaults:
+#      run:
+#        shell: bash -el {0}
+#    name: Setup Runner
+#    runs-on: ubuntu-latest
+#    # WE ARE NOT USING ANY CONTAINER FOR NOW -- RUNNING ON THE HOST
+#    # container: node:latest
+#
+#    # Setup runner host
+#    steps:
+#      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#      - name: Download Repository
+#        uses: actions/checkout@v2
+#
+#      - name: Setup Conda Environment
+#        uses: ./.github/actions/env-create
 
 
 ########### JOB 1 - Unit Tests and Code Coverage ###############################
@@ -52,6 +52,21 @@ jobs:
 
       - name: Download Repository
         uses: actions/checkout@v2
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+          auto-update-conda: true
+          channels: conda-forge
+          use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
+          activate-environment: ${{ github.event.repository.name }}
+          environment-file: environment.yml
+          auto-activate-base: false
+
+      - name: Install Dependencies with Poetry
+        shell: bash -el {0}
+        run: |
+          poetry install
 
       - name: Run PyTest
         uses: ./.github/actions/pytest
