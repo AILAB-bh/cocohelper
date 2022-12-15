@@ -34,9 +34,6 @@ jobs:
   ###########  Publish documentation
   doc-publish:
     runs-on: ubuntu-latest
-    needs: setup-self-hosted-runner
-    if: ${{ needs.check-initial-commit.outputs.commit_count != '1'}}
-    
     steps:
       - uses: actions/checkout@v2
 
