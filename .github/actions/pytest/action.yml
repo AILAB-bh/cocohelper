@@ -8,8 +8,18 @@ runs:
 
     - uses: conda-incubator/setup-miniconda@v2
       with:
-        auto-activate-base: false
+        miniconda-version: "latest"
+        auto-update-conda: true
+        channels: conda-forge
+        use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
         activate-environment: ${{ github.event.repository.name }}
+        environment-file: environment.yml
+        auto-activate-base: false
+
+    - name: Install Dependencies with Poetry
+      shell: bash -el {0}
+      run: |
+        poetry install
 
     - name: Run PyTest
       shell: bash -el {0}
