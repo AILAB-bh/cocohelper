@@ -48,7 +48,7 @@ jobs:
 
   ########### Check if we have already released the current version
   check-version:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
@@ -65,7 +65,7 @@ jobs:
 
   ########### Test Doc Build
   doc-build-test:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
