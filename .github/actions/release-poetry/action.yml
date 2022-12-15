@@ -56,6 +56,11 @@ runs:
         environment-file: environment.yml
         auto-activate-base: false
 
+    - name: Install Dependencies with Poetry
+      shell: bash -el {0}
+      run: |
+        poetry install
+
 
     - name: Build
       shell: bash -el {0}
