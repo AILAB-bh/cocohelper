@@ -8,6 +8,7 @@ runs:
 
     - uses: conda-incubator/setup-miniconda@v2
       with:
+        auto-activate-base: false
         activate-environment: ${{ github.event.repository.name }}
 
     - name: Run PyTest
