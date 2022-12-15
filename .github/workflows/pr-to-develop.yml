@@ -1,4 +1,4 @@
-name: Production Validation Pipeline
+name: Pull Request to Develop - Validation
 
 # Controls when the workflows will run
 on:
