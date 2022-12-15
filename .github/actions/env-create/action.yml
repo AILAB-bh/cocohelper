@@ -12,29 +12,19 @@ inputs:
 
 runs:
   using: "composite"
-  steps:
 
+  steps:
     - uses: conda-incubator/setup-miniconda@v2
       with:
         miniconda-version: "latest"
+        auto-update-conda: true
         channels: conda-forge
         use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
-        auto-update-conda: true
-        auto-activate-base: true
-
-    - name: Create Environment
-      shell: bash
-      #source /opt/conda/etc/profile.d/conda.sh
-      run: |
-        conda env create -f environment.yml -n ${{ github.event.repository.name }}
-
-    - name: Activate Environment
-      shell: bash
-      #source /opt/conda/etc/profile.d/conda.sh
-      run: |
-        conda activate ${{ github.event.repository.name }}
+        activate-environment: ${{ github.event.repository.name }}
+        environment-file: environment.yml
+        auto-activate-base: false
 
     - name: Install Dependencies with Poetry
-      shell: bash
+      shell: bash -el {0}
       run: |
         poetry install

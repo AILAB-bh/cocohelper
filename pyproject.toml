@@ -29,7 +29,6 @@ jupyter = "^1.0.0"
 pytest-runner = "^6.0.0"
 mypy = "^0.991"
 types-pillow = "^9.3.0.4"
-ailab-apigen = "^1.0.3"
 
 
 

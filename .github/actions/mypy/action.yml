@@ -9,18 +9,26 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Install dependencies
-      shell: bash
+
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniconda-version: "latest"
+        auto-update-conda: true
+        channels: conda-forge
+        use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
+        activate-environment: ${{ github.event.repository.name }}
+        environment-file: environment.yml
+        auto-activate-base: false
+
+    - name: Install Dependencies with Poetry
+      shell: bash -el {0}
       run: |
-        source /opt/conda/etc/profile.d/conda.sh
-        conda activate ${{ github.event.repository.name }}
-        pip install -r ${{ github.action_path }}/requirements.txt
+        poetry install
+
 
     - name: Run mypy
+      shell: bash -el {0}
       run: |
-        source /opt/conda/etc/profile.d/conda.sh
-        conda activate ${{ github.event.repository.name }}
-        
         MATCHERS=$GITHUB_ACTION_PATH/matchers/*.json
         
         for matcher in $MATCHERS
@@ -38,4 +46,3 @@ runs:
         else
             echo "mypy error"
         fi
-      shell: bash

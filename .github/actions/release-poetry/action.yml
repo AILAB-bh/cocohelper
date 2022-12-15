@@ -1,0 +1,157 @@
+
+# action.yml
+name: 'Release'
+description: 'Creates a Release'
+inputs:
+  tag_name:
+    description: 'TAG name to be created for release'
+    required: true
+  pypy_uid:
+    description: 'PyPy server user name'
+    default: ailab
+    required: false
+  pypy_pwd:
+    description: 'PyPy server password'
+    required: true
+  cicd_token:
+    description: 'CICD Token'
+    required: true
+#  pypy_server:
+#    description: 'PyPy server URL'
+#    default: http://10.79.85.55:28080
+#    required: false
+  github_token:
+    description: 'GitHub API Access Token'
+    default: ${{ github.token }}
+    required: false
+  draft:
+    description: 'draft'
+    default: false
+    required: false
+  prerelease:
+    description: 'prerelease'
+    default: false
+    required: false
+  generate_release_notes:
+    description: 'generate_release_notes'
+    default: true
+    required: false
+  target_commitish:
+    description: 'target_commitish'
+    default: master
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Setup Environment
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniconda-version: "latest"
+        auto-update-conda: true
+        channels: conda-forge
+        use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
+        activate-environment: ${{ github.event.repository.name }}
+        environment-file: environment.yml
+        auto-activate-base: false
+
+
+    - name: Build
+      shell: bash -el {0}
+      run: |
+        rm -rf dist/*
+        poetry build -f wheel --no-interaction -vvv  
+
+    - name: Make Release
+      shell: bash -el {0}
+      run: |
+        rm -f out.json
+        HTTP_STATUS_CODE=$(curl -X POST -o out.json -w '%{http_code}\n' \
+          -H "Authorization: Bearer ${{ inputs.github_token }}" \
+          -H "Accept: application/vnd.github+json" \
+          -s https://api.github.com/repos/${GITHUB_REPOSITORY}/releases \
+          -d '{"tag_name":"${{ inputs.tag_name }}","target_commitish":"${{ inputs.target_commitish }}","name":"${{ inputs.tag_name }}","body":"Release ${{ inputs.tag_name }}","draft":${{ inputs.draft }},"prerelease":${{ inputs.prerelease }},"generate_release_notes":${{ inputs.generate_release_notes }}}' \
+          )
+        echo "GitHub returned with a ${HTTP_STATUS_CODE}."
+        
+        if [ "$HTTP_STATUS_CODE" != "201" ]
+        then
+          echo "Release Failed"
+          exit 1
+        fi
+        
+        UPLOAD_URL=$(cat out.json | grep upload_url | awk '{split($0,a,"\""); print a[4]}'|awk '{split($0,a,"{"); print a[1]}')
+        echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
+
+    - name: Update Release with build artifacts
+      shell: bash -el {0}
+      run: |
+        find dist/ -name "*.*" -print0 | while read -d $'\0' MY_FILE
+        do
+          echo "Uploading file ${MY_FILE}."
+          
+          type=$(file -b --mime-type $MY_FILE)
+          MY_FILE_NAME=$(echo $MY_FILE | awk '{split($0,a,"/"); print a[2]}')
+          HTTP_STATUS_CODE=$(curl -X POST -s -o out.json -w '%{http_code}\n'\
+            -H "Authorization: Bearer ${{ inputs.github_token }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Content-Type: $type" \
+            --data-binary @$MY_FILE \
+            ${{ env.UPLOAD_URL }}?name=$MY_FILE_NAME \
+            )
+          
+          cat out.json
+          
+          echo "GitHub returned with a ${HTTP_STATUS_CODE}."   
+          
+          if [ "$HTTP_STATUS_CODE" != "201" ]
+          then
+            echo "Uploading Release Artifacts Failed"
+            exit 1
+          fi
+        done
+
+#    - name: Publish to our local PyPy server
+#      shell: bash -el {0}
+#      run: |
+#        source /opt/conda/etc/profile.d/conda.sh
+#        conda activate ${{ github.event.repository.name }}
+#        python -m twine upload --repository-url ${{ inputs.pypy_server }} dist/* --verbose -u ${{ inputs.pypy_uid }} -p ${{ inputs.pypy_pwd }}
+#
+#    - name: Checkout GitHub PyPi
+#      uses: actions/checkout@v2
+#      with:
+#        repository: AILAB-bh/ailab-github-pypi
+#        path: 'ailab-github-pypi'
+#        token: ${{ inputs.cicd_token }}
+#
+#    - name: Extract Publish parameters
+#      shell: bash
+#      run: |
+#        if grep "\"${{ github.event.repository.name }}\":" ailab-github-pypi/packages/packages.json
+#        then
+#          echo "TYPE=UPDATE" >> $GITHUB_ENV
+#        else
+#          echo "TYPE=REGISTER" >> $GITHUB_ENV
+#        fi
+#
+#    - name: Request Publish to ailab-github-pypi
+#      shell: bash
+#      run: |
+#        HTTP_STATUS_CODE=$(curl -X POST -o out.json -w '%{http_code}\n' \
+#              -H "Authorization: Bearer ${{ inputs.cicd_token }}" \
+#              -H "Accept: application/vnd.github+json" \
+#              -s https://api.github.com/repos/AILAB-bh/ailab-github-pypi/dispatches \
+#              -d '{"event_type":"${{ env.TYPE }}","client_payload":{"repo_owner": "AILAB-bh", "repo_name": "${{ github.event.repository.name }}", "package_name": "${{ github.event.repository.name }}"}}' \
+#              )
+#
+#        echo "GitHub returned with a ${HTTP_STATUS_CODE}."
+#
+#        if [ "$HTTP_STATUS_CODE" != "204" ]
+#        then
+#          echo "Publish to GItHub PyPI Failed"
+#          exit 1
+#        fi
+#
+    

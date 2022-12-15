@@ -1,0 +1,50 @@
+# action.yml
+name: doc-deploy
+description: 'Extracts version and checks if it is already released'
+inputs:
+  github_token:
+    description: 'GitHub API Access Token'
+    default: ${{ github.token }}
+    required: false
+  cicd_token:
+    description: 'CICD Token'
+    required: true
+  version:
+    description: 'ailab-apigen version to be used (the tag name)'
+    default: 'v1.0.2'
+    required: false
+  only_build:
+    description: 'Only build do not publish'
+    default: false
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Environment
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniconda-version: "latest"
+        auto-update-conda: true
+        channels: conda-forge
+        use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
+        activate-environment: ${{ github.event.repository.name }}
+        environment-file: environment.yml
+        auto-activate-base: false
+
+    - name: Run sph
+      shell: bash -el {0}
+      run: |   
+         sphinx-build ./doc/src ./doc/build -b html
+      
+
+    - name: Check
+      shell: bash -el {0}
+      run: ls doc/build
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: ${{ inputs.only_build == 'false' && github.ref == 'refs/heads/master' }}
+      with:
+        github_token: ${{ inputs.github_token }}
+        publish_dir: ./doc/build

@@ -1,0 +1,47 @@
+name: Production Pipeline
+
+on:
+  push:
+    branches:
+    - master  # Run when pushed to master
+    -
+  workflow_dispatch:
+    # Allows you to run these workflows manually from the Actions tab
+
+
+jobs:
+
+  ########### Release and Publish
+  release-publish:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: check version
+        id: check_version
+        uses: ./.github/actions/check-version-poetry
+
+      - name: release
+        uses: ./.github/actions/release-poetry
+        if: ${{ steps.check_version.outputs.is_released == 'false'}}
+        with:
+          tag_name: ${{ steps.check_version.outputs.version }}
+#          pypy_pwd: ${{ secrets.PYPY_PASSWORD }}
+#          cicd_token: ${{ secrets.CICD_TOKEN}}
+
+
+
+  ###########  Publish documentation
+  doc-publish:
+    runs-on: self-hosted
+    needs: setup-self-hosted-runner
+    if: ${{ needs.check-initial-commit.outputs.commit_count != '1'}}
+    
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: doc build
+        uses: AILAB-bh/gh-actions@doc-deploy--1.0.0
+        with:
+          cicd_token: ${{ secrets.CICD_TOKEN}}
