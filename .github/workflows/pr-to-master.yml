@@ -14,7 +14,7 @@ on:
 
 jobs:
 
-  ########### JOB 1 - Unit Tests and Code Coverage
+  ########### Unit Tests and Code Coverage
   run-tests:
     runs-on: ubuntu-latest
 
@@ -33,7 +33,7 @@ jobs:
         uses: ./.github/actions/pytest
 
 
-  ########### JOB 2 - Static code analysis
+  ########### Static code analysis
   static-code-analysis:
     runs-on: ubuntu-latest
     # needs: setup-runner
@@ -47,7 +47,7 @@ jobs:
 
 
 
-  ########### JOB 3 - Check if we have already released the current version
+  ########### Check if we have already released the current version
   check-version:
     runs-on: ubuntu-20.04
     steps:
@@ -63,7 +63,7 @@ jobs:
           echo "Tag ${{ steps.check_version.outputs.version }} already exists. Kindly update setup.cfg with a new version"
           exit 1
 
-  ########### JOB 4 - Test Doc Build  ##########################################
+  ########### Test Doc Build
   doc-build-test:
     runs-on: self-hosted
     needs: setup-self-hosted-runner

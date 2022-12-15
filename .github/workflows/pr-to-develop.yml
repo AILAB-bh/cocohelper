@@ -16,10 +16,8 @@ jobs:
 
   ########### Unit Tests and Code Coverage
   run-tests:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    # needs: setup-runner
-    
+
     permissions:
       checks: write
       pull-requests: write  # only needed unless run with comment_mode: off
@@ -27,6 +25,7 @@ jobs:
       #issues: read  # only needed for private repository
 
     steps:
+      -
       - name: Download Repository
         uses: actions/checkout@v2
 
