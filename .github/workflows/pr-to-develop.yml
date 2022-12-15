@@ -17,6 +17,11 @@ jobs:
 
 ########### JOB 1 - Setup Runner ###############################################
   setup-runner:
+    defaults:
+      run:
+        shell: bash -el {0}
+
+
     name: Setup Runner
     runs-on: ubuntu-latest
     # WE ARE NOT USING ANY CONTAINER FOR NOW -- RUNNING ON THE HOST
@@ -30,7 +35,6 @@ jobs:
       
       - name: Setup Conda Environment
         uses: ./.github/actions/env-create
-
 
 
 ########### JOB 1 - Unit Tests and Code Coverage ###############################
@@ -50,9 +54,6 @@ jobs:
 
       - name: Download Repository
         uses: actions/checkout@v2
-
-      - name: Activate Conda Environment
-        uses: ./.github/actions/env-activate
 
       - name: Run PyTest
         uses: ./.github/actions/pytest
@@ -90,9 +91,6 @@ jobs:
     steps:
       - name: Download Repository
         uses: actions/checkout@v2
-
-      - name: Activate Conda Environment
-        uses: ./.github/actions/env-activate
 
       - name: static code analysis
         uses:  ./.github/actions/mypy

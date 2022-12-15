@@ -9,14 +9,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Install dependencies
-      shell: bash -el {0}
-      run: |
-        source /opt/conda/etc/profile.d/conda.sh
-        conda activate ${{ github.event.repository.name }}
-        pip install -r ${{ github.action_path }}/requirements.txt
+
+
+    - name: Activate Conda Environment
+      uses: ./.github/actions/env-activate
 
     - name: Run mypy
+      shell: bash -el {0}
       run: |
         source /opt/conda/etc/profile.d/conda.sh
         conda activate ${{ github.event.repository.name }}
@@ -38,4 +37,3 @@ runs:
         else
             echo "mypy error"
         fi
-      shell: bash -el {0}
