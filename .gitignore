@@ -11,7 +11,8 @@ requirements-clean.txt
 doc/build/
 docs/_build/
 doc/src-gen
-doc/src
+doc/src/_autosummary
+
 
 # Jupyter Notebook
 .ipynb_checkpoints
