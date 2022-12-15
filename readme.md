@@ -11,6 +11,7 @@
 
 Testing new pipelines
 
+
 # Mission 
 Microsoft COCO is both a large-scale dataset and a data annotation format.
 Since its first release, COCO has emerged as a widely adopted annotation 
