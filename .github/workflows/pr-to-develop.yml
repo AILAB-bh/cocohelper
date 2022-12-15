@@ -25,7 +25,6 @@ jobs:
       #issues: read  # only needed for private repository
 
     steps:
-      -
       - name: Download Repository
         uses: actions/checkout@v2
 
