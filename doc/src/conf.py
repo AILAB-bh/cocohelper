@@ -29,7 +29,7 @@ extensions = [
 # -- Extensions Configurations ------------------------------------------------
 
 # Autosummary configurations
-autosummary_generate = False  # we are calling autosummary directly with ailab-apigen !
+autosummary_generate = True
 numpydoc_show_class_members = False
 
 # Autodoc Configuration
