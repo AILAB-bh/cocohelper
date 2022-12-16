@@ -1,0 +1,6 @@
+not\_empty\_intersect
+=====================
+
+.. currentmodule:: cocohelper.utils.utils
+
+.. autofunction:: not_empty_intersect

@@ -1,0 +1,65 @@
+ColMap
+======
+
+.. currentmodule:: cocohelper.utils.colmapper
+
+.. autoclass:: ColMap
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~ColMap.to_origs
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~ColMap.to_new
+      ~ColMap.to_orig
+      ~ColMap.orig
+      ~ColMap.new
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      to_origs
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       to_new
+   .. autoattribute::
+       to_orig
+   .. autoattribute::
+       orig
+   .. autoattribute::
+       new
+   
+   

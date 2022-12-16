@@ -1,0 +1,41 @@
+adapters
+========
+
+.. automodule:: cocohelper.adapters
+
+
+
+
+.. rubric:: Submodule
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   cocohelper.adapters.binary_mask_adapter
+   cocohelper.adapters.dataset_adapter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

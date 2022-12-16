@@ -1,0 +1,56 @@
+Splitter
+========
+
+.. currentmodule:: cocohelper.splitters.splitter
+
+.. autoclass:: Splitter
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~Splitter.apply
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~Splitter._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      apply
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

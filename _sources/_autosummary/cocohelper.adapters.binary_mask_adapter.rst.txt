@@ -1,0 +1,40 @@
+binary\_mask\_adapter
+=====================
+
+.. automodule:: cocohelper.adapters.binary_mask_adapter
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  BinaryMaskDatasetAdapter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

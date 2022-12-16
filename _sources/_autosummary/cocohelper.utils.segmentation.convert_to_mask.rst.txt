@@ -1,0 +1,6 @@
+convert\_to\_mask
+=================
+
+.. currentmodule:: cocohelper.utils.segmentation
+
+.. autofunction:: convert_to_mask

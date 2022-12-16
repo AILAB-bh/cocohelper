@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cocohelper.splitters.stratified &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../apigen.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cocohelper.splitters.stratified</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cocohelper.splitters.stratified</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">cocohelper.splitters.proportional</span> <span class="kn">import</span> <span class="n">ProportionalDataSplitter</span>
+<span class="kn">from</span> <span class="nn">cocohelper</span> <span class="kn">import</span> <span class="n">COCOHelper</span>
+
+<span class="c1"># TODO: clean code in this file:</span>
+<span class="c1">#  - Functions are too long.</span>
+<span class="c1">#  - Function nesting is too high (StratifiedDataSplitter has 5 nested sections)</span>
+
+
+
+<div class="viewcode-block" id="StratifiedDataSplitter"><a class="viewcode-back" href="../../../_autosummary/cocohelper.splitters.stratified.StratifiedDataSplitter.html#cocohelper.splitters.stratified.StratifiedDataSplitter">[docs]</a><span class="k">class</span> <span class="nc">StratifiedDataSplitter</span><span class="p">(</span><span class="n">ProportionalDataSplitter</span><span class="p">):</span>
+
+<div class="viewcode-block" id="StratifiedDataSplitter._get_ids"><a class="viewcode-back" href="../../../_autosummary/cocohelper.splitters.stratified.StratifiedDataSplitter.html#cocohelper.splitters.stratified.StratifiedDataSplitter._get_ids">[docs]</a>    <span class="k">def</span> <span class="nf">_get_ids</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">ch</span><span class="p">:</span> <span class="n">COCOHelper</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the ids needed for the stratified dataset splitting.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ch: a COCOHelper with the source COCO dataset.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of ids for each subset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">n_subsets</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">)</span>
+        <span class="n">subset_ratios</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span>
+
+        <span class="c1"># normalise proportions in 0-1:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_ratios</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_subsets</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The number of values for the ratios must be equal to the number of subsets &#39;n_subsets&#39;&quot;</span><span class="p">)</span>
+
+        <span class="c1"># initialise dictionary to track subset content</span>
+        <span class="n">dataset</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">sset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subsets</span><span class="p">):</span>
+            <span class="n">dataset</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;ids&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">&quot;desired_size&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;desired_size_for_label&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="p">})</span>
+
+        <span class="c1"># ----</span>
+        <span class="c1"># 0) get image ids grouped by label</span>
+        <span class="n">imgs_anns</span> <span class="o">=</span> <span class="n">ch</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">imgs_anns</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ids_by_label</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">imgs_anns</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;category_id&#39;</span><span class="p">)[</span><span class="s1">&#39;image_id&#39;</span><span class="p">]}</span>
+
+        <span class="c1"># ----</span>
+        <span class="c1"># 1) Compute the desired number of examples in each subset:</span>
+        <span class="n">n_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">imgs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">sset</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subset_ratios</span><span class="p">):</span>
+            <span class="n">dataset</span><span class="p">[</span><span class="n">sset</span><span class="p">][</span><span class="s2">&quot;desired_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">n_samples</span>  <span class="c1"># ok if it is float...</span>
+
+        <span class="c1"># ----</span>
+        <span class="c1"># 2) Compute the desired number of samples of each label at each subset:</span>
+        <span class="n">label_ratios</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_label_ratios</span><span class="p">(</span><span class="n">ids_by_label</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">sset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subsets</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">label_ratios</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">dataset</span><span class="p">[</span><span class="n">sset</span><span class="p">][</span><span class="s2">&quot;desired_size_for_label&quot;</span><span class="p">][</span><span class="n">lbl</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">sset</span><span class="p">][</span><span class="s2">&quot;desired_size&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">label_ratios</span><span class="p">[</span><span class="n">lbl</span><span class="p">]</span>
+
+        <span class="c1"># ----</span>
+        <span class="c1"># 3) Iterative assignment:</span>
+        <span class="k">while</span> <span class="n">n_samples</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+            <span class="c1"># select the label with the fewest remaining samples:</span>
+            <span class="n">n_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ids_by_label</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="n">min_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">lbl</span> <span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">ids_by_label</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids_by_label</span><span class="p">[</span><span class="n">lbl</span><span class="p">])</span> <span class="o">==</span> <span class="n">n_min</span><span class="p">]</span>
+            <span class="n">selected_label</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">min_labels</span><span class="p">)</span>
+
+            <span class="c1"># for each example of this label: assign to the best subset:</span>
+            <span class="k">for</span> <span class="n">img_id</span> <span class="ow">in</span> <span class="n">ids_by_label</span><span class="p">[</span><span class="n">selected_label</span><span class="p">]:</span>
+
+                <span class="c1"># find the subset with the largest number of desired examples for this label</span>
+                <span class="n">selected_subset</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># initialise with first subset (e.g. train)</span>
+                <span class="n">n_max</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">selected_subset</span><span class="p">][</span><span class="s2">&quot;desired_size_for_label&quot;</span><span class="p">][</span><span class="n">selected_label</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">sset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_subsets</span><span class="p">):</span>  <span class="c1"># iterate over the remaining subsets</span>
+
+                    <span class="k">if</span> <span class="n">dataset</span><span class="p">[</span><span class="n">sset</span><span class="p">][</span><span class="s2">&quot;desired_size_for_label&quot;</span><span class="p">][</span><span class="n">selected_label</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">n_max</span><span class="p">:</span>
+                        <span class="n">selected_subset</span> <span class="o">=</span> <span class="n">sset</span>
+
+                    <span class="c1"># breaking ties:</span>
+                    <span class="k">elif</span> <span class="n">dataset</span><span class="p">[</span><span class="n">sset</span><span class="p">][</span><span class="s2">&quot;desired_size_for_label&quot;</span><span class="p">][</span><span class="n">selected_label</span><span class="p">]</span> <span class="o">==</span> <span class="n">n_max</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">dataset</span><span class="p">[</span><span class="n">sset</span><span class="p">][</span><span class="s2">&quot;desired_size&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dataset</span><span class="p">[</span><span class="n">selected_subset</span><span class="p">][</span><span class="s2">&quot;desired_size&quot;</span><span class="p">]:</span>
+                            <span class="n">selected_subset</span> <span class="o">=</span> <span class="n">sset</span>
+                        <span class="k">elif</span> <span class="n">dataset</span><span class="p">[</span><span class="n">sset</span><span class="p">][</span><span class="s2">&quot;desired_size&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">dataset</span><span class="p">[</span><span class="n">selected_subset</span><span class="p">][</span><span class="s2">&quot;desired_size&quot;</span><span class="p">]:</span>
+                            <span class="n">selected_subset</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">selected_subset</span><span class="p">,</span> <span class="n">sset</span><span class="p">])</span>
+
+                <span class="c1"># assign the element to the selected subset:</span>
+                <span class="n">dataset</span><span class="p">[</span><span class="n">selected_subset</span><span class="p">][</span><span class="s2">&quot;ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img_id</span><span class="p">)</span>
+
+                <span class="c1"># remove this image from the dataset (i.e. remove it from the remaining lists)</span>
+                <span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">ids_by_label</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">ids_by_label</span><span class="p">[</span><span class="n">lbl</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">_id</span><span class="p">:</span> <span class="n">_id</span> <span class="o">!=</span> <span class="n">img_id</span><span class="p">,</span> <span class="n">ids_by_label</span><span class="p">[</span><span class="n">lbl</span><span class="p">]))</span>
+
+                <span class="c1"># decrease the number of desired samples for each label of this sample (inside selected_subset)</span>
+                <span class="n">sample_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">lbl</span> <span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">ch</span><span class="o">.</span><span class="n">filtered_anns</span><span class="p">(</span><span class="n">img_ids</span><span class="o">=</span><span class="n">img_id</span><span class="p">)[</span><span class="s1">&#39;category_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
+                <span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">sample_labels</span><span class="p">:</span>
+                    <span class="n">dataset</span><span class="p">[</span><span class="n">selected_subset</span><span class="p">][</span><span class="s2">&quot;desired_size_for_label&quot;</span><span class="p">][</span><span class="n">lbl</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+
+                <span class="c1"># decrease counter</span>
+                <span class="n">n_samples</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">dataset</span><span class="p">[</span><span class="n">sset</span><span class="p">][</span><span class="s2">&quot;ids&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">sset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subsets</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="StratifiedDataSplitter._compute_label_ratios"><a class="viewcode-back" href="../../../_autosummary/cocohelper.splitters.stratified.StratifiedDataSplitter.html#cocohelper.splitters.stratified.StratifiedDataSplitter._compute_label_ratios">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_compute_label_ratios</span><span class="p">(</span>
+            <span class="n">images_by_label</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Computes the ratio of labels within the COCO dataset.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            images_by_label: a dictionary grouping images by their labels.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A dictionary with the ratios of labels in the COCO dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ratios</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">images_by_label</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">images_by_label</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">ratios</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="n">tot_number</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ratios</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="k">if</span> <span class="n">tot_number</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The sum of ratio values must be greater than zero.&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ratios</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">ratios</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">ratios</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">/</span> <span class="n">tot_number</span>
+        <span class="k">return</span> <span class="n">ratios</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+kfold
+=====
+
+.. automodule:: cocohelper.splitters.kfold
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  KFoldSplitter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

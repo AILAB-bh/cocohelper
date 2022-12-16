@@ -1,0 +1,40 @@
+splitter
+========
+
+.. automodule:: cocohelper.splitters.splitter
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  Splitter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

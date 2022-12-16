@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COCOHelper &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="COCOHelperPaths" href="cocohelper.helper.COCOHelperPaths.html" />
+    <link rel="prev" title="COCOColsMapper" href="cocohelper.helper.COCOColsMapper.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../apigen.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cocohelper.html">cocohelper</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.adapters.html">adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.dataframe.html">dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.errors.html">errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.filters.html">filters</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cocohelper.helper.html">helper</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.helper.COCOColsMapper.html">COCOColsMapper</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">COCOHelper</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#cocohelper.helper.COCOHelper"><code class="docutils literal notranslate"><span class="pre">COCOHelper</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper._copy_images"><code class="docutils literal notranslate"><span class="pre">COCOHelper._copy_images()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper._read_annotations_file"><code class="docutils literal notranslate"><span class="pre">COCOHelper._read_annotations_file()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper._remove_unlinked_anns"><code class="docutils literal notranslate"><span class="pre">COCOHelper._remove_unlinked_anns()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.copy"><code class="docutils literal notranslate"><span class="pre">COCOHelper.copy()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_duplicate_anns"><code class="docutils literal notranslate"><span class="pre">COCOHelper.drop_duplicate_anns()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_duplicate_cats"><code class="docutils literal notranslate"><span class="pre">COCOHelper.drop_duplicate_cats()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_duplicate_imgs"><code class="docutils literal notranslate"><span class="pre">COCOHelper.drop_duplicate_imgs()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_duplicate_licenses"><code class="docutils literal notranslate"><span class="pre">COCOHelper.drop_duplicate_licenses()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_labelled"><code class="docutils literal notranslate"><span class="pre">COCOHelper.drop_labelled()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_unlabelled"><code class="docutils literal notranslate"><span class="pre">COCOHelper.drop_unlabelled()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.filter"><code class="docutils literal notranslate"><span class="pre">COCOHelper.filter()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.filter_anns"><code class="docutils literal notranslate"><span class="pre">COCOHelper.filter_anns()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.filter_cats"><code class="docutils literal notranslate"><span class="pre">COCOHelper.filter_cats()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.filter_imgs"><code class="docutils literal notranslate"><span class="pre">COCOHelper.filter_imgs()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.filtered_anns"><code class="docutils literal notranslate"><span class="pre">COCOHelper.filtered_anns()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.filtered_cats"><code class="docutils literal notranslate"><span class="pre">COCOHelper.filtered_cats()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.filtered_imgs"><code class="docutils literal notranslate"><span class="pre">COCOHelper.filtered_imgs()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.get_ann_sample"><code class="docutils literal notranslate"><span class="pre">COCOHelper.get_ann_sample()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.get_img"><code class="docutils literal notranslate"><span class="pre">COCOHelper.get_img()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.get_img_sample"><code class="docutils literal notranslate"><span class="pre">COCOHelper.get_img_sample()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.load"><code class="docutils literal notranslate"><span class="pre">COCOHelper.load()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.load_data"><code class="docutils literal notranslate"><span class="pre">COCOHelper.load_data()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.load_json"><code class="docutils literal notranslate"><span class="pre">COCOHelper.load_json()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.merge"><code class="docutils literal notranslate"><span class="pre">COCOHelper.merge()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.new_info_dict"><code class="docutils literal notranslate"><span class="pre">COCOHelper.new_info_dict()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.save"><code class="docutils literal notranslate"><span class="pre">COCOHelper.save()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.to_coco"><code class="docutils literal notranslate"><span class="pre">COCOHelper.to_coco()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.to_json_dataset"><code class="docutils literal notranslate"><span class="pre">COCOHelper.to_json_dataset()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.write_annotations_file"><code class="docutils literal notranslate"><span class="pre">COCOHelper.write_annotations_file()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.anns"><code class="docutils literal notranslate"><span class="pre">COCOHelper.anns</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.cats"><code class="docutils literal notranslate"><span class="pre">COCOHelper.cats</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.imgs"><code class="docutils literal notranslate"><span class="pre">COCOHelper.imgs</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.info"><code class="docutils literal notranslate"><span class="pre">COCOHelper.info</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.joins"><code class="docutils literal notranslate"><span class="pre">COCOHelper.joins</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.labelled_imgs"><code class="docutils literal notranslate"><span class="pre">COCOHelper.labelled_imgs</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.licenses"><code class="docutils literal notranslate"><span class="pre">COCOHelper.licenses</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.paths"><code class="docutils literal notranslate"><span class="pre">COCOHelper.paths</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.root_path"><code class="docutils literal notranslate"><span class="pre">COCOHelper.root_path</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.helper.COCOHelper.unlabelled_imgs"><code class="docutils literal notranslate"><span class="pre">COCOHelper.unlabelled_imgs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.helper.COCOHelperPaths.html">COCOHelperPaths</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.importer.html">importer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.joins.html">joins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.merge.html">merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.splitters.html">splitters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.stats.html">stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.transforms.html">transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.utils.html">utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.validator.html">validator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.visualizer.html">visualizer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.helper.html">helper</a></li>
+      <li class="breadcrumb-item active">COCOHelper</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/cocohelper.helper.COCOHelper.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cocohelper">
+<h1>COCOHelper<a class="headerlink" href="#cocohelper" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cocohelper.helper.</span></span><span class="sig-name descname"><span class="pre">COCOHelper</span></span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represent a dataset in the COCO format.</p>
+<p>To create an instance of COCOHelper is advisable to use the <cite>load</cite> methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_df</strong> – DataFrame of images.</p></li>
+<li><p><strong>ann_df</strong> – DataFrame of annotations.</p></li>
+<li><p><strong>cat_df</strong> – DataFrame of categories, optional.</p></li>
+<li><p><strong>lic_df</strong> – DataFrame of licenses, optional.</p></li>
+<li><p><strong>info</strong> – Info dict, optional.</p></li>
+<li><p><strong>coco_dir</strong> – Root directory of the dataset, optional.</p></li>
+<li><p><strong>paths</strong> – COCOHelperPaths, used to customize directory structure.</p></li>
+<li><p><strong>validate</strong> – If True, validate the COCO dataset and raise an error if
+invalid.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>COCOValidationError if the input COCO dataset is not valid. This</strong> – </p></li>
+<li><p><strong>check is performed only if validate=True.</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Method List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper._copy_images" title="cocohelper.helper.COCOHelper._copy_images"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_copy_images</span></code></a>(target_img_dir)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper._read_annotations_file" title="cocohelper.helper.COCOHelper._read_annotations_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_read_annotations_file</span></code></a>(annotation_file)</p></td>
+<td><p>Read a COCO json file as a dict.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper._remove_unlinked_anns" title="cocohelper.helper.COCOHelper._remove_unlinked_anns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_remove_unlinked_anns</span></code></a>()</p></td>
+<td><p>Remove annotations that have non-existing image or categories ids.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.copy" title="cocohelper.helper.COCOHelper.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>([cat_df, img_df, ann_df, lic_df, info])</p></td>
+<td><p>Copy the dataset and optionally change some dataframes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_duplicate_anns" title="cocohelper.helper.COCOHelper.drop_duplicate_anns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drop_duplicate_anns</span></code></a>()</p></td>
+<td><p>Drop duplicate annotations (same values with different index).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_duplicate_cats" title="cocohelper.helper.COCOHelper.drop_duplicate_cats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drop_duplicate_cats</span></code></a>()</p></td>
+<td><p>Drop duplicate categories (same values with different index).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_duplicate_imgs" title="cocohelper.helper.COCOHelper.drop_duplicate_imgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drop_duplicate_imgs</span></code></a>()</p></td>
+<td><p>Drop duplicate images (same values with different index).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_duplicate_licenses" title="cocohelper.helper.COCOHelper.drop_duplicate_licenses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drop_duplicate_licenses</span></code></a>()</p></td>
+<td><p>Drop duplicate licenses (same values with different index).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_labelled" title="cocohelper.helper.COCOHelper.drop_labelled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drop_labelled</span></code></a>()</p></td>
+<td><p>Get a new COCOHelper dataset that does only contain unlabelled images.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.drop_unlabelled" title="cocohelper.helper.COCOHelper.drop_unlabelled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drop_unlabelled</span></code></a>()</p></td>
+<td><p>Get a new <cite>COCOHelper</cite> dataset that does not contain unlabelled images.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.filter" title="cocohelper.helper.COCOHelper.filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter</span></code></a>(cfilter, *[, ann_ids, img_ids, ...])</p></td>
+<td><p>Get a copy of the dataset with the applied filters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.filter_anns" title="cocohelper.helper.COCOHelper.filter_anns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter_anns</span></code></a>([cfilter, ann_ids, img_ids, ...])</p></td>
+<td><p>Get a copy of the dataset with filtered annotations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.filter_cats" title="cocohelper.helper.COCOHelper.filter_cats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter_cats</span></code></a>([cfilter, cat_ids, cat_nms, ...])</p></td>
+<td><p>Get a copy of the dataset with filtered categories.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.filter_imgs" title="cocohelper.helper.COCOHelper.filter_imgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter_imgs</span></code></a>([cfilter, img_ids, img_nms, ...])</p></td>
+<td><p>Get a copy of the dataset with filtered images.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.filtered_anns" title="cocohelper.helper.COCOHelper.filtered_anns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filtered_anns</span></code></a>([cfilter, ann_ids, img_ids, ...])</p></td>
+<td><p>Get dataset's annotations after join with categories and images, and potentially after a filtering.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.filtered_cats" title="cocohelper.helper.COCOHelper.filtered_cats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filtered_cats</span></code></a>([cfilter, cat_ids, cat_nms, ...])</p></td>
+<td><p>Get dataset's categories, potentially filtered by the provided filters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.filtered_imgs" title="cocohelper.helper.COCOHelper.filtered_imgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filtered_imgs</span></code></a>([cfilter, img_ids, img_nms, ...])</p></td>
+<td><p>Get dataset's images, after join with annotations and categories and potentially filtered by a filter.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.get_ann_sample" title="cocohelper.helper.COCOHelper.get_ann_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ann_sample</span></code></a>([ann_id, idx, transform])</p></td>
+<td><p>Load a single annotation with the corresponding image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.get_img" title="cocohelper.helper.COCOHelper.get_img"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_img</span></code></a>(img_id)</p></td>
+<td><p>Load the image with img_id as a numpy array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.get_img_sample" title="cocohelper.helper.COCOHelper.get_img_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_img_sample</span></code></a>([img_id, idx, transform])</p></td>
+<td><p>Load an image with infos and annotations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.load" title="cocohelper.helper.COCOHelper.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a>(coco_dir[, ann_fname, ann_dir, ...])</p></td>
+<td><p>Create a COCOHelper from a COCO dataset stored in a directory.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.load_data" title="cocohelper.helper.COCOHelper.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_data</span></code></a>(annotations, coco_dir[, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.load_json" title="cocohelper.helper.COCOHelper.load_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_json</span></code></a>(json_annotations_file[, img_dir, ...])</p></td>
+<td><p>Create COCOHelper from json annotation file of the COCO dataset stored in a directory.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.merge" title="cocohelper.helper.COCOHelper.merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code></a>(*coco_helper[, drop_duplicates])</p></td>
+<td><p>Merge different COCO datasets with all categories, images, annotations and licenses merged.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.new_info_dict" title="cocohelper.helper.COCOHelper.new_info_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_info_dict</span></code></a>()</p></td>
+<td><p>Get a generic info dict for COCO format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.save" title="cocohelper.helper.COCOHelper.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(coco_dir[, fix_img_path, copy_images])</p></td>
+<td><p>Save the current <cite>COCOHelper</cite> to a directory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.to_coco" title="cocohelper.helper.COCOHelper.to_coco"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_coco</span></code></a>()</p></td>
+<td><p>Convert <cite>COCOHelper</cite> to <cite>pycocotools.COCO</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.to_json_dataset" title="cocohelper.helper.COCOHelper.to_json_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_json_dataset</span></code></a>()</p></td>
+<td><p>Convert the current COCOHelper to a dict with the same structure of the COCO json file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.write_annotations_file" title="cocohelper.helper.COCOHelper.write_annotations_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_annotations_file</span></code></a>(annotation_file_path)</p></td>
+<td><p>Save the current COCOHelper as a COCO json file.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.anns" title="cocohelper.helper.COCOHelper.anns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">anns</span></code></a></p></td>
+<td><p>Dataframe containing the annotations data of the COCO dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.cats" title="cocohelper.helper.COCOHelper.cats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cats</span></code></a></p></td>
+<td><p>Dataframe containing the categories data of the COCO dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.imgs" title="cocohelper.helper.COCOHelper.imgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imgs</span></code></a></p></td>
+<td><p>Dataframe containing the images metadata of the COCO dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.info" title="cocohelper.helper.COCOHelper.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></a></p></td>
+<td><p>Dataframe containing extra information of the COCO dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.joins" title="cocohelper.helper.COCOHelper.joins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">joins</span></code></a></p></td>
+<td><p>Get a COCOJoins object, that enable easy access to different joins dataset tables.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.labelled_imgs" title="cocohelper.helper.COCOHelper.labelled_imgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">labelled_imgs</span></code></a></p></td>
+<td><p>Get only the labelled images as a DataFrame.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.licenses" title="cocohelper.helper.COCOHelper.licenses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">licenses</span></code></a></p></td>
+<td><p>Dataframe containing the licenses of the COCO dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.paths" title="cocohelper.helper.COCOHelper.paths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paths</span></code></a></p></td>
+<td><p>Information about folder and file organization for a COCO dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.root_path" title="cocohelper.helper.COCOHelper.root_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_path</span></code></a></p></td>
+<td><p>Path to the root directory containing the COCO dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.helper.COCOHelper.unlabelled_imgs" title="cocohelper.helper.COCOHelper.unlabelled_imgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unlabelled_imgs</span></code></a></p></td>
+<td><p>Get only the unlabelled images as a DataFrame.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Details</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper._copy_images">
+<span class="sig-name descname"><span class="pre">_copy_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_img_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper._copy_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper._copy_images" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target_img_dir</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper._read_annotations_file">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_read_annotations_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotation_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper._read_annotations_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper._read_annotations_file" title="Permalink to this definition"></a></dt>
+<dd><p>Read a COCO json file as a dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>annotation_file</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper._remove_unlinked_anns">
+<span class="sig-name descname"><span class="pre">_remove_unlinked_anns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper._remove_unlinked_anns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper._remove_unlinked_anns" title="Permalink to this definition"></a></dt>
+<dd><p>Remove annotations that have non-existing image or categories ids.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cat_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ann_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lic_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Copy the dataset and optionally change some dataframes.</p>
+<p>When changing categories or images, annotations that
+result as invalid will be removed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cat_df</strong> (<em>Optional</em><em>[</em><em>DataFrame</em><em>]</em>) – New category dataframe, optional</p></li>
+<li><p><strong>img_df</strong> (<em>Optional</em><em>[</em><em>DataFrame</em><em>]</em>) – New image dataframe, optional</p></li>
+<li><p><strong>ann_df</strong> (<em>Optional</em><em>[</em><em>DataFrame</em><em>]</em>) – New annotation dataframe, optional</p></li>
+<li><p><strong>lic_df</strong> (<em>Optional</em><em>[</em><em>DataFrame</em><em>]</em>) – New license dataframe, optional</p></li>
+<li><p><strong>info</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em>) – New info dict, optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A new <cite>COCOHelper</cite> object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.drop_duplicate_anns">
+<span class="sig-name descname"><span class="pre">drop_duplicate_anns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.drop_duplicate_anns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.drop_duplicate_anns" title="Permalink to this definition"></a></dt>
+<dd><p>Drop duplicate annotations (same values with different index).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.drop_duplicate_cats">
+<span class="sig-name descname"><span class="pre">drop_duplicate_cats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.drop_duplicate_cats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.drop_duplicate_cats" title="Permalink to this definition"></a></dt>
+<dd><p>Drop duplicate categories (same values with different index).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.drop_duplicate_imgs">
+<span class="sig-name descname"><span class="pre">drop_duplicate_imgs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.drop_duplicate_imgs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.drop_duplicate_imgs" title="Permalink to this definition"></a></dt>
+<dd><p>Drop duplicate images (same values with different index).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.drop_duplicate_licenses">
+<span class="sig-name descname"><span class="pre">drop_duplicate_licenses</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.drop_duplicate_licenses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.drop_duplicate_licenses" title="Permalink to this definition"></a></dt>
+<dd><p>Drop duplicate licenses (same values with different index).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.drop_labelled">
+<span class="sig-name descname"><span class="pre">drop_labelled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.drop_labelled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.drop_labelled" title="Permalink to this definition"></a></dt>
+<dd><p>Get a new COCOHelper dataset that does only contain unlabelled images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A new <cite>COCOHelper</cite> object containing only unlabelled images.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.drop_unlabelled">
+<span class="sig-name descname"><span class="pre">drop_unlabelled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.drop_unlabelled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.drop_unlabelled" title="Permalink to this definition"></a></dt>
+<dd><p>Get a new <cite>COCOHelper</cite> dataset that does not contain unlabelled images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A new <cite>COCOHelper</cite> object containing only labelled images.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfilter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ann_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supercat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area_rng=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_crowd=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition=&lt;class</span> <span class="pre">'cocohelper.filters.filter.AndFilter'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_orphans=True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.filter" title="Permalink to this definition"></a></dt>
+<dd><p>Get a copy of the dataset with the applied filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfilter</strong> (<a class="reference internal" href="cocohelper.filters.filter.Filter.html#cocohelper.filters.filter.Filter" title="cocohelper.filters.filter.Filter"><em>Filter</em></a>) – a custom Filter for the COCOHelper.</p></li>
+<li><p><strong>ann_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the annotation ids.</p></li>
+<li><p><strong>img_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the image ids.</p></li>
+<li><p><strong>img_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the image file names.</p></li>
+<li><p><strong>cat_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the category ids.</p></li>
+<li><p><strong>cat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the category names.</p></li>
+<li><p><strong>supercat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the super-category names.</p></li>
+<li><p><strong>area_rng</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) – a filter for the annotation area.</p></li>
+<li><p><strong>is_crowd</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – a filter for the annotation being a crowd or not
+(“is_crowd” in the annotation of the COCO JSON file).</p></li>
+<li><p><strong>composition</strong> (<em>Type</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.ComposeFilter.html#cocohelper.filters.filter.ComposeFilter" title="cocohelper.filters.filter.ComposeFilter"><em>ComposeFilter</em></a><em>]</em>) – a composition type for the filters (defaults to “and”
+behavior between each filter).</p></li>
+<li><p><strong>invert</strong> (<em>bool</em>) – if True, invert the way the filter works.</p></li>
+<li><p><strong>drop_orphans</strong> (<em>bool</em>) – if True, drop orphans when applying the filter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A COCOHelper with data filtered according to the given filters.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.filter_anns">
+<span class="sig-name descname"><span class="pre">filter_anns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfilter=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ann_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supercat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area_rng=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_crowd=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition=&lt;class</span> <span class="pre">'cocohelper.filters.filter.AndFilter'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.filter_anns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.filter_anns" title="Permalink to this definition"></a></dt>
+<dd><p>Get a copy of the dataset with filtered annotations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfilter</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.Filter.html#cocohelper.filters.filter.Filter" title="cocohelper.filters.filter.Filter"><em>Filter</em></a><em>]</em>) – a custom Filter for the COCOHelper.</p></li>
+<li><p><strong>ann_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the annotation ids.</p></li>
+<li><p><strong>img_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the image ids.</p></li>
+<li><p><strong>img_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the image file names.</p></li>
+<li><p><strong>cat_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the category ids.</p></li>
+<li><p><strong>cat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the category names.</p></li>
+<li><p><strong>supercat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the super-category names.</p></li>
+<li><p><strong>area_rng</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) – a filter for the annotation area.</p></li>
+<li><p><strong>is_crowd</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – a filter for the annotation being a crowd or not
+(“is_crowd” in the annotation of the COCO JSON file).</p></li>
+<li><p><strong>composition</strong> (<em>Type</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.ComposeFilter.html#cocohelper.filters.filter.ComposeFilter" title="cocohelper.filters.filter.ComposeFilter"><em>ComposeFilter</em></a><em>]</em>) – a composition type for the filters (defaults to “and”
+behavior between each filter).</p></li>
+<li><p><strong>invert</strong> (<em>bool</em>) – if True, invert the way the filter works.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A COCOHelper with data filtered according to the given filters.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.filter_cats">
+<span class="sig-name descname"><span class="pre">filter_cats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfilter=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supercat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition=&lt;class</span> <span class="pre">'cocohelper.filters.filter.AndFilter'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.filter_cats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.filter_cats" title="Permalink to this definition"></a></dt>
+<dd><p>Get a copy of the dataset with filtered categories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfilter</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.Filter.html#cocohelper.filters.filter.Filter" title="cocohelper.filters.filter.Filter"><em>Filter</em></a><em>]</em>) – a custom Filter for the COCOHelper.</p></li>
+<li><p><strong>cat_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the category ids.</p></li>
+<li><p><strong>cat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the category names.</p></li>
+<li><p><strong>supercat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the super-category names.</p></li>
+<li><p><strong>composition</strong> (<em>Type</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.ComposeFilter.html#cocohelper.filters.filter.ComposeFilter" title="cocohelper.filters.filter.ComposeFilter"><em>ComposeFilter</em></a><em>]</em>) – a composition type for the filters (defaults to “and”
+behavior between each filter).</p></li>
+<li><p><strong>invert</strong> (<em>bool</em>) – if True, invert the way the filter works.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A COCOHelper with data filtered according to the given filters.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.filter_imgs">
+<span class="sig-name descname"><span class="pre">filter_imgs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfilter=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supercat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition=&lt;class</span> <span class="pre">'cocohelper.filters.filter.AndFilter'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.filter_imgs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.filter_imgs" title="Permalink to this definition"></a></dt>
+<dd><p>Get a copy of the dataset with filtered images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfilter</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.Filter.html#cocohelper.filters.filter.Filter" title="cocohelper.filters.filter.Filter"><em>Filter</em></a><em>]</em>) – a custom Filter for the COCOHelper.</p></li>
+<li><p><strong>img_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the image ids.</p></li>
+<li><p><strong>img_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the image file names.</p></li>
+<li><p><strong>cat_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the category ids.</p></li>
+<li><p><strong>cat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the category names.</p></li>
+<li><p><strong>supercat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the super-category names.</p></li>
+<li><p><strong>composition</strong> (<em>Type</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.ComposeFilter.html#cocohelper.filters.filter.ComposeFilter" title="cocohelper.filters.filter.ComposeFilter"><em>ComposeFilter</em></a><em>]</em>) – a composition type for the filters (defaults to “and”
+behavior between each filter).</p></li>
+<li><p><strong>invert</strong> (<em>bool</em>) – if True, invert the way the filter works.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A COCOHelper with data filtered according to the given filters.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.filtered_anns">
+<span class="sig-name descname"><span class="pre">filtered_anns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfilter=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ann_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supercat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area_rng=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_crowd=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition=&lt;class</span> <span class="pre">'cocohelper.filters.filter.AndFilter'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.filtered_anns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.filtered_anns" title="Permalink to this definition"></a></dt>
+<dd><p>Get dataset’s annotations after join with categories and images, and potentially after a filtering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfilter</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.Filter.html#cocohelper.filters.filter.Filter" title="cocohelper.filters.filter.Filter"><em>Filter</em></a><em>]</em>) – a custom Filter for the COCOHelper.</p></li>
+<li><p><strong>ann_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the annotation ids.</p></li>
+<li><p><strong>img_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the image ids.</p></li>
+<li><p><strong>img_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the image file names.</p></li>
+<li><p><strong>cat_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the category ids.</p></li>
+<li><p><strong>cat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the category names.</p></li>
+<li><p><strong>supercat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the super-category names.</p></li>
+<li><p><strong>area_rng</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) – a filter for the annotation area.</p></li>
+<li><p><strong>is_crowd</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – a filter for the annotation being a crowd or not
+(“is_crowd” in the annotation of the COCO JSON file).</p></li>
+<li><p><strong>composition</strong> (<em>Type</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.ComposeFilter.html#cocohelper.filters.filter.ComposeFilter" title="cocohelper.filters.filter.ComposeFilter"><em>ComposeFilter</em></a><em>]</em>) – a composition type for the filters (defaults to “and”
+behavior between each filter).</p></li>
+<li><p><strong>invert</strong> (<em>bool</em>) – if True, invert the way the filter works.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A pandas.DataFrame containing the filtered annotations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.filtered_cats">
+<span class="sig-name descname"><span class="pre">filtered_cats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfilter=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supercat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition=&lt;class</span> <span class="pre">'cocohelper.filters.filter.AndFilter'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.filtered_cats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.filtered_cats" title="Permalink to this definition"></a></dt>
+<dd><p>Get dataset’s categories, potentially filtered by the provided filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfilter</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.Filter.html#cocohelper.filters.filter.Filter" title="cocohelper.filters.filter.Filter"><em>Filter</em></a><em>]</em>) – a custom Filter for the COCOHelper.</p></li>
+<li><p><strong>cat_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the category ids.</p></li>
+<li><p><strong>cat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the category names.</p></li>
+<li><p><strong>supercat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the super-category names.</p></li>
+<li><p><strong>composition</strong> (<em>Type</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.ComposeFilter.html#cocohelper.filters.filter.ComposeFilter" title="cocohelper.filters.filter.ComposeFilter"><em>ComposeFilter</em></a><em>]</em>) – a composition type for the filters (defaults to “and”
+behavior between each filter).</p></li>
+<li><p><strong>invert</strong> (<em>bool</em>) – if True, invert the way the filter works.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A pandas.DataFrame containing the filtered categories.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.filtered_imgs">
+<span class="sig-name descname"><span class="pre">filtered_imgs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfilter=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_ids=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">supercat_nms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition=&lt;class</span> <span class="pre">'cocohelper.filters.filter.AndFilter'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.filtered_imgs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.filtered_imgs" title="Permalink to this definition"></a></dt>
+<dd><p>Get dataset’s images, after join with annotations and categories and potentially filtered by a filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfilter</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.Filter.html#cocohelper.filters.filter.Filter" title="cocohelper.filters.filter.Filter"><em>Filter</em></a><em>]</em>) – a custom Filter for the COCOHelper.</p></li>
+<li><p><strong>img_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the image ids.</p></li>
+<li><p><strong>img_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the image file names.</p></li>
+<li><p><strong>cat_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em><em>]</em>) – a filter for the category ids.</p></li>
+<li><p><strong>cat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the category names.</p></li>
+<li><p><strong>supercat_nms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>) – a filter for the super-category names.</p></li>
+<li><p><strong>composition</strong> (<em>Type</em><em>[</em><a class="reference internal" href="cocohelper.filters.filter.ComposeFilter.html#cocohelper.filters.filter.ComposeFilter" title="cocohelper.filters.filter.ComposeFilter"><em>ComposeFilter</em></a><em>]</em>) – a composition type for the filters (defaults to “and”
+behavior between each filter).</p></li>
+<li><p><strong>invert</strong> (<em>bool</em>) – if True, invert the way the filter works.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A pandas.DataFrame containing the filtered images.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.get_ann_sample">
+<span class="sig-name descname"><span class="pre">get_ann_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ann_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.get_ann_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.get_ann_sample" title="Permalink to this definition"></a></dt>
+<dd><p>Load a single annotation with the corresponding image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ann_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The id of annotation to load, partially optional (if not
+provided, idx must be provided).</p></li>
+<li><p><strong>idx</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The index of annotation to load, partially optional (if not
+provided, ann_id must be provided).</p></li>
+<li><p><strong>transform</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="cocohelper.transforms.transform.Transform.html#cocohelper.transforms.transform.Transform" title="cocohelper.transforms.transform.Transform"><em>Transform</em></a><em>]</em>) – An optional Transform to modify the image and annotation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The image as a numpy array and the annotation infos as a dict.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[np.ndarray, dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.get_img">
+<span class="sig-name descname"><span class="pre">get_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.get_img"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.get_img" title="Permalink to this definition"></a></dt>
+<dd><p>Load the image with img_id as a numpy array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img_id</strong> (<em>int</em>) – The id of the image to load.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A numpy array with shape (H, W, C).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>ndarray</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.get_img_sample">
+<span class="sig-name descname"><span class="pre">get_img_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.get_img_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.get_img_sample" title="Permalink to this definition"></a></dt>
+<dd><p>Load an image with infos and annotations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The id of the image to load, partially optional (if not
+provided, idx must be provided).</p></li>
+<li><p><strong>idx</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The index of the image to load, partially optional (if not
+provided, img_id must be provided).</p></li>
+<li><p><strong>transform</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="cocohelper.transforms.transform.Transform.html#cocohelper.transforms.transform.Transform" title="cocohelper.transforms.transform.Transform"><em>Transform</em></a><em>]</em>) – An optional Transform to modify the image and annotations.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary with image infos and data, and a list of annotations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[dict, list]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.load">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coco_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ann_fname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coco.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ann_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'annotations/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'images/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.load" title="Permalink to this definition"></a></dt>
+<dd><p>Create a COCOHelper from a COCO dataset stored in a directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coco_dir</strong> (<em>str</em>) – path to the directory containing the dataset.</p></li>
+<li><p><strong>ann_fname</strong> (<em>str</em>) – name of the annotation file to be load.</p></li>
+<li><p><strong>ann_dir</strong> (<em>str</em>) – name/relative-path to the directory where annotations are
+stored.</p></li>
+<li><p><strong>img_dir</strong> (<em>str</em>) – name/relative-path to the directory where images are stored.</p></li>
+<li><p><strong>validate</strong> (<em>bool</em>) – If True, validate the dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A COCOHelper object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.load_data">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coco_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ann_fname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coco.json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ann_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'annotations/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'images/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.load_data" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>annotations</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>DataFrame</em><em>]</em>) – </p></li>
+<li><p><strong>coco_dir</strong> (<em>str</em>) – </p></li>
+<li><p><strong>ann_fname</strong> (<em>str</em>) – </p></li>
+<li><p><strong>ann_dir</strong> (<em>str</em>) – </p></li>
+<li><p><strong>img_dir</strong> (<em>str</em>) – </p></li>
+<li><p><strong>validate</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.load_json">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_annotations_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'images/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.load_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.load_json" title="Permalink to this definition"></a></dt>
+<dd><p>Create COCOHelper from json annotation file of the COCO dataset stored in a directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_annotations_file</strong> (<em>str</em>) – path to the json file containing the dataset
+annotations.</p></li>
+<li><p><strong>img_dir</strong> (<em>str</em>) – name/relative-path to the directory where images are
+stored, respect to the coco dataset root.</p></li>
+<li><p><strong>validate</strong> (<em>bool</em>) – If True, validate the dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A COCOHelper object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coco_helper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_duplicates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.merge" title="Permalink to this definition"></a></dt>
+<dd><p>Merge different COCO datasets with all categories, images, annotations and licenses merged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*coco_helper</strong> (<a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a>) – coco dataset(s) to merge with this coco dataset.</p></li>
+<li><p><strong>drop_duplicates</strong> (<em>bool</em>) – if True, merge duplicate rows dropping redundant.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A COCOHelper resulting from merging multiple datasets.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.new_info_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new_info_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.new_info_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.new_info_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Get a generic info dict for COCO format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coco_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_img_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_images</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.save" title="Permalink to this definition"></a></dt>
+<dd><p>Save the current <cite>COCOHelper</cite> to a directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coco_dir</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – Output root directory.</p></li>
+<li><p><strong>fix_img_path</strong> (<em>bool</em>) – NotImplemented.</p></li>
+<li><p><strong>copy_images</strong> (<em>bool</em>) – NotImplemented.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.to_coco">
+<span class="sig-name descname"><span class="pre">to_coco</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.to_coco"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.to_coco" title="Permalink to this definition"></a></dt>
+<dd><p>Convert <cite>COCOHelper</cite> to <cite>pycocotools.COCO</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>COCO</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.to_json_dataset">
+<span class="sig-name descname"><span class="pre">to_json_dataset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.to_json_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.to_json_dataset" title="Permalink to this definition"></a></dt>
+<dd><p>Convert the current COCOHelper to a dict with the same structure of the COCO json file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.write_annotations_file">
+<span class="sig-name descname"><span class="pre">write_annotations_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotation_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/helper.html#COCOHelper.write_annotations_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.helper.COCOHelper.write_annotations_file" title="Permalink to this definition"></a></dt>
+<dd><p>Save the current COCOHelper as a COCO json file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>annotation_file_path</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Attribute Details</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.anns">
+<span class="sig-name descname"><span class="pre">anns</span></span><a class="headerlink" href="#cocohelper.helper.COCOHelper.anns" title="Permalink to this definition"></a></dt>
+<dd><p>Dataframe containing the annotations data of the COCO dataset.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.cats">
+<span class="sig-name descname"><span class="pre">cats</span></span><a class="headerlink" href="#cocohelper.helper.COCOHelper.cats" title="Permalink to this definition"></a></dt>
+<dd><p>Dataframe containing the categories data of the COCO dataset.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.imgs">
+<span class="sig-name descname"><span class="pre">imgs</span></span><a class="headerlink" href="#cocohelper.helper.COCOHelper.imgs" title="Permalink to this definition"></a></dt>
+<dd><p>Dataframe containing the images metadata of the COCO dataset.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.info">
+<span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#cocohelper.helper.COCOHelper.info" title="Permalink to this definition"></a></dt>
+<dd><p>Dataframe containing extra information of the COCO dataset.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.joins">
+<span class="sig-name descname"><span class="pre">joins</span></span><a class="headerlink" href="#cocohelper.helper.COCOHelper.joins" title="Permalink to this definition"></a></dt>
+<dd><p>Get a COCOJoins object, that enable easy access to different joins dataset tables.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.labelled_imgs">
+<span class="sig-name descname"><span class="pre">labelled_imgs</span></span><a class="headerlink" href="#cocohelper.helper.COCOHelper.labelled_imgs" title="Permalink to this definition"></a></dt>
+<dd><p>Get only the labelled images as a DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A pandas.DataFrame containing the labelled images.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.licenses">
+<span class="sig-name descname"><span class="pre">licenses</span></span><a class="headerlink" href="#cocohelper.helper.COCOHelper.licenses" title="Permalink to this definition"></a></dt>
+<dd><p>Dataframe containing the licenses of the COCO dataset.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.paths">
+<span class="sig-name descname"><span class="pre">paths</span></span><a class="headerlink" href="#cocohelper.helper.COCOHelper.paths" title="Permalink to this definition"></a></dt>
+<dd><p>Information about folder and file organization for a COCO dataset.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.root_path">
+<span class="sig-name descname"><span class="pre">root_path</span></span><a class="headerlink" href="#cocohelper.helper.COCOHelper.root_path" title="Permalink to this definition"></a></dt>
+<dd><p>Path to the root directory containing the COCO dataset.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.helper.COCOHelper.unlabelled_imgs">
+<span class="sig-name descname"><span class="pre">unlabelled_imgs</span></span><a class="headerlink" href="#cocohelper.helper.COCOHelper.unlabelled_imgs" title="Permalink to this definition"></a></dt>
+<dd><p>Get only the unlabelled images as a DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A pandas.DataFrame containing the unlabelled images.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cocohelper.helper.COCOColsMapper.html" class="btn btn-neutral float-left" title="COCOColsMapper" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cocohelper.helper.COCOHelperPaths.html" class="btn btn-neutral float-right" title="COCOHelperPaths" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

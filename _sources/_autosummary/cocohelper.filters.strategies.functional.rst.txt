@@ -1,0 +1,43 @@
+functional
+==========
+
+.. automodule:: cocohelper.filters.strategies.functional
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Functions
+
+.. autosummary::
+  :toctree:
+
+  filter_multi_rows_having_all
+  filter_multi_rows_having_any
+  filter_rows_having
+  filter_rows_in_range
+  filter_rows_out_range
+
+
+
+
+
+
+
+
+
+

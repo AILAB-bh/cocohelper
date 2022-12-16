@@ -1,0 +1,6 @@
+filter\_rows\_out\_range
+========================
+
+.. currentmodule:: cocohelper.filters.strategies.functional
+
+.. autofunction:: filter_rows_out_range

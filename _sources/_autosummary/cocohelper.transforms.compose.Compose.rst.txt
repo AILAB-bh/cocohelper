@@ -1,0 +1,80 @@
+Compose
+=======
+
+.. currentmodule:: cocohelper.transforms.compose
+
+.. autoclass:: Compose
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~Compose.append
+      ~Compose.apply
+      ~Compose.clear
+      ~Compose.compute_bbox_area
+      ~Compose.insert
+      ~Compose.pop
+      ~Compose.remove
+      ~Compose.reverse
+      ~Compose.transform_dataset
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~Compose._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      append
+   .. automethod::
+      apply
+   .. automethod::
+      clear
+   .. automethod::
+      compute_bbox_area
+   .. automethod::
+      insert
+   .. automethod::
+      pop
+   .. automethod::
+      remove
+   .. automethod::
+      reverse
+   .. automethod::
+      transform_dataset
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

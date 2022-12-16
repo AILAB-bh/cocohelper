@@ -1,0 +1,6 @@
+merge\_coco
+===========
+
+.. currentmodule:: cocohelper.merge
+
+.. autofunction:: merge_coco

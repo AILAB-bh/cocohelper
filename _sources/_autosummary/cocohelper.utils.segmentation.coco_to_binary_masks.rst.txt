@@ -1,0 +1,6 @@
+coco\_to\_binary\_masks
+=======================
+
+.. currentmodule:: cocohelper.utils.segmentation
+
+.. autofunction:: coco_to_binary_masks

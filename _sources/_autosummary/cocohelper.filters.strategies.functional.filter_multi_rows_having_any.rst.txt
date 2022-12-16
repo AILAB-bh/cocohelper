@@ -1,0 +1,6 @@
+filter\_multi\_rows\_having\_any
+================================
+
+.. currentmodule:: cocohelper.filters.strategies.functional
+
+.. autofunction:: filter_multi_rows_having_any

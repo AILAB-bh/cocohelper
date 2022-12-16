@@ -1,0 +1,6 @@
+crop\_img
+=========
+
+.. currentmodule:: cocohelper.transforms.crop
+
+.. autofunction:: crop_img

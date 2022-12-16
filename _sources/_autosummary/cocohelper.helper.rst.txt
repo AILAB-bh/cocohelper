@@ -1,0 +1,42 @@
+helper
+======
+
+.. automodule:: cocohelper.helper
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  COCOColsMapper
+  COCOHelper
+  COCOHelperPaths
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

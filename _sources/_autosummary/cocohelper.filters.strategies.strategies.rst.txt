@@ -1,0 +1,46 @@
+strategies
+==========
+
+.. automodule:: cocohelper.filters.strategies.strategies
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  AllValueFilterStrategy
+  AnyValueFilterStrategy
+  HavingValueFilterStrategy
+  InRangeFilterStrategy
+  NotInRangeFilterStrategy
+  RangeFilterStrategy
+  ValueFilterStrategy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

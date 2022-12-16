@@ -1,0 +1,6 @@
+serialize\_row
+==============
+
+.. currentmodule:: cocohelper.utils.dataframe
+
+.. autofunction:: serialize_row

@@ -1,0 +1,40 @@
+not\_found\_error
+=================
+
+.. automodule:: cocohelper.errors.not_found_error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Exceptions
+
+.. autosummary::
+  :toctree:
+
+  COCOAnnotationNotFoundError
+  COCOImageNotFoundError
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

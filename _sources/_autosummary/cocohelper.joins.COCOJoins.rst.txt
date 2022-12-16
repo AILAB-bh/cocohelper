@@ -1,0 +1,89 @@
+COCOJoins
+=========
+
+.. currentmodule:: cocohelper.joins
+
+.. autoclass:: COCOJoins
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~COCOJoins.extract_anns
+      ~COCOJoins.extract_cats
+      ~COCOJoins.extract_imgs
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~COCOJoins.anns_cats
+      ~COCOJoins.anns_cats_imgs
+      ~COCOJoins.anns_imgs
+      ~COCOJoins.anns_imgs_cats
+      ~COCOJoins.cats_anns
+      ~COCOJoins.cats_anns_imgs
+      ~COCOJoins.cats_imgs_anns
+      ~COCOJoins.imgs_anns
+      ~COCOJoins.imgs_anns_cats
+      ~COCOJoins.imgs_cats_anns
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      extract_anns
+   .. automethod::
+      extract_cats
+   .. automethod::
+      extract_imgs
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       anns_cats
+   .. autoattribute::
+       anns_cats_imgs
+   .. autoattribute::
+       anns_imgs
+   .. autoattribute::
+       anns_imgs_cats
+   .. autoattribute::
+       cats_anns
+   .. autoattribute::
+       cats_anns_imgs
+   .. autoattribute::
+       cats_imgs_anns
+   .. autoattribute::
+       imgs_anns
+   .. autoattribute::
+       imgs_anns_cats
+   .. autoattribute::
+       imgs_cats_anns
+   
+   

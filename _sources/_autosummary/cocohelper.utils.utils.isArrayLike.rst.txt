@@ -1,0 +1,6 @@
+isArrayLike
+===========
+
+.. currentmodule:: cocohelper.utils.utils
+
+.. autofunction:: isArrayLike

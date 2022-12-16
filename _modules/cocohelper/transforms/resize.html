@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cocohelper.transforms.resize &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../apigen.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cocohelper.transforms.resize</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cocohelper.transforms.resize</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">cocohelper.utils.segmentation</span> <span class="kn">import</span> <span class="n">get_segmentation_mode</span><span class="p">,</span> <span class="n">convert_to_mode</span>
+<span class="kn">from</span> <span class="nn">cocohelper.transforms</span> <span class="kn">import</span> <span class="n">Transform</span>
+
+
+<span class="c1"># TODO: clean code in this file (there is a small margin of improvement)</span>
+
+<div class="viewcode-block" id="Resize"><a class="viewcode-back" href="../../../_autosummary/cocohelper.transforms.resize.Resize.html#cocohelper.transforms.resize.Resize">[docs]</a><span class="k">class</span> <span class="nc">Resize</span><span class="p">(</span><span class="n">Transform</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">size</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Size must be a tuple of two elements.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+
+<div class="viewcode-block" id="Resize.apply"><a class="viewcode-back" href="../../../_autosummary/cocohelper.transforms.resize.Resize.html#cocohelper.transforms.resize.Resize.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">img</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="n">anns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Apply the transformation to the image array and its annotations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            img: image array.</span>
+<span class="sd">            anns: annotations for this image.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transformed image array and annotations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rs_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resize_image_array</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+
+        <span class="n">rs_annotations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">rs_ratios</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">anns</span><span class="p">:</span>
+            <span class="n">rs_bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resize_bbox</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="s2">&quot;bbox&quot;</span><span class="p">],</span> <span class="n">ratios</span><span class="o">=</span><span class="n">rs_ratios</span><span class="p">)</span>
+            <span class="n">rs_area</span> <span class="o">=</span> <span class="n">Transform</span><span class="o">.</span><span class="n">compute_bbox_area</span><span class="p">(</span><span class="n">rs_bbox</span><span class="p">)</span>
+
+            <span class="n">segmentations</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s2">&quot;segmentation&quot;</span><span class="p">]</span>
+
+            <span class="c1"># Convert annotations to polygon</span>
+            <span class="c1"># Resize the polygons</span>
+            <span class="c1"># Convert them back to original format</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="n">get_segmentation_mode</span><span class="p">(</span><span class="n">segmentations</span><span class="p">)</span>
+            <span class="n">polygons</span> <span class="o">=</span> <span class="n">convert_to_mode</span><span class="p">(</span><span class="n">segmentations</span><span class="p">,</span> <span class="s1">&#39;polygon&#39;</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">rs_polygons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resize_segmentations</span><span class="p">(</span><span class="n">polygons</span><span class="p">,</span> <span class="n">ratios</span><span class="o">=</span><span class="n">rs_ratios</span><span class="p">)</span>
+            <span class="n">rs_segmentations</span> <span class="o">=</span> <span class="n">convert_to_mode</span><span class="p">(</span><span class="n">rs_polygons</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="n">rs_a</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">rs_a</span><span class="p">[</span><span class="s2">&quot;bbox&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rs_bbox</span>
+            <span class="n">rs_a</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rs_area</span>
+            <span class="n">rs_a</span><span class="p">[</span><span class="s2">&quot;segmentation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rs_segmentations</span>
+            <span class="n">rs_annotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rs_a</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">rs_img</span><span class="p">,</span> <span class="n">rs_annotations</span></div>
+
+<div class="viewcode-block" id="Resize._resize_image_array"><a class="viewcode-back" href="../../../_autosummary/cocohelper.transforms.resize.Resize.html#cocohelper.transforms.resize.Resize._resize_image_array">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_resize_image_array</span><span class="p">(</span>
+            <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="n">output_size</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Resize image array to the given output size.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">output_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">output_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">interp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span>  <span class="c1"># area is the suggested interpolation when shrinking the image</span>
+            <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">output_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">output_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">interp</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">output_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">output_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">interp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">INTER_CUBIC</span>  <span class="c1"># liner and cubic are the suggested interpolations when enlarging the image</span>
+            <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">output_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">output_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">interp</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">image</span></div>
+
+<div class="viewcode-block" id="Resize._resize_bbox"><a class="viewcode-back" href="../../../_autosummary/cocohelper.transforms.resize.Resize.html#cocohelper.transforms.resize.Resize._resize_bbox">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_resize_bbox</span><span class="p">(</span>
+            <span class="n">bbox</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+            <span class="n">ratios</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Resize bounding box with the given ratios.&quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">bbox</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">ratios</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span>
+                <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">ratios</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
+                <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">ratios</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span>
+                <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">ratios</span><span class="p">[</span><span class="mi">0</span><span class="p">]))]</span></div>
+
+<div class="viewcode-block" id="Resize._resize_segmentations"><a class="viewcode-back" href="../../../_autosummary/cocohelper.transforms.resize.Resize.html#cocohelper.transforms.resize.Resize._resize_segmentations">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_resize_segmentations</span><span class="p">(</span>
+            <span class="n">segmentations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">],</span>
+            <span class="n">ratios</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Resize the segmentation with the given ratios.&quot;&quot;&quot;</span>
+        <span class="n">rs_segmentations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">segm</span> <span class="ow">in</span> <span class="n">segmentations</span><span class="p">:</span>
+            <span class="n">x_coords</span> <span class="o">=</span> <span class="n">segm</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">y_coords</span> <span class="o">=</span> <span class="n">segm</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">rs_segm</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">):</span>
+                <span class="n">rs_segm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">ratios</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">rs_segm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">ratios</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">rs_segmentations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rs_segm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rs_segmentations</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+validation\_error
+=================
+
+.. automodule:: cocohelper.errors.validation_error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Exceptions
+
+.. autosummary::
+  :toctree:
+
+  COCOValidationError
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

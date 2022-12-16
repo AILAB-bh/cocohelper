@@ -1,0 +1,6 @@
+\_create\_cat\_mapping
+======================
+
+.. currentmodule:: cocohelper.merge
+
+.. autofunction:: _create_cat_mapping

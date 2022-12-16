@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cocohelper.adapters.binary_mask_adapter &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../apigen.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cocohelper.adapters.binary_mask_adapter</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cocohelper.adapters.binary_mask_adapter</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">cocohelper.utils.segmentation</span> <span class="kn">import</span> <span class="n">encode_mask</span><span class="p">,</span> <span class="n">compute_polygon_area</span>
+<span class="kn">from</span> <span class="nn">cocohelper.adapters.dataset_adapter</span> <span class="kn">import</span> <span class="n">DatasetAdapter</span>
+
+
+<div class="viewcode-block" id="BinaryMaskDatasetAdapter"><a class="viewcode-back" href="../../../_autosummary/cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.html#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter">[docs]</a><span class="k">class</span> <span class="nc">BinaryMaskDatasetAdapter</span><span class="p">(</span><span class="n">DatasetAdapter</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">data_paths</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+            <span class="n">image_loader</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+            <span class="n">mask_loader</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+            <span class="n">categories</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span>
+            <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;polygon&#39;</span><span class="p">,</span>
+            <span class="n">compression_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A DatasetAdapter to convert dataset with binary masks to COCO format.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data_paths: A dictionary that maps image filenames to its masks</span>
+<span class="sd">                filenames.</span>
+<span class="sd">            image_loader: A function to load an image.</span>
+<span class="sd">            mask_loader: A function to load a mask.</span>
+<span class="sd">            categories: A dictionary that maps mask value to a category.</span>
+<span class="sd">            mode: How to encode the mask, defaults to polygon.</span>
+<span class="sd">            compression_factor: Compression factor the encoded mask.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ann_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_paths</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_loader</span> <span class="o">=</span> <span class="n">image_loader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_loader</span> <span class="o">=</span> <span class="n">mask_loader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">categories</span> <span class="o">=</span> <span class="n">categories</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compression_factor</span> <span class="o">=</span> <span class="n">compression_factor</span>
+
+<div class="viewcode-block" id="BinaryMaskDatasetAdapter.get_categories"><a class="viewcode-back" href="../../../_autosummary/cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.html#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.get_categories">[docs]</a>    <span class="k">def</span> <span class="nf">get_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of categories.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of categories</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="BinaryMaskDatasetAdapter.get_sample"><a class="viewcode-back" href="../../../_autosummary/cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.html#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.get_sample">[docs]</a>    <span class="k">def</span> <span class="nf">get_sample</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]]:</span>
+        <span class="sd">&quot;&quot;&quot;Get the COCO representation for a specific sample and its index.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            idx: sample index.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The values of `image`, and `image_annotations` in COCO format.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_paths</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">annotation_list</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_paths</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+        <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">idx</span><span class="p">,</span>
+            <span class="s2">&quot;file_name&quot;</span><span class="p">:</span> <span class="n">image_path</span><span class="p">,</span>
+            <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
+            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span>
+        <span class="p">}</span>
+
+        <span class="n">image_annotations</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">annotation_path</span> <span class="ow">in</span> <span class="n">annotation_list</span><span class="p">:</span>
+            <span class="n">annotations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_loader</span><span class="p">(</span><span class="n">annotation_path</span><span class="p">)</span>
+
+            <span class="n">segmentations</span><span class="p">,</span> <span class="n">bounding_boxes</span><span class="p">,</span> <span class="n">categories</span> <span class="o">=</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_individual_instances</span><span class="p">(</span><span class="n">annotations</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">compression_factor</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">segm</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">cat_id</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">segmentations</span><span class="p">,</span> <span class="n">bounding_boxes</span><span class="p">,</span> <span class="n">categories</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ann_id</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">area</span> <span class="o">=</span> <span class="n">compute_polygon_area</span><span class="p">(</span><span class="n">segm</span><span class="p">)</span>
+                <span class="n">coco_annotation</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;image_id&quot;</span><span class="p">:</span> <span class="n">idx</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ann_id</span><span class="p">,</span>
+                    <span class="s2">&quot;category_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">cat_id</span><span class="p">),</span>
+                    <span class="s2">&quot;bbox&quot;</span><span class="p">:</span> <span class="n">bbox</span><span class="p">,</span>
+                    <span class="s2">&quot;area&quot;</span><span class="p">:</span> <span class="n">area</span><span class="p">,</span>
+                    <span class="s2">&quot;segmentation&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">segm</span><span class="p">],</span>
+                    <span class="s2">&quot;iscrowd&quot;</span><span class="p">:</span> <span class="mi">0</span>  <span class="c1"># TODO crowd not supported</span>
+                <span class="p">}</span>
+                <span class="n">image_annotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coco_annotation</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image</span><span class="p">,</span> <span class="n">image_annotations</span></div>
+
+<div class="viewcode-block" id="BinaryMaskDatasetAdapter.read_image"><a class="viewcode-back" href="../../../_autosummary/cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.html#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.read_image">[docs]</a>    <span class="k">def</span> <span class="nf">read_image</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Reads an image in from its positional id in the data paths.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            idx: image index.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            An image array corresponding to the given index in the data paths.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">annotation_list</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_paths</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_loader</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BinaryMaskDatasetAdapter.extract_bbox_from_binary_mask"><a class="viewcode-back" href="../../../_autosummary/cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.html#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.extract_bbox_from_binary_mask">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">extract_bbox_from_binary_mask</span><span class="p">(</span>
+            <span class="n">binary_mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Extracts bounding box from segmentation mask.</span>
+<span class="sd">        NB: we do not support rotated bounding boxes.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            binary_mask: binary semantic mask of an object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A bounding box surrounding the input semantic mask.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">binary_mask</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x_coords</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y_coords</span><span class="p">)</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x_coords</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_coords</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="BinaryMaskDatasetAdapter.get_individual_instances"><a class="viewcode-back" href="../../../_autosummary/cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.html#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.get_individual_instances">[docs]</a>    <span class="k">def</span> <span class="nf">get_individual_instances</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">compression_factor</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">List</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Separates disjoint objects inside the same array.</span>
+
+<span class="sd">        Objects are separated based on two rules:</span>
+<span class="sd">          1. objects have different labels in the input mask (e.g. one is</span>
+<span class="sd">            associated with 1, the other with 2);</span>
+<span class="sd">          2. objects that have the same label are disjoint in space, with</span>
+<span class="sd">            structuring element as in `scipy.ndimage.label`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            mask: numpy array containing the semantic masks.</span>
+<span class="sd">            mode: encoding mode for the semantic mask. Can be &#39;RLE&#39;, &#39;cRLE&#39;, or</span>
+<span class="sd">                &#39;polygon&#39;.</span>
+<span class="sd">            compression_factor: compression factor of the semantic map before</span>
+<span class="sd">                conversion to COCO format. Use a factor &gt; 1 to compress the</span>
+<span class="sd">                segmentation mask s.t. its encoding does not occupy too much</span>
+<span class="sd">                memory. The compression consists in a down-sampling of the mask</span>
+<span class="sd">                array to a lower resolution before the subsequent conversion to</span>
+<span class="sd">                COCO format.</span>
+<span class="sd">            **kwargs: optional keyword parameters for the encoding.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Segmentations, bounding boxes, and categories contained in the input</span>
+<span class="sd">            array.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">segmentations</span><span class="p">,</span> <span class="n">bounding_boxes</span><span class="p">,</span> <span class="n">categories</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+
+        <span class="n">uv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">class_val</span> <span class="ow">in</span> <span class="n">uv</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">class_val</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">labeled_array</span><span class="p">,</span> <span class="n">num_feature</span> <span class="o">=</span> <span class="n">ndimage</span><span class="o">.</span><span class="n">label</span><span class="p">((</span><span class="n">mask</span> <span class="o">==</span> <span class="n">class_val</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">label_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_feature</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">instance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">labeled_array</span><span class="p">)</span>
+                <span class="n">instance</span><span class="p">[</span><span class="n">labeled_array</span> <span class="o">==</span> <span class="n">label_id</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+                <span class="c1"># encode segmentation in COCO format from numpy array</span>
+                <span class="n">segm</span> <span class="o">=</span> <span class="n">encode_mask</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">compression_factor</span><span class="o">=</span><span class="n">compression_factor</span><span class="p">)</span>
+                <span class="n">segmentations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">segm</span><span class="p">)</span>  <span class="c1"># segm is already a list of polygons for the same class --&gt; extend</span>
+
+                <span class="c1"># compute bounding box from mask</span>
+                <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_bbox_from_binary_mask</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+                <span class="n">bounding_boxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
+
+                <span class="n">categories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categories</span><span class="p">[</span><span class="n">class_val</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">segmentations</span><span class="p">,</span> <span class="n">bounding_boxes</span><span class="p">,</span> <span class="n">categories</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

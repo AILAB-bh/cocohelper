@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cocohelper.utils.dataframe &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../apigen.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cocohelper.utils.dataframe</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cocohelper.utils.dataframe</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pandas.core.util.hashing</span> <span class="kn">import</span> <span class="n">hash_pandas_object</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">cocohelper.utils.colmapper</span> <span class="kn">import</span> <span class="n">ColMap</span>
+
+
+<div class="viewcode-block" id="serialize_row"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.dataframe.serialize_row.html#cocohelper.utils.dataframe.serialize_row">[docs]</a><span class="k">def</span> <span class="nf">serialize_row</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">row</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">row</span></div>
+
+
+<div class="viewcode-block" id="records_to_df"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.dataframe.records_to_df.html#cocohelper.utils.dataframe.records_to_df">[docs]</a><span class="k">def</span> <span class="nf">records_to_df</span><span class="p">(</span>
+        <span class="n">records</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span>
+        <span class="n">id_col_mapper</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ColMap</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">id_col_mapper</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># df = df.rename(columns=id_col_mapper.to_new).set_index(id_col_mapper.new, drop=False)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">id_col_mapper</span><span class="o">.</span><span class="n">to_new</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">id_col_mapper</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="df_to_records"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.dataframe.df_to_records.html#cocohelper.utils.dataframe.df_to_records">[docs]</a><span class="k">def</span> <span class="nf">df_to_records</span><span class="p">(</span>
+        <span class="n">data_frame</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">id_col_mapper</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ColMap</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="n">data_frame</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">id_col_mapper</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data_frame</span> <span class="o">=</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">id_col_mapper</span><span class="o">.</span><span class="n">to_orig</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_frame</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s1">&#39;records&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="drop_duplicate_rows"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.dataframe.drop_duplicate_rows.html#cocohelper.utils.dataframe.drop_duplicate_rows">[docs]</a><span class="k">def</span> <span class="nf">drop_duplicate_rows</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">ignore_columns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Drop duplicates rows of a DataFrame and return a map of merged elements.</span>
+
+<span class="sd">    Duplicate are defined as rows with the same values except the index. Some</span>
+<span class="sd">    columns can be ignored at the end of identifying duplicates.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df: input DataFrame.</span>
+<span class="sd">        ignore_columns: the columns to ignore for duplicates identification.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        - The DataFrame without duplicates.</span>
+<span class="sd">        - A dict that maps indices of the dropped (merged) elements to the</span>
+<span class="sd">          indices of the corresponding kept elements.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_dup_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ignore_columns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ignore_columns</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">ignore_columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ignore_columns</span><span class="p">)</span>
+        <span class="n">check_dup_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">check_dup_cols</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">ignore_columns</span><span class="p">))</span>
+
+    <span class="n">hashable_check_dup_cols</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">check_dup_cols</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">hash_pandas_object</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+            <span class="n">hashable_check_dup_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;`drop_duplicate_rows` is trying to use column </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> to check duplications, &quot;</span>
+                          <span class="sa">f</span><span class="s2">&quot;but is not hashable and it will be skipped for this check.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">hashable_check_dup_cols</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;There are no columns that can be used to check for duplicates.&quot;</span><span class="p">)</span>
+
+    <span class="n">index_name</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;index&#39;</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">hashable_check_dup_cols</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+               <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">hashable_check_dup_cols</span><span class="p">)[</span><span class="n">index_name</span><span class="p">]</span>
+               <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">])</span>
+               <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">)[</span><span class="s1">&#39;tuple&#39;</span><span class="p">]</span>
+               <span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+
+    <span class="c1"># Reverse the mapping:</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="n">check_dup_cols</span><span class="p">),</span> <span class="n">mapping</span></div>
+
+
+<div class="viewcode-block" id="fix_fk_after_drop_duplicate"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.dataframe.fix_fk_after_drop_duplicate.html#cocohelper.utils.dataframe.fix_fk_after_drop_duplicate">[docs]</a><span class="k">def</span> <span class="nf">fix_fk_after_drop_duplicate</span><span class="p">(</span>
+        <span class="n">connected_df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">fk_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">merge_index_mapping</span><span class="p">:</span> <span class="n">Dict</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Fix the foreign key of a dataframe connected to a dataframe with dropped</span>
+<span class="sd">    duplicates.</span>
+
+<span class="sd">    The foreign keys of connected_df that where pointing to indices that have</span>
+<span class="sd">    been merged together should now point to the only instance of the duplicates</span>
+<span class="sd">    that has been kept by the drop duplicate method.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        connected_df: dataframe connected to a dataframe for which duplicates</span>
+<span class="sd">            have been removed.</span>
+<span class="sd">        fk_column: the column of connected_df that contains the foreign key that</span>
+<span class="sd">            should be fixed.</span>
+<span class="sd">        merge_index_mapping: a dict that maps the dropped keys to the key of the</span>
+<span class="sd">            not-dropped duplicate row, e.g. if we merged rows with index (0, 1, 2)</span>
+<span class="sd">            keeping only 0, and we merged rows with index (3, 4, 5) keeping only</span>
+<span class="sd">            3, this map should be: {1: 0, 2: 0, 4: 3, 5: 3}.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A copy of connected_df with fixed foreign key (values of fk_columns).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">connected_df</span><span class="p">[</span><span class="n">fk_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">connected_df</span><span class="p">[</span><span class="n">fk_column</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">merge_index_mapping</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">connected_df</span><span class="p">[</span><span class="n">fk_column</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">connected_df</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

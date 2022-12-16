@@ -1,0 +1,40 @@
+proportional
+============
+
+.. automodule:: cocohelper.splitters.proportional
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  ProportionalDataSplitter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

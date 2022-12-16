@@ -1,0 +1,40 @@
+dataset\_adapter
+================
+
+.. automodule:: cocohelper.adapters.dataset_adapter
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  DatasetAdapter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

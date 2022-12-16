@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ValueFilter &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="strategies" href="cocohelper.filters.strategies.html" />
+    <link rel="prev" title="RangeFilter" href="cocohelper.filters.filter.RangeFilter.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../apigen.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cocohelper.html">cocohelper</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.adapters.html">adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.dataframe.html">dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.errors.html">errors</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cocohelper.filters.html">filters</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.filters.cocofilters.html">cocofilters</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="cocohelper.filters.filter.html">filter</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.filters.filter.AndFilter.html">AndFilter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.filters.filter.ColumnFilter.html">ColumnFilter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.filters.filter.ComposeFilter.html">ComposeFilter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.filters.filter.Filter.html">Filter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.filters.filter.NotFilter.html">NotFilter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.filters.filter.OrFilter.html">OrFilter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.filters.filter.RangeFilter.html">RangeFilter</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">ValueFilter</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.filters.filter.ValueFilter"><code class="docutils literal notranslate"><span class="pre">ValueFilter</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#cocohelper.filters.filter.ValueFilter._apply"><code class="docutils literal notranslate"><span class="pre">ValueFilter._apply()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#cocohelper.filters.filter.ValueFilter.apply"><code class="docutils literal notranslate"><span class="pre">ValueFilter.apply()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#cocohelper.filters.filter.ValueFilter.set_strategy"><code class="docutils literal notranslate"><span class="pre">ValueFilter.set_strategy()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#cocohelper.filters.filter.ValueFilter._abc_impl"><code class="docutils literal notranslate"><span class="pre">ValueFilter._abc_impl</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.filters.strategies.html">strategies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.helper.html">helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.importer.html">importer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.joins.html">joins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.merge.html">merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.splitters.html">splitters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.stats.html">stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.transforms.html">transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.utils.html">utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.validator.html">validator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.visualizer.html">visualizer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.filters.html">filters</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.filters.filter.html">filter</a></li>
+      <li class="breadcrumb-item active">ValueFilter</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/cocohelper.filters.filter.ValueFilter.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="valuefilter">
+<h1>ValueFilter<a class="headerlink" href="#valuefilter" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cocohelper.filters.filter.ValueFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cocohelper.filters.filter.</span></span><span class="sig-name descname"><span class="pre">ValueFilter</span></span><a class="reference internal" href="../_modules/cocohelper/filters/filter.html#ValueFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.filters.filter.ValueFilter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="cocohelper.filters.filter.ColumnFilter.html#cocohelper.filters.filter.ColumnFilter" title="cocohelper.filters.filter.ColumnFilter"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnFilter</span></code></a></p>
+<p>Filter the rows having certain values in the chosen column.</p>
+<p>Different strategies can be applied to the filter:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>strategies.HAVING_VALUE: this simple strategy keeps the rows whose</dt><dd><p>value of the selected column is one of the values imposed by the
+filter.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>strategies.ANY_VALUE: this strategy can be applied to a dataframe with</dt><dd><p>multiple rows with the same index. In that case we consider the
+dataframe as a multi-row dataframe (grouped by index). This strategy
+keeps a multi-row only if at least one of the values in the selected
+column is in the list of values imposed by the filter</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>strategies.ALL_VALUES: this strategy can be applied to a dataframe with</dt><dd><p>multiple rows with the same index. In that case we consider the
+dataframe as a multi-row dataframe (grouped by index). A multi-row
+is discarded if at least one of the values imposed by the filters for
+the requested column is not in the list of values of the same column
+in that multi-row.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> – the values that filtered rows must have.</p></li>
+<li><p><strong>column</strong> – the column on which values are checked.</p></li>
+<li><p><strong>strategy</strong> – the ValueStrategy used by the filter</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Method List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.filters.filter.ValueFilter._apply" title="cocohelper.filters.filter.ValueFilter._apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_apply</span></code></a>(values, column, df)</p></td>
+<td><p>Applies the filter to the given DataFrame rows.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.filters.filter.ValueFilter.apply" title="cocohelper.filters.filter.ValueFilter.apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply</span></code></a>(df)</p></td>
+<td><p>Apply the filter to the DataFrame :param df: DataFrame to filter</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.filters.filter.ValueFilter.set_strategy" title="cocohelper.filters.filter.ValueFilter.set_strategy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_strategy</span></code></a>(strategy)</p></td>
+<td><p>Set the filter strategy.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.filters.filter.ValueFilter._abc_impl" title="cocohelper.filters.filter.ValueFilter._abc_impl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_abc_impl</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Details</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.filters.filter.ValueFilter._apply">
+<span class="sig-name descname"><span class="pre">_apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/filters/filter.html#ValueFilter._apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.filters.filter.ValueFilter._apply" title="Permalink to this definition"></a></dt>
+<dd><p>Applies the filter to the given DataFrame rows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> – values to filter in the DataFrame.</p></li>
+<li><p><strong>column</strong> (<em>str</em>) – column to filter in the DataFrame.</p></li>
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame to filter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The filtered DataFrame.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.filters.filter.ValueFilter.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cocohelper.filters.filter.ValueFilter.apply" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the filter to the DataFrame
+:param df: DataFrame to filter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The filtered DataFrame.</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>df</strong> (<em>DataFrame</em>) – </p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.filters.filter.ValueFilter.set_strategy">
+<span class="sig-name descname"><span class="pre">set_strategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strategy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/filters/filter.html#ValueFilter.set_strategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.filters.filter.ValueFilter.set_strategy" title="Permalink to this definition"></a></dt>
+<dd><p>Set the filter strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>strategy</strong> (<a class="reference internal" href="cocohelper.filters.strategies.strategies.ValueFilterStrategy.html#cocohelper.filters.strategies.strategies.ValueFilterStrategy" title="cocohelper.filters.strategies.strategies.ValueFilterStrategy"><em>ValueFilterStrategy</em></a>) – used for filtering the dataframe when using apply().</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Attribute Details</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.filters.filter.ValueFilter._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cocohelper.filters.filter.ValueFilter._abc_impl" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cocohelper.filters.filter.RangeFilter.html" class="btn btn-neutral float-left" title="RangeFilter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cocohelper.filters.strategies.html" class="btn btn-neutral float-right" title="strategies" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

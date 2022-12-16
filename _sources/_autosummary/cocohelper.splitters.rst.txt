@@ -1,0 +1,43 @@
+splitters
+=========
+
+.. automodule:: cocohelper.splitters
+
+
+
+
+.. rubric:: Submodule
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   cocohelper.splitters.kfold
+   cocohelper.splitters.proportional
+   cocohelper.splitters.splitter
+   cocohelper.splitters.stratified
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+\_norm\_bbox
+============
+
+.. currentmodule:: cocohelper.transforms.crop
+
+.. autofunction:: _norm_bbox

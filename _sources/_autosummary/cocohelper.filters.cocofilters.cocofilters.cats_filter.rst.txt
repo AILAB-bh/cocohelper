@@ -1,0 +1,6 @@
+cats\_filter
+============
+
+.. currentmodule:: cocohelper.filters.cocofilters.cocofilters
+
+.. autofunction:: cats_filter

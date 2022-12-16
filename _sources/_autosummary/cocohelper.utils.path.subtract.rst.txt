@@ -1,0 +1,6 @@
+subtract
+========
+
+.. currentmodule:: cocohelper.utils.path
+
+.. autofunction:: subtract

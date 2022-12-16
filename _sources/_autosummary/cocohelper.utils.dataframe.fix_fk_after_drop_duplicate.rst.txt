@@ -1,0 +1,6 @@
+fix\_fk\_after\_drop\_duplicate
+===============================
+
+.. currentmodule:: cocohelper.utils.dataframe
+
+.. autofunction:: fix_fk_after_drop_duplicate

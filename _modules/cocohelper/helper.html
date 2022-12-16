@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cocohelper.helper &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../apigen.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cocohelper.helper</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cocohelper.helper</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">pycocotools.coco</span> <span class="kn">import</span> <span class="n">COCO</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">JSONDecodeError</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">dataclasses</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">cocohelper.utils.dataframe</span> <span class="kn">import</span> <span class="n">df_to_records</span><span class="p">,</span> <span class="n">drop_duplicate_rows</span><span class="p">,</span> <span class="n">fix_fk_after_drop_duplicate</span>
+<span class="kn">from</span> <span class="nn">cocohelper.errors.not_found_error</span> <span class="kn">import</span> <span class="n">COCOImageNotFoundError</span><span class="p">,</span> <span class="n">COCOAnnotationNotFoundError</span>
+<span class="kn">from</span> <span class="nn">cocohelper.filters.filter</span> <span class="kn">import</span> <span class="n">Filter</span><span class="p">,</span> <span class="n">AndFilter</span><span class="p">,</span> <span class="n">NotFilter</span><span class="p">,</span> <span class="n">ComposeFilter</span>
+<span class="kn">from</span> <span class="nn">cocohelper.errors.validation_error</span> <span class="kn">import</span> <span class="n">COCOValidationError</span>
+<span class="kn">from</span> <span class="nn">cocohelper.utils.colmapper</span> <span class="kn">import</span> <span class="n">ColMap</span><span class="p">,</span> <span class="n">ColsMapper</span>
+<span class="kn">from</span> <span class="nn">cocohelper.filters</span> <span class="kn">import</span> <span class="n">cocofilters</span> <span class="k">as</span> <span class="n">cfilters</span>
+<span class="kn">from</span> <span class="nn">cocohelper.joins</span> <span class="kn">import</span> <span class="n">COCOJoins</span><span class="p">,</span> <span class="n">COCODataFrame</span>
+<span class="kn">from</span> <span class="nn">cocohelper.utils.timer</span> <span class="kn">import</span> <span class="n">Timer</span>
+<span class="kn">from</span> <span class="nn">cocohelper.utils.types._types</span> <span class="kn">import</span> <span class="n">IDXSelector</span>
+
+
+<span class="c1"># IMPORTS FOR TYPE-CHECKING ONLY</span>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">cocohelper.transforms</span> <span class="kn">import</span> <span class="n">Transform</span>
+
+
+<div class="viewcode-block" id="COCOColsMapper"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOColsMapper.html#cocohelper.helper.COCOColsMapper">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">COCOColsMapper</span><span class="p">(</span><span class="n">ColsMapper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;(DEPRECATED) Enable the possibility to remap specific columns in COCOHelper&quot;&quot;&quot;</span>
+
+    <span class="n">cat</span><span class="p">:</span> <span class="n">ColMap</span> <span class="o">=</span> <span class="n">ColMap</span><span class="p">(</span><span class="n">orig</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="s1">&#39;category_id&#39;</span><span class="p">)</span>
+    <span class="n">img</span><span class="p">:</span> <span class="n">ColMap</span> <span class="o">=</span> <span class="n">ColMap</span><span class="p">(</span><span class="n">orig</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="s1">&#39;image_id&#39;</span><span class="p">)</span>
+    <span class="n">ann</span><span class="p">:</span> <span class="n">ColMap</span> <span class="o">=</span> <span class="n">ColMap</span><span class="p">(</span><span class="n">orig</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="s1">&#39;annotation_id&#39;</span><span class="p">)</span>
+    <span class="n">lic</span><span class="p">:</span> <span class="n">ColMap</span> <span class="o">=</span> <span class="n">ColMap</span><span class="p">(</span><span class="n">orig</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="s1">&#39;license_id&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="COCOHelperPaths"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelperPaths.html#cocohelper.helper.COCOHelperPaths">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+<span class="k">class</span> <span class="nc">COCOHelperPaths</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Information about folder and file organization for a COCO dataset.&quot;&quot;&quot;</span>
+    <span class="n">ann_fname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;coco.json&#39;</span>
+    <span class="n">ann_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;annotations/&#39;</span>
+    <span class="n">img_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;images/&#39;</span></div>
+
+
+<div class="viewcode-block" id="COCOHelper"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper">[docs]</a><span class="k">class</span> <span class="nc">COCOHelper</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">img_df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+            <span class="n">ann_df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+            <span class="n">cat_df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+            <span class="n">lic_df</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">info</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">coco_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span><span class="p">,</span>
+            <span class="n">paths</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">COCOHelperPaths</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Represent a dataset in the COCO format.</span>
+
+<span class="sd">        To create an instance of COCOHelper is advisable to use the `load` methods.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            img_df: DataFrame of images.</span>
+<span class="sd">            ann_df: DataFrame of annotations.</span>
+<span class="sd">            cat_df: DataFrame of categories, optional.</span>
+<span class="sd">            lic_df: DataFrame of licenses, optional.</span>
+<span class="sd">            info: Info dict, optional.</span>
+<span class="sd">            coco_dir: Root directory of the dataset, optional.</span>
+<span class="sd">            paths: COCOHelperPaths, used to customize directory structure.</span>
+<span class="sd">            validate: If True, validate the COCO dataset and raise an error if</span>
+<span class="sd">              invalid.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            COCOValidationError if the input COCO dataset is not valid. This</span>
+<span class="sd">            check is performed only if `validate=True`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">lic_df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lic_df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_path</span> <span class="o">=</span> <span class="n">coco_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paths</span> <span class="o">=</span> <span class="n">paths</span> <span class="k">if</span> <span class="n">paths</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">COCOHelperPaths</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imgs</span> <span class="o">=</span> <span class="n">COCODataFrame</span><span class="p">(</span><span class="n">img_df</span><span class="p">,</span> <span class="s1">&#39;image&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_anns</span> <span class="o">=</span> <span class="n">COCODataFrame</span><span class="p">(</span><span class="n">ann_df</span><span class="p">,</span> <span class="s1">&#39;annotation&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cats</span> <span class="o">=</span> <span class="n">COCODataFrame</span><span class="p">(</span><span class="n">cat_df</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">)</span>  <span class="c1"># if cat_df is not None else None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lics</span> <span class="o">=</span> <span class="n">COCODataFrame</span><span class="p">(</span><span class="n">lic_df</span><span class="p">,</span> <span class="s1">&#39;license&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">cat_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span> <span class="o">=</span> <span class="n">info</span> <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">COCOHelper</span><span class="o">.</span><span class="n">new_info_dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_colmaps</span><span class="p">:</span> <span class="n">COCOColsMapper</span> <span class="o">=</span> <span class="n">COCOColsMapper</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">cocohelper.validator</span> <span class="kn">import</span> <span class="n">COCOValidator</span>
+            <span class="n">is_valid</span> <span class="o">=</span> <span class="n">COCOValidator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">validate_dataset</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">COCOValidationError</span><span class="p">()</span>
+
+<div class="viewcode-block" id="COCOHelper.copy"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">cat_df</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">img_df</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">ann_df</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">lic_df</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">info</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Copy the dataset and optionally change some dataframes.</span>
+<span class="sd">        </span>
+<span class="sd">        When changing categories or images, annotations that</span>
+<span class="sd">        result as invalid will be removed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cat_df: New category dataframe, optional</span>
+<span class="sd">            img_df: New image dataframe, optional</span>
+<span class="sd">            ann_df: New annotation dataframe, optional</span>
+<span class="sd">            lic_df: New license dataframe, optional</span>
+<span class="sd">            info: New info dict, optional</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A new `COCOHelper` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">helper</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cat_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">helper</span><span class="o">.</span><span class="n">_cats</span> <span class="o">=</span> <span class="n">COCODataFrame</span><span class="p">(</span><span class="n">cat_df</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">img_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">helper</span><span class="o">.</span><span class="n">_imgs</span> <span class="o">=</span> <span class="n">COCODataFrame</span><span class="p">(</span><span class="n">img_df</span><span class="p">,</span> <span class="s1">&#39;image&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ann_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">helper</span><span class="o">.</span><span class="n">_anns</span> <span class="o">=</span> <span class="n">COCODataFrame</span><span class="p">(</span><span class="n">ann_df</span><span class="p">,</span> <span class="s1">&#39;annotation&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lic_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">helper</span><span class="o">.</span><span class="n">_lics</span> <span class="o">=</span> <span class="n">COCODataFrame</span><span class="p">(</span><span class="n">lic_df</span><span class="p">,</span> <span class="s1">&#39;license&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">helper</span><span class="o">.</span><span class="n">_info</span> <span class="o">=</span> <span class="n">info</span>
+
+        <span class="n">helper</span><span class="o">.</span><span class="n">_remove_unlinked_anns</span><span class="p">()</span>
+        <span class="c1"># helper.validator.validate() # TODO</span>
+        <span class="k">return</span> <span class="n">helper</span></div>
+
+<div class="viewcode-block" id="COCOHelper._remove_unlinked_anns"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper._remove_unlinked_anns">[docs]</a>    <span class="k">def</span> <span class="nf">_remove_unlinked_anns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove annotations that have non-existing image or categories ids.&quot;&quot;&quot;</span>
+        <span class="n">linked_images</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anns</span><span class="p">[</span><span class="s1">&#39;image_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">linked_cats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anns</span><span class="p">[</span><span class="s1">&#39;category_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cats</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="c1"># Update the annotations in self to remove unlinked anns</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_anns</span> <span class="o">=</span> <span class="n">COCODataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anns</span><span class="p">[</span><span class="n">linked_images</span> <span class="o">&amp;</span> <span class="n">linked_cats</span><span class="p">],</span> <span class="s1">&#39;annotation&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOHelper.to_coco"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.to_coco">[docs]</a>    <span class="k">def</span> <span class="nf">to_coco</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCO</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Convert `COCOHelper` to `pycocotools.COCO`&quot;&quot;&quot;</span>
+        <span class="n">coco</span> <span class="o">=</span> <span class="n">COCO</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">coco</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_json_dataset</span><span class="p">()</span>
+        <span class="n">coco</span><span class="o">.</span><span class="n">createIndex</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">coco</span></div>
+
+    <span class="c1">#</span>
+    <span class="c1"># # # # # # # # # # # #</span>
+    <span class="c1"># PERSISTENCE METHODS #</span>
+    <span class="c1"># # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+<div class="viewcode-block" id="COCOHelper.save"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">coco_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
+            <span class="n">fix_img_path</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">copy_images</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Save the current `COCOHelper` to a directory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            coco_dir: Output root directory.</span>
+<span class="sd">            fix_img_path: NotImplemented.</span>
+<span class="sd">            copy_images: NotImplemented.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">annotation_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">coco_dir</span><span class="p">)</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">ann_dir</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">ann_fname</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_annotations_file</span><span class="p">(</span><span class="n">annotation_file</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">copy_images</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_copy_images</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">coco_dir</span><span class="p">)</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">img_dir</span><span class="p">))</span>
+
+        <span class="k">elif</span> <span class="n">fix_img_path</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+            <span class="c1"># TODO: fix the self.img_dir property so that, changing the self._coco_root_dir to coco_dir,</span>
+            <span class="c1">#       the paths to the original images are still correct.</span>
+
+            <span class="c1"># TODO: we could have a different approach: call a method to change the _coco_root_dir before saving,</span>
+            <span class="c1">#       then always save on the current _coco_root_dir (we could return a copy of the cocoh object when</span>
+            <span class="c1">#       we change the _coco_root_dir). EG:</span>
+            <span class="c1">#           cocoh.set_coco_root_dir(&#39;./newpath&#39;).save()</span>
+            <span class="c1">#       or:</span>
+            <span class="c1">#           cocoh_newpath = cocoh.set_coco_root_dir(&#39;./newpath&#39;)</span>
+            <span class="c1">#           cocoh_newpath.save()</span>
+
+<div class="viewcode-block" id="COCOHelper.load"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.load">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="p">,</span>
+            <span class="n">coco_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">ann_fname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">COCOHelperPaths</span><span class="o">.</span><span class="n">ann_fname</span><span class="p">,</span>
+            <span class="n">ann_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">COCOHelperPaths</span><span class="o">.</span><span class="n">ann_dir</span><span class="p">,</span>
+            <span class="n">img_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">COCOHelperPaths</span><span class="o">.</span><span class="n">img_dir</span><span class="p">,</span>
+            <span class="n">validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Create a COCOHelper from a COCO dataset stored in a directory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            coco_dir: path to the directory containing the dataset.</span>
+<span class="sd">            ann_fname: name of the annotation file to be load.</span>
+<span class="sd">            ann_dir: name/relative-path to the directory where annotations are</span>
+<span class="sd">                stored.</span>
+<span class="sd">            img_dir: name/relative-path to the directory where images are stored.</span>
+<span class="sd">            validate: If True, validate the dataset.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A COCOHelper object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">paths</span> <span class="o">=</span> <span class="n">COCOHelperPaths</span><span class="p">(</span><span class="n">ann_fname</span><span class="o">=</span><span class="n">ann_fname</span><span class="p">,</span> <span class="n">ann_dir</span><span class="o">=</span><span class="n">ann_dir</span><span class="p">,</span> <span class="n">img_dir</span><span class="o">=</span><span class="n">img_dir</span><span class="p">)</span>
+        <span class="n">annotation_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">coco_dir</span><span class="p">,</span> <span class="n">paths</span><span class="o">.</span><span class="n">ann_dir</span><span class="p">,</span> <span class="n">paths</span><span class="o">.</span><span class="n">ann_fname</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">COCOHelper</span><span class="o">.</span><span class="n">load_json</span><span class="p">(</span><span class="n">annotation_file_path</span><span class="p">,</span> <span class="n">img_dir</span><span class="o">=</span><span class="n">paths</span><span class="o">.</span><span class="n">img_dir</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOHelper.load_json"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.load_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load_json</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="p">,</span>
+            <span class="n">json_annotations_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">img_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">COCOHelperPaths</span><span class="o">.</span><span class="n">img_dir</span><span class="p">,</span>
+            <span class="n">validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Create COCOHelper from json annotation file of the COCO dataset stored in a directory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            json_annotations_file: path to the json file containing the dataset</span>
+<span class="sd">                annotations.</span>
+<span class="sd">            img_dir: name/relative-path to the directory where images are</span>
+<span class="sd">                stored, respect to the coco dataset root.</span>
+<span class="sd">            validate: If True, validate the dataset.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A COCOHelper object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO add coco_dir parameter and change the anns_dir accordingly if specified.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">annotations</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_read_annotations_file</span><span class="p">(</span><span class="n">json_annotations_file</span><span class="p">)</span>
+            <span class="n">ann_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">json_annotations_file</span><span class="p">)</span>
+            <span class="n">ann_fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">json_annotations_file</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot read annotation file.&quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;If you want to load a json string or a dict containing annotations use load.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">e</span>
+        <span class="n">coco_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">ann_dir</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">annotations</span><span class="p">,</span> <span class="n">coco_dir</span><span class="p">,</span> <span class="n">ann_fname</span><span class="p">,</span> <span class="n">ann_dir</span><span class="p">,</span> <span class="n">img_dir</span><span class="p">,</span> <span class="n">validate</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="COCOHelper.load_data"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.load_data">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="p">,</span>
+            <span class="n">annotations</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+            <span class="n">coco_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">ann_fname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">COCOHelperPaths</span><span class="o">.</span><span class="n">ann_fname</span><span class="p">,</span>
+            <span class="n">ann_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">COCOHelperPaths</span><span class="o">.</span><span class="n">ann_dir</span><span class="p">,</span>
+            <span class="n">img_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">COCOHelperPaths</span><span class="o">.</span><span class="n">img_dir</span><span class="p">,</span>
+            <span class="n">validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+
+        <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;Loading dataframes...&quot;</span><span class="p">,</span> <span class="s2">&quot;Done: &quot;</span><span class="p">,</span> <span class="n">log_fn</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">):</span>
+            <span class="n">imgs_df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">annotations</span><span class="p">[</span><span class="s1">&#39;images&#39;</span><span class="p">])</span>
+            <span class="n">anns_df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">annotations</span><span class="p">[</span><span class="s1">&#39;annotations&#39;</span><span class="p">])</span>
+            <span class="n">cats_df</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">lics_df</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="s1">&#39;categories&#39;</span> <span class="ow">in</span> <span class="n">annotations</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">cats_df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">annotations</span><span class="p">[</span><span class="s1">&#39;categories&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="s1">&#39;licenses&#39;</span> <span class="ow">in</span> <span class="n">annotations</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">lics_df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">annotations</span><span class="p">[</span><span class="s1">&#39;licenses&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="s1">&#39;info&#39;</span> <span class="ow">in</span> <span class="n">annotations</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="n">annotations</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span>
+
+            <span class="n">paths</span> <span class="o">=</span> <span class="n">COCOHelperPaths</span><span class="p">(</span><span class="n">ann_fname</span><span class="o">=</span><span class="n">ann_fname</span><span class="p">,</span> <span class="n">ann_dir</span><span class="o">=</span><span class="n">ann_dir</span><span class="p">,</span> <span class="n">img_dir</span><span class="o">=</span><span class="n">img_dir</span><span class="p">)</span>
+            <span class="n">coco_helper</span> <span class="o">=</span> <span class="n">COCOHelper</span><span class="p">(</span><span class="n">imgs_df</span><span class="p">,</span> <span class="n">anns_df</span><span class="p">,</span> <span class="n">cats_df</span><span class="p">,</span> <span class="n">lics_df</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span>
+                                     <span class="n">coco_dir</span><span class="o">=</span><span class="n">coco_dir</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="n">paths</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">coco_helper</span></div>
+
+<div class="viewcode-block" id="COCOHelper.write_annotations_file"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.write_annotations_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_annotations_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">annotation_file_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Save the current COCOHelper as a COCO json file.&quot;&quot;&quot;</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">annotation_file_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">annotation_file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ann_file</span><span class="p">:</span>
+            <span class="n">ann_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_json_dataset</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="COCOHelper._read_annotations_file"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper._read_annotations_file">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_read_annotations_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">annotation_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Read a COCO json file as a dict.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;Loading annotations into memory...&quot;</span><span class="p">,</span> <span class="s2">&quot;Done: &quot;</span><span class="p">,</span> <span class="n">log_fn</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">annotation_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">annotations</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">annotations</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">,</span> <span class="s1">&#39;annotation file format </span><span class="si">{}</span><span class="s1"> not supported&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">annotations</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">annotations</span></div>
+
+<div class="viewcode-block" id="COCOHelper.to_json_dataset"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.to_json_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">to_json_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Convert the current COCOHelper to a dict with the same structure of the COCO json file.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;categories&#39;</span><span class="p">:</span> <span class="n">df_to_records</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colmaps</span><span class="o">.</span><span class="n">cat</span><span class="p">),</span>
+            <span class="s1">&#39;images&#39;</span><span class="p">:</span> <span class="n">df_to_records</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imgs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colmaps</span><span class="o">.</span><span class="n">img</span><span class="p">),</span>
+            <span class="s1">&#39;annotations&#39;</span><span class="p">:</span> <span class="n">df_to_records</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colmaps</span><span class="o">.</span><span class="n">ann</span><span class="p">),</span>
+            <span class="s1">&#39;licenses&#39;</span><span class="p">:</span> <span class="n">df_to_records</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">licenses</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colmaps</span><span class="o">.</span><span class="n">lic</span><span class="p">),</span>
+            <span class="s1">&#39;info&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">,</span>
+            <span class="c1"># &#39;cocohelper_paths&#39;: self._paths,</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="COCOHelper._copy_images"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper._copy_images">[docs]</a>    <span class="k">def</span> <span class="nf">_copy_images</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_img_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>  <span class="c1"># TODO: TBD</span></div>
+        <span class="c1"># target_img_dir = Path(target_img_dir)</span>
+        <span class="c1"># orig_img_dir = Path(self._coco_root_dir) / Path(self.img_dir)</span>
+        <span class="c1"># os.makedirs(target_img_dir, exist_ok=True)</span>
+        <span class="c1"># for img_id, img_fname in self.img_nms_by_id.items():</span>
+        <span class="c1">#     shutil.copy(orig_img_dir / img_fname, target_img_dir / img_fname)</span>
+
+    <span class="c1">#</span>
+    <span class="c1"># # # # # # # # # #</span>
+    <span class="c1"># CORE PROPERTIES #</span>
+    <span class="c1"># # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Dataframe containing the categories data of the COCO dataset.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cats</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">imgs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Dataframe containing the images metadata of the COCO dataset.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imgs</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">anns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Dataframe containing the annotations data of the COCO dataset.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_anns</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">licenses</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">COCODataFrame</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Dataframe containing the licenses of the COCO dataset.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lics</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Dataframe containing extra information of the COCO dataset.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">paths</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelperPaths</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Information about folder and file organization for a COCO dataset.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">root_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Path to the root directory containing the COCO dataset.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_path</span><span class="p">)</span>
+
+    <span class="nd">@root_path</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">root_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">joins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a COCOJoins object, that enable easy access to different joins dataset tables.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">COCOJoins</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">#</span>
+    <span class="c1"># # # # # # # # # # # # # # #</span>
+    <span class="c1"># SPECIAL DATAFRAME GETTERS #</span>
+    <span class="c1"># # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unlabelled_imgs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get only the unlabelled images as a DataFrame.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A pandas.DataFrame containing the unlabelled images.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">imgs</span><span class="p">[</span><span class="o">~</span><span class="bp">self</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anns</span><span class="o">.</span><span class="n">image_id</span><span class="p">)]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">labelled_imgs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get only the labelled images as a DataFrame.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A pandas.DataFrame containing the labelled images.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">imgs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anns</span><span class="o">.</span><span class="n">image_id</span><span class="p">)]</span>
+
+    <span class="c1">#</span>
+    <span class="c1"># # # # # # # # # # # # # # # # # #</span>
+    <span class="c1"># SPECIAL IMAGES DROPPING METHODS #</span>
+    <span class="c1"># # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+<div class="viewcode-block" id="COCOHelper.drop_unlabelled"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.drop_unlabelled">[docs]</a>    <span class="k">def</span> <span class="nf">drop_unlabelled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get a new `COCOHelper` dataset that does not contain unlabelled images.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A new `COCOHelper` object containing only labelled images.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">img_df</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">labelled_imgs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOHelper.drop_labelled"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.drop_labelled">[docs]</a>    <span class="k">def</span> <span class="nf">drop_labelled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get a new COCOHelper dataset that does only contain unlabelled images.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A new `COCOHelper` object containing only unlabelled images.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">img_df</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unlabelled_imgs</span><span class="p">)</span></div>
+
+    <span class="c1">#</span>
+    <span class="c1"># # # # # # # # #</span>
+    <span class="c1"># COCO FILTERS  #</span>
+    <span class="c1"># # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+<div class="viewcode-block" id="COCOHelper.filter_cats"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.filter_cats">[docs]</a>    <span class="k">def</span> <span class="nf">filter_cats</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">cfilter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Filter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">cat_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">supercat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">composition</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ComposeFilter</span><span class="p">]</span> <span class="o">=</span> <span class="n">AndFilter</span><span class="p">,</span>
+            <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get a copy of the dataset with filtered categories.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cfilter: a custom Filter for the COCOHelper.</span>
+<span class="sd">            cat_ids: a filter for the category ids.</span>
+<span class="sd">            cat_nms: a filter for the category names.</span>
+<span class="sd">            supercat_nms: a filter for the super-category names.</span>
+<span class="sd">            composition: a composition type for the filters (defaults to &quot;and&quot;</span>
+<span class="sd">                behavior between each filter).</span>
+<span class="sd">            invert: if True, invert the way the filter works.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A COCOHelper with data filtered according to the given filters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filtered_cats</span><span class="p">(</span>
+            <span class="n">cfilter</span><span class="p">,</span>
+            <span class="n">cat_ids</span><span class="o">=</span><span class="n">cat_ids</span><span class="p">,</span>
+            <span class="n">cat_nms</span><span class="o">=</span><span class="n">cat_nms</span><span class="p">,</span>
+            <span class="n">supercat_nms</span><span class="o">=</span><span class="n">supercat_nms</span><span class="p">,</span>
+            <span class="n">composition</span><span class="o">=</span><span class="n">composition</span><span class="p">,</span>
+            <span class="n">invert</span><span class="o">=</span><span class="n">invert</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">cat_df</span><span class="o">=</span><span class="n">cats</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOHelper.filter_imgs"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.filter_imgs">[docs]</a>    <span class="k">def</span> <span class="nf">filter_imgs</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">cfilter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Filter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">img_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">img_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">supercat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">composition</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ComposeFilter</span><span class="p">]</span> <span class="o">=</span> <span class="n">AndFilter</span><span class="p">,</span>
+            <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get a copy of the dataset with filtered images.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cfilter: a custom Filter for the COCOHelper.</span>
+<span class="sd">            img_ids: a filter for the image ids.</span>
+<span class="sd">            img_nms: a filter for the image file names.</span>
+<span class="sd">            cat_ids: a filter for the category ids.</span>
+<span class="sd">            cat_nms: a filter for the category names.</span>
+<span class="sd">            supercat_nms: a filter for the super-category names.</span>
+<span class="sd">            composition: a composition type for the filters (defaults to &quot;and&quot;</span>
+<span class="sd">                behavior between each filter).</span>
+<span class="sd">            invert: if True, invert the way the filter works.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A COCOHelper with data filtered according to the given filters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">imgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filtered_imgs</span><span class="p">(</span><span class="n">cfilter</span><span class="p">,</span>
+                                  <span class="n">img_ids</span><span class="o">=</span><span class="n">img_ids</span><span class="p">,</span> <span class="n">img_nms</span><span class="o">=</span><span class="n">img_nms</span><span class="p">,</span>
+                                  <span class="n">cat_ids</span><span class="o">=</span><span class="n">cat_ids</span><span class="p">,</span> <span class="n">cat_nms</span><span class="o">=</span><span class="n">cat_nms</span><span class="p">,</span> <span class="n">supercat_nms</span><span class="o">=</span><span class="n">supercat_nms</span><span class="p">,</span>
+                                  <span class="n">composition</span><span class="o">=</span><span class="n">composition</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="n">invert</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">img_df</span><span class="o">=</span><span class="n">imgs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOHelper.filter_anns"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.filter_anns">[docs]</a>    <span class="k">def</span> <span class="nf">filter_anns</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">cfilter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Filter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">ann_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">img_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">img_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">supercat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">area_rng</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">is_crowd</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">composition</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ComposeFilter</span><span class="p">]</span> <span class="o">=</span> <span class="n">AndFilter</span><span class="p">,</span>
+            <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get a copy of the dataset with filtered annotations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cfilter: a custom Filter for the COCOHelper.</span>
+<span class="sd">            ann_ids: a filter for the annotation ids.</span>
+<span class="sd">            img_ids: a filter for the image ids.</span>
+<span class="sd">            img_nms: a filter for the image file names.</span>
+<span class="sd">            cat_ids: a filter for the category ids.</span>
+<span class="sd">            cat_nms: a filter for the category names.</span>
+<span class="sd">            supercat_nms: a filter for the super-category names.</span>
+<span class="sd">            area_rng: a filter for the annotation area.</span>
+<span class="sd">            is_crowd: a filter for the annotation being a crowd or not</span>
+<span class="sd">                (&quot;is_crowd&quot; in the annotation of the COCO JSON file).</span>
+<span class="sd">            composition: a composition type for the filters (defaults to &quot;and&quot;</span>
+<span class="sd">                behavior between each filter).</span>
+<span class="sd">            invert: if True, invert the way the filter works.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A COCOHelper with data filtered according to the given filters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">anns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filtered_anns</span><span class="p">(</span><span class="n">cfilter</span><span class="p">,</span>
+                                  <span class="n">ann_ids</span><span class="o">=</span><span class="n">ann_ids</span><span class="p">,</span> <span class="n">img_ids</span><span class="o">=</span><span class="n">img_ids</span><span class="p">,</span> <span class="n">img_nms</span><span class="o">=</span><span class="n">img_nms</span><span class="p">,</span>
+                                  <span class="n">cat_ids</span><span class="o">=</span><span class="n">cat_ids</span><span class="p">,</span> <span class="n">cat_nms</span><span class="o">=</span><span class="n">cat_nms</span><span class="p">,</span> <span class="n">supercat_nms</span><span class="o">=</span><span class="n">supercat_nms</span><span class="p">,</span>
+                                  <span class="n">area_rng</span><span class="o">=</span><span class="n">area_rng</span><span class="p">,</span> <span class="n">is_crowd</span><span class="o">=</span><span class="n">is_crowd</span><span class="p">,</span>
+                                  <span class="n">composition</span><span class="o">=</span><span class="n">composition</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="n">invert</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">ann_df</span><span class="o">=</span><span class="n">anns</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOHelper.filter"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.filter">[docs]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">cfilter</span><span class="p">:</span> <span class="n">Filter</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">ann_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">img_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">img_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">supercat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">area_rng</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">is_crowd</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">composition</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ComposeFilter</span><span class="p">]</span> <span class="o">=</span> <span class="n">AndFilter</span><span class="p">,</span>
+            <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">drop_orphans</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get a copy of the dataset with the applied filters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cfilter: a custom Filter for the COCOHelper.</span>
+<span class="sd">            ann_ids: a filter for the annotation ids.</span>
+<span class="sd">            img_ids: a filter for the image ids.</span>
+<span class="sd">            img_nms: a filter for the image file names.</span>
+<span class="sd">            cat_ids: a filter for the category ids.</span>
+<span class="sd">            cat_nms: a filter for the category names.</span>
+<span class="sd">            supercat_nms: a filter for the super-category names.</span>
+<span class="sd">            area_rng: a filter for the annotation area.</span>
+<span class="sd">            is_crowd: a filter for the annotation being a crowd or not</span>
+<span class="sd">                (&quot;is_crowd&quot; in the annotation of the COCO JSON file).</span>
+<span class="sd">            composition: a composition type for the filters (defaults to &quot;and&quot;</span>
+<span class="sd">                behavior between each filter).</span>
+<span class="sd">            invert: if True, invert the way the filter works.</span>
+<span class="sd">            drop_orphans: if True, drop orphans when applying the filter.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A COCOHelper with data filtered according to the given filters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cfilter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># TODO: check that at least one of the input is not None</span>
+            <span class="n">cfilter</span> <span class="o">=</span> <span class="n">composition</span><span class="p">(</span><span class="n">cfilters</span><span class="o">.</span><span class="n">imgs_filter</span><span class="p">(</span><span class="n">img_ids</span><span class="p">,</span> <span class="n">img_nms</span><span class="p">,</span> <span class="n">composition</span><span class="p">),</span>
+                                  <span class="n">cfilters</span><span class="o">.</span><span class="n">cats_filter</span><span class="p">(</span><span class="n">cat_ids</span><span class="p">,</span> <span class="n">cat_nms</span><span class="p">,</span> <span class="n">supercat_nms</span><span class="p">,</span> <span class="n">composition</span><span class="p">),</span>
+                                  <span class="n">cfilters</span><span class="o">.</span><span class="n">anns_filter</span><span class="p">(</span><span class="n">ann_ids</span><span class="p">,</span> <span class="n">area_rng</span><span class="p">,</span> <span class="n">is_crowd</span><span class="p">,</span> <span class="n">composition</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">invert</span><span class="p">:</span>
+                <span class="n">cfilter</span> <span class="o">=</span> <span class="n">NotFilter</span><span class="p">(</span><span class="n">cfilter</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">drop_orphans</span><span class="p">:</span>
+            <span class="n">joined_anns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">anns_cats_imgs</span>
+            <span class="n">joined_anns</span> <span class="o">=</span> <span class="n">cfilter</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">joined_anns</span><span class="p">)</span>
+            <span class="n">cats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">extract_cats</span><span class="p">(</span><span class="n">joined_anns</span><span class="p">)</span>
+            <span class="n">imgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">extract_imgs</span><span class="p">(</span><span class="n">joined_anns</span><span class="p">)</span>
+            <span class="n">anns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">extract_anns</span><span class="p">(</span><span class="n">joined_anns</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filtered_cats</span><span class="p">(</span><span class="n">cfilter</span><span class="p">)</span>
+            <span class="n">imgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filtered_imgs</span><span class="p">(</span><span class="n">cfilter</span><span class="p">)</span>
+            <span class="n">anns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filtered_anns</span><span class="p">(</span><span class="n">cfilter</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">cat_df</span><span class="o">=</span><span class="n">cats</span><span class="p">,</span> <span class="n">img_df</span><span class="o">=</span><span class="n">imgs</span><span class="p">,</span> <span class="n">ann_df</span><span class="o">=</span><span class="n">anns</span><span class="p">)</span></div>
+
+    <span class="c1">#</span>
+    <span class="c1"># # # # # # # # # # # # # # # #</span>
+    <span class="c1"># DATAFRAME FILTERING/GETTERS #</span>
+    <span class="c1"># # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+<div class="viewcode-block" id="COCOHelper.filtered_cats"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.filtered_cats">[docs]</a>    <span class="k">def</span> <span class="nf">filtered_cats</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">cfilter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Filter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">cat_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">supercat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">composition</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ComposeFilter</span><span class="p">]</span> <span class="o">=</span> <span class="n">AndFilter</span><span class="p">,</span>
+            <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get dataset&#39;s categories, potentially filtered by the provided filters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cfilter: a custom Filter for the COCOHelper.</span>
+<span class="sd">            cat_ids: a filter for the category ids.</span>
+<span class="sd">            cat_nms: a filter for the category names.</span>
+<span class="sd">            supercat_nms: a filter for the super-category names.</span>
+<span class="sd">            composition: a composition type for the filters (defaults to &quot;and&quot;</span>
+<span class="sd">                behavior between each filter).</span>
+<span class="sd">            invert: if True, invert the way the filter works.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A pandas.DataFrame containing the filtered categories.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cats</span>
+        <span class="c1"># cats = self.joins.imgs_anns_cats.set_index(&#39;category_id&#39;, drop=False)</span>
+        <span class="k">if</span> <span class="n">cfilter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># TODO: check that at least one of the input is not None</span>
+            <span class="n">cfilter</span> <span class="o">=</span> <span class="n">cfilters</span><span class="o">.</span><span class="n">cats_filter</span><span class="p">(</span><span class="n">cat_ids</span><span class="p">,</span> <span class="n">cat_nms</span><span class="p">,</span> <span class="n">supercat_nms</span><span class="p">,</span> <span class="n">composition</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">invert</span><span class="p">:</span>
+            <span class="n">cfilter</span> <span class="o">=</span> <span class="n">NotFilter</span><span class="p">(</span><span class="n">cfilter</span><span class="p">)</span>
+        <span class="n">cats</span> <span class="o">=</span> <span class="n">cfilter</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">cats</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cats</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span></div>
+        <span class="c1"># return self.joins.extract_cats(cats).dropna()</span>
+
+<div class="viewcode-block" id="COCOHelper.filtered_imgs"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.filtered_imgs">[docs]</a>    <span class="k">def</span> <span class="nf">filtered_imgs</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">cfilter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Filter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">img_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">img_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">supercat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">composition</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ComposeFilter</span><span class="p">]</span> <span class="o">=</span> <span class="n">AndFilter</span><span class="p">,</span>
+            <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get dataset&#39;s images, after join with annotations and categories and potentially filtered by a filter.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cfilter: a custom Filter for the COCOHelper.</span>
+<span class="sd">            img_ids: a filter for the image ids.</span>
+<span class="sd">            img_nms: a filter for the image file names.</span>
+<span class="sd">            cat_ids: a filter for the category ids.</span>
+<span class="sd">            cat_nms: a filter for the category names.</span>
+<span class="sd">            supercat_nms: a filter for the super-category names.</span>
+<span class="sd">            composition: a composition type for the filters (defaults to &quot;and&quot;</span>
+<span class="sd">                behavior between each filter).</span>
+<span class="sd">            invert: if True, invert the way the filter works.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A pandas.DataFrame containing the filtered images.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">imgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">imgs_anns_cats</span>  <span class="c1"># .set_index(&#39;image_id&#39;, drop=False)</span>
+        <span class="k">if</span> <span class="n">cfilter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># TODO: check that at least one of the input is not None</span>
+            <span class="n">cfilter</span> <span class="o">=</span> <span class="n">composition</span><span class="p">(</span><span class="n">cfilters</span><span class="o">.</span><span class="n">imgs_filter</span><span class="p">(</span><span class="n">img_ids</span><span class="p">,</span> <span class="n">img_nms</span><span class="p">,</span> <span class="n">composition</span><span class="p">),</span>
+                                  <span class="n">cfilters</span><span class="o">.</span><span class="n">cats_filter</span><span class="p">(</span><span class="n">cat_ids</span><span class="p">,</span> <span class="n">cat_nms</span><span class="p">,</span> <span class="n">supercat_nms</span><span class="p">,</span> <span class="n">composition</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">invert</span><span class="p">:</span>
+            <span class="n">cfilter</span> <span class="o">=</span> <span class="n">NotFilter</span><span class="p">(</span><span class="n">cfilter</span><span class="p">)</span>
+        <span class="n">imgs</span> <span class="o">=</span> <span class="n">cfilter</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">imgs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">extract_imgs</span><span class="p">(</span><span class="n">imgs</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="COCOHelper.filtered_anns"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.filtered_anns">[docs]</a>    <span class="k">def</span> <span class="nf">filtered_anns</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">cfilter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Filter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">ann_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">img_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">img_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">cat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">supercat_nms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDXSelector</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">area_rng</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">is_crowd</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">composition</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ComposeFilter</span><span class="p">]</span> <span class="o">=</span> <span class="n">AndFilter</span><span class="p">,</span>
+            <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get dataset&#39;s annotations after join with categories and images, and potentially after a filtering.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cfilter: a custom Filter for the COCOHelper.</span>
+<span class="sd">            ann_ids: a filter for the annotation ids.</span>
+<span class="sd">            img_ids: a filter for the image ids.</span>
+<span class="sd">            img_nms: a filter for the image file names.</span>
+<span class="sd">            cat_ids: a filter for the category ids.</span>
+<span class="sd">            cat_nms: a filter for the category names.</span>
+<span class="sd">            supercat_nms: a filter for the super-category names.</span>
+<span class="sd">            area_rng: a filter for the annotation area.</span>
+<span class="sd">            is_crowd: a filter for the annotation being a crowd or not</span>
+<span class="sd">                (&quot;is_crowd&quot; in the annotation of the COCO JSON file).</span>
+<span class="sd">            composition: a composition type for the filters (defaults to &quot;and&quot;</span>
+<span class="sd">                behavior between each filter).</span>
+<span class="sd">            invert: if True, invert the way the filter works.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A pandas.DataFrame containing the filtered annotations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">anns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">anns_cats_imgs</span>
+        <span class="k">if</span> <span class="n">cfilter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># TODO: check that at least one of the input is not None</span>
+            <span class="n">cfilter</span> <span class="o">=</span> <span class="n">composition</span><span class="p">(</span><span class="n">cfilters</span><span class="o">.</span><span class="n">imgs_filter</span><span class="p">(</span><span class="n">img_ids</span><span class="p">,</span> <span class="n">img_nms</span><span class="p">,</span> <span class="n">composition</span><span class="p">),</span>
+                                  <span class="n">cfilters</span><span class="o">.</span><span class="n">cats_filter</span><span class="p">(</span><span class="n">cat_ids</span><span class="p">,</span> <span class="n">cat_nms</span><span class="p">,</span> <span class="n">supercat_nms</span><span class="p">,</span> <span class="n">composition</span><span class="p">),</span>
+                                  <span class="n">cfilters</span><span class="o">.</span><span class="n">anns_filter</span><span class="p">(</span><span class="n">ann_ids</span><span class="p">,</span> <span class="n">area_rng</span><span class="p">,</span> <span class="n">is_crowd</span><span class="p">,</span> <span class="n">composition</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">invert</span><span class="p">:</span>
+            <span class="n">cfilter</span> <span class="o">=</span> <span class="n">NotFilter</span><span class="p">(</span><span class="n">cfilter</span><span class="p">)</span>
+        <span class="n">anns</span> <span class="o">=</span> <span class="n">cfilter</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">anns</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">extract_anns</span><span class="p">(</span><span class="n">anns</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span></div>
+
+    <span class="c1">#</span>
+    <span class="c1"># # # # # # # # # # # # # # # #</span>
+    <span class="c1"># DUPLICATE DROPPING METHODS  #</span>
+    <span class="c1"># # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+<div class="viewcode-block" id="COCOHelper.drop_duplicate_cats"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.drop_duplicate_cats">[docs]</a>    <span class="k">def</span> <span class="nf">drop_duplicate_cats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Drop duplicate categories (same values with different index).&quot;&quot;&quot;</span>
+        <span class="n">cats</span><span class="p">,</span> <span class="n">id_mapping</span> <span class="o">=</span> <span class="n">drop_duplicate_rows</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cats</span><span class="p">)</span>
+        <span class="n">anns</span> <span class="o">=</span> <span class="n">fix_fk_after_drop_duplicate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anns</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="s1">&#39;category_id&#39;</span><span class="p">,</span> <span class="n">id_mapping</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">cat_df</span><span class="o">=</span><span class="n">cats</span><span class="p">,</span> <span class="n">ann_df</span><span class="o">=</span><span class="n">anns</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOHelper.drop_duplicate_imgs"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.drop_duplicate_imgs">[docs]</a>    <span class="k">def</span> <span class="nf">drop_duplicate_imgs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Drop duplicate images (same values with different index).&quot;&quot;&quot;</span>
+        <span class="n">imgs</span><span class="p">,</span> <span class="n">id_mapping</span> <span class="o">=</span> <span class="n">drop_duplicate_rows</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imgs</span><span class="p">)</span>
+        <span class="n">anns</span> <span class="o">=</span> <span class="n">fix_fk_after_drop_duplicate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anns</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="s1">&#39;image_id&#39;</span><span class="p">,</span> <span class="n">id_mapping</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">img_df</span><span class="o">=</span><span class="n">imgs</span><span class="p">,</span> <span class="n">ann_df</span><span class="o">=</span><span class="n">anns</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOHelper.drop_duplicate_anns"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.drop_duplicate_anns">[docs]</a>    <span class="k">def</span> <span class="nf">drop_duplicate_anns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Drop duplicate annotations (same values with different index).&quot;&quot;&quot;</span>
+        <span class="n">anns</span><span class="p">,</span> <span class="n">id_mapping</span> <span class="o">=</span> <span class="n">drop_duplicate_rows</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anns</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">ignore_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bbox&#39;</span><span class="p">,</span> <span class="s1">&#39;segmentation&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">ann_df</span><span class="o">=</span><span class="n">anns</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOHelper.drop_duplicate_licenses"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.drop_duplicate_licenses">[docs]</a>    <span class="k">def</span> <span class="nf">drop_duplicate_licenses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Drop duplicate licenses (same values with different index).&quot;&quot;&quot;</span>
+        <span class="n">lic_df</span><span class="p">,</span> <span class="n">id_mapping</span> <span class="o">=</span> <span class="n">drop_duplicate_rows</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">licenses</span><span class="p">)</span>
+
+        <span class="c1"># license_id is an optional field, if the column is there it will be fixed.</span>
+        <span class="k">if</span> <span class="s1">&#39;license_id&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">img_df</span> <span class="o">=</span> <span class="n">fix_fk_after_drop_duplicate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="s1">&#39;license_id&#39;</span><span class="p">,</span> <span class="n">id_mapping</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">lic_df</span><span class="o">=</span><span class="n">lic_df</span><span class="p">,</span> <span class="n">img_df</span><span class="o">=</span><span class="n">img_df</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">lic_df</span><span class="o">=</span><span class="n">lic_df</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOHelper.merge"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="o">*</span><span class="n">coco_helper</span><span class="p">:</span> <span class="n">COCOHelper</span><span class="p">,</span>
+            <span class="n">drop_duplicates</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Merge different COCO datasets with all categories, images, annotations and licenses merged.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *coco_helper: coco dataset(s) to merge with this coco dataset.</span>
+<span class="sd">            drop_duplicates: if True, merge duplicate rows dropping redundant.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A COCOHelper resulting from merging multiple datasets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">cocohelper.merge</span> <span class="kn">import</span> <span class="n">merge_coco</span>
+        <span class="n">all_coco</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">coco_helper</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">merge_coco</span><span class="p">(</span><span class="o">*</span><span class="n">all_coco</span><span class="p">,</span> <span class="n">drop_duplicates</span><span class="o">=</span><span class="n">drop_duplicates</span><span class="p">)</span></div>
+
+    <span class="c1">#</span>
+    <span class="c1"># # # # # # # # #</span>
+    <span class="c1"># IMAGE LOADER  #</span>
+    <span class="c1"># # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+<div class="viewcode-block" id="COCOHelper.get_img"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.get_img">[docs]</a>    <span class="k">def</span> <span class="nf">get_img</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">img_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load the image with img_id as a numpy array.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            img_id: The id of the image to load.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A numpy array with shape (H, W, C).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">image_file_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filtered_imgs</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">img_id</span><span class="p">,</span> <span class="s1">&#39;file_name&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">COCOImageNotFoundError</span><span class="p">(</span><span class="n">img_id</span><span class="p">)</span>
+
+        <span class="n">image_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_path</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">img_dir</span> <span class="o">/</span> <span class="n">image_file_name</span>
+        <span class="k">with</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">img</span><span class="p">:</span>
+            <span class="n">image_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image_array</span></div>
+
+    <span class="c1">#</span>
+    <span class="c1"># # # # # # # # # #</span>
+    <span class="c1"># SAMPLES LOADERS #</span>
+    <span class="c1"># # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+    <span class="c1"># TODO: transform this to an iterator</span>
+<div class="viewcode-block" id="COCOHelper.get_ann_sample"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.get_ann_sample">[docs]</a>    <span class="k">def</span> <span class="nf">get_ann_sample</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">ann_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">idx</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">transform</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Transform</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Load a single annotation with the corresponding image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ann_id: The id of annotation to load, partially optional (if not</span>
+<span class="sd">                provided, idx must be provided).</span>
+<span class="sd">            idx: The index of annotation to load, partially optional (if not</span>
+<span class="sd">                provided, ann_id must be provided).</span>
+<span class="sd">            transform: An optional Transform to modify the image and annotation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The image as a numpy array and the annotation infos as a dict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">ann_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">idx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> \
+            <span class="s2">&quot;One and only one of the two input parameters `ann_id`  and `idx`  must be provided (not None)&quot;</span>
+
+        <span class="k">if</span> <span class="n">ann_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ann_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anns</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ann_cat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">anns_cats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ann_id</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">COCOAnnotationNotFoundError</span><span class="p">(</span><span class="n">ann_id</span><span class="p">)</span>
+
+        <span class="n">img_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_img</span><span class="p">(</span><span class="n">ann_cat</span><span class="o">.</span><span class="n">image_id</span><span class="p">)</span>
+        <span class="n">anns</span> <span class="o">=</span> <span class="n">ann_cat</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">img_data</span><span class="p">,</span> <span class="n">anns</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">img_data</span><span class="p">,</span> <span class="p">[</span><span class="n">anns</span><span class="p">])</span>
+            <span class="n">anns</span> <span class="o">=</span> <span class="n">anns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">img_data</span><span class="p">,</span> <span class="n">anns</span></div>
+
+<div class="viewcode-block" id="COCOHelper.get_img_sample"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.get_img_sample">[docs]</a>    <span class="k">def</span> <span class="nf">get_img_sample</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">img_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">idx</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">transform</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Transform</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Load an image with infos and annotations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            img_id: The id of the image to load, partially optional (if not</span>
+<span class="sd">                provided, idx must be provided).</span>
+<span class="sd">            idx: The index of the image to load, partially optional (if not</span>
+<span class="sd">                provided, img_id must be provided).</span>
+<span class="sd">            transform: An optional Transform to modify the image and annotations.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A dictionary with image infos and data, and a list of annotations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">img_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">idx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> \
+            <span class="s2">&quot;One and only one of the two input parameters `img_id`  and `idx`  must be provided (not None)&quot;</span>
+
+        <span class="k">if</span> <span class="n">img_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">img_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">img_id</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">COCOImageNotFoundError</span><span class="p">(</span><span class="n">img_id</span><span class="p">)</span>
+
+        <span class="n">img_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_img</span><span class="p">(</span><span class="n">img_id</span><span class="p">)</span>
+        <span class="n">anns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filtered_anns</span><span class="p">(</span><span class="n">cfilters</span><span class="o">.</span><span class="n">imgs_filter</span><span class="p">(</span><span class="n">ids</span><span class="o">=</span><span class="n">img_id</span><span class="p">))</span>
+        <span class="n">ann_cats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">anns_cats</span>  <span class="c1"># .set_index(&#39;annotation_id&#39;)</span>
+        <span class="n">ann_cats</span> <span class="o">=</span> <span class="n">ann_cats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">anns</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">ann_cats</span> <span class="o">=</span> <span class="n">ann_cats</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s1">&#39;records&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">img_data</span><span class="p">,</span> <span class="n">ann_cats</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">img_data</span><span class="p">,</span> <span class="n">ann_cats</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="n">img</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">img_data</span>
+        <span class="k">return</span> <span class="n">img</span><span class="p">,</span> <span class="n">ann_cats</span></div>
+
+<div class="viewcode-block" id="COCOHelper.new_info_dict"><a class="viewcode-back" href="../../_autosummary/cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper.new_info_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">new_info_dict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get a generic info dict for COCO format.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;contributor&quot;</span><span class="p">:</span> <span class="s2">&quot;COCOHelpers&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;date_created&quot;</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%b-</span><span class="si">%d</span><span class="s2">, %I:%M:%S (%Z)&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">))</span>
+        <span class="p">}</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

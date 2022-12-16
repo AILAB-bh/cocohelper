@@ -1,0 +1,56 @@
+COCOColsMapper
+==============
+
+.. currentmodule:: cocohelper.helper
+
+.. autoclass:: COCOColsMapper
+   :show-inheritance:
+
+
+   
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~COCOColsMapper.all
+      ~COCOColsMapper.ann
+      ~COCOColsMapper.cat
+      ~COCOColsMapper.img
+      ~COCOColsMapper.lic
+      ~COCOColsMapper.to_origs
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       all
+   .. autoattribute::
+       ann
+   .. autoattribute::
+       cat
+   .. autoattribute::
+       img
+   .. autoattribute::
+       lic
+   .. autoattribute::
+       to_origs
+   
+   

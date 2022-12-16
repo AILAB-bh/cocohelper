@@ -1,0 +1,6 @@
+\_crop\_segmentation
+====================
+
+.. currentmodule:: cocohelper.transforms.crop
+
+.. autofunction:: _crop_segmentation

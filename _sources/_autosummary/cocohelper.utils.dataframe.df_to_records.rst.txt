@@ -1,0 +1,6 @@
+df\_to\_records
+===============
+
+.. currentmodule:: cocohelper.utils.dataframe
+
+.. autofunction:: df_to_records

@@ -1,0 +1,51 @@
+segmentation
+============
+
+.. automodule:: cocohelper.utils.segmentation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Functions
+
+.. autosummary::
+  :toctree:
+
+  coco_to_binary_masks
+  compressed_rle_to_mask
+  compute_polygon_area
+  convert_to_mask
+  convert_to_mode
+  decode_mask
+  encode_mask
+  get_segmentation_mode
+  mask_to_compressed_rle
+  mask_to_polygon
+  mask_to_rle
+  polygon_to_mask
+  rle_to_mask
+
+
+
+
+
+
+
+
+
+

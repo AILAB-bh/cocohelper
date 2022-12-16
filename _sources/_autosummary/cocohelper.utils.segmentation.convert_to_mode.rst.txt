@@ -1,0 +1,6 @@
+convert\_to\_mode
+=================
+
+.. currentmodule:: cocohelper.utils.segmentation
+
+.. autofunction:: convert_to_mode

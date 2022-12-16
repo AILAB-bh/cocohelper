@@ -1,0 +1,71 @@
+RandomFlip
+==========
+
+.. currentmodule:: cocohelper.transforms.randomflip
+
+.. autoclass:: RandomFlip
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~RandomFlip._flip_bbox
+      ~RandomFlip._flip_img
+      ~RandomFlip._flip_segmentations
+      ~RandomFlip.apply
+      ~RandomFlip.compute_bbox_area
+      ~RandomFlip.transform_dataset
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~RandomFlip._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      _flip_bbox
+   .. automethod::
+      _flip_img
+   .. automethod::
+      _flip_segmentations
+   .. automethod::
+      apply
+   .. automethod::
+      compute_bbox_area
+   .. automethod::
+      transform_dataset
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

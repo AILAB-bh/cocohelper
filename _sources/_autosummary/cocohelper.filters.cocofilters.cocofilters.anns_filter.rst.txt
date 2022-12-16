@@ -1,0 +1,6 @@
+anns\_filter
+============
+
+.. currentmodule:: cocohelper.filters.cocofilters.cocofilters
+
+.. autofunction:: anns_filter

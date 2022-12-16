@@ -1,0 +1,6 @@
+\_get\_empty\_json
+==================
+
+.. currentmodule:: cocohelper.importer
+
+.. autofunction:: _get_empty_json

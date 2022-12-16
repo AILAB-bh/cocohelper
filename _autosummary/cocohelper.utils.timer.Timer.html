@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timer &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="types" href="cocohelper.utils.types.html" />
+    <link rel="prev" title="timer" href="cocohelper.utils.timer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../apigen.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cocohelper.html">cocohelper</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.adapters.html">adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.dataframe.html">dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.errors.html">errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.filters.html">filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.helper.html">helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.importer.html">importer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.joins.html">joins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.merge.html">merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.splitters.html">splitters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.stats.html">stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.transforms.html">transforms</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cocohelper.utils.html">utils</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.colmapper.html">colmapper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.dataframe.html">dataframe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.path.html">path</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.segmentation.html">segmentation</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="cocohelper.utils.timer.html">timer</a><ul class="current">
+<li class="toctree-l5 current"><a class="current reference internal" href="#">Timer</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.utils.timer.Timer"><code class="docutils literal notranslate"><span class="pre">Timer</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#cocohelper.utils.timer.Timer._recreate_cm"><code class="docutils literal notranslate"><span class="pre">Timer._recreate_cm()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#cocohelper.utils.timer.Timer.elapsed"><code class="docutils literal notranslate"><span class="pre">Timer.elapsed</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.types.html">types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.utils.html">utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.validator.html">validator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.visualizer.html">visualizer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.utils.html">utils</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.utils.timer.html">timer</a></li>
+      <li class="breadcrumb-item active">Timer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/cocohelper.utils.timer.Timer.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="timer">
+<h1>Timer<a class="headerlink" href="#timer" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cocohelper.utils.timer.Timer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cocohelper.utils.timer.</span></span><span class="sig-name descname"><span class="pre">Timer</span></span><a class="reference internal" href="../_modules/cocohelper/utils/timer.html#Timer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.utils.timer.Timer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ContextDecorator</span></code></p>
+<p>Timer class that can be used both as a context manager and function/method decorator.</p>
+<p>Usage:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">math</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">time</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Timer</span><span class="p">():</span>
+<span class="gp">... </span>   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">42</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">! = </span><span class="si">{:.5}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">i</span><span class="o">**</span><span class="mi">2</span><span class="p">))))</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@Timer</span><span class="p">(</span><span class="n">end_msg</span><span class="o">=</span><span class="s2">&quot;Second&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">some_func</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="n">start_msg</span><span class="o">=</span><span class="s2">&quot;Starting operation.&quot;</span><span class="p">,</span> <span class="n">end_msg</span><span class="o">=</span><span class="s2">&quot;Operation executed.&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">42</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">! = </span><span class="si">{:.5}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">i</span><span class="o">**</span><span class="mi">2</span><span class="p">))))</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">elapsed</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Instantiate new Timer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_msg</strong> – message to print before starting the operation.</p></li>
+<li><p><strong>end_msg</strong> – message (prefix) to print at the end of operation.</p></li>
+<li><p><strong>log_fn</strong> – logging function.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Method List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.utils.timer.Timer._recreate_cm" title="cocohelper.utils.timer.Timer._recreate_cm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_recreate_cm</span></code></a>()</p></td>
+<td><p>Return a recreated instance of self.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.utils.timer.Timer.elapsed" title="cocohelper.utils.timer.Timer.elapsed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">elapsed</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Details</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.utils.timer.Timer._recreate_cm">
+<span class="sig-name descname"><span class="pre">_recreate_cm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cocohelper.utils.timer.Timer._recreate_cm" title="Permalink to this definition"></a></dt>
+<dd><p>Return a recreated instance of self.</p>
+<p>Allows an otherwise one-shot context manager like
+_GeneratorContextManager to support use as
+a decorator via implicit recreation.</p>
+<p>This is a private interface just for _GeneratorContextManager.
+See issue #11647 for details.</p>
+</dd></dl>
+
+<p class="rubric">Attribute Details</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.utils.timer.Timer.elapsed">
+<span class="sig-name descname"><span class="pre">elapsed</span></span><a class="headerlink" href="#cocohelper.utils.timer.Timer.elapsed" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cocohelper.utils.timer.html" class="btn btn-neutral float-left" title="timer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cocohelper.utils.types.html" class="btn btn-neutral float-right" title="types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

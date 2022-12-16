@@ -1,0 +1,47 @@
+validator
+=========
+
+.. automodule:: cocohelper.validator
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  COCOValidator
+
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Functions
+
+.. autosummary::
+  :toctree:
+
+  _assert_dict_value_type
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+\_assert\_dict\_value\_type
+===========================
+
+.. currentmodule:: cocohelper.validator
+
+.. autofunction:: _assert_dict_value_type

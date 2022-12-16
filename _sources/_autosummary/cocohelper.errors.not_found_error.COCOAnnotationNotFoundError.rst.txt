@@ -1,0 +1,6 @@
+cocohelper.errors.not\_found\_error.COCOAnnotationNotFoundError
+===============================================================
+
+.. currentmodule:: cocohelper.errors.not_found_error
+
+.. autoexception:: COCOAnnotationNotFoundError

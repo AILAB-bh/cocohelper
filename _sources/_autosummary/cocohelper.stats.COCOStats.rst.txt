@@ -1,0 +1,80 @@
+COCOStats
+=========
+
+.. currentmodule:: cocohelper.stats
+
+.. autoclass:: COCOStats
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~COCOStats.__get_annotations_ratios
+      ~COCOStats.get_annotation_size_stats
+      ~COCOStats.get_image_size_stats
+      ~COCOStats.get_optimal_image_size
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~COCOStats.cat_ids_ratios
+      ~COCOStats.cat_nms_ratios
+      ~COCOStats.coco_helper
+      ~COCOStats.nb_anns
+      ~COCOStats.nb_cats
+      ~COCOStats.nb_imgs
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      __get_annotations_ratios
+   .. automethod::
+      get_annotation_size_stats
+   .. automethod::
+      get_image_size_stats
+   .. automethod::
+      get_optimal_image_size
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       cat_ids_ratios
+   .. autoattribute::
+       cat_nms_ratios
+   .. autoattribute::
+       coco_helper
+   .. autoattribute::
+       nb_anns
+   .. autoattribute::
+       nb_cats
+   .. autoattribute::
+       nb_imgs
+   
+   

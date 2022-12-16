@@ -1,0 +1,59 @@
+ProportionalDataSplitter
+========================
+
+.. currentmodule:: cocohelper.splitters.proportional
+
+.. autoclass:: ProportionalDataSplitter
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~ProportionalDataSplitter._get_ids
+      ~ProportionalDataSplitter.apply
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~ProportionalDataSplitter._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      _get_ids
+   .. automethod::
+      apply
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

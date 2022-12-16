@@ -1,0 +1,68 @@
+BinaryMaskDatasetAdapter
+========================
+
+.. currentmodule:: cocohelper.adapters.binary_mask_adapter
+
+.. autoclass:: BinaryMaskDatasetAdapter
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~BinaryMaskDatasetAdapter.extract_bbox_from_binary_mask
+      ~BinaryMaskDatasetAdapter.get_categories
+      ~BinaryMaskDatasetAdapter.get_individual_instances
+      ~BinaryMaskDatasetAdapter.get_sample
+      ~BinaryMaskDatasetAdapter.read_image
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~BinaryMaskDatasetAdapter._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      extract_bbox_from_binary_mask
+   .. automethod::
+      get_categories
+   .. automethod::
+      get_individual_instances
+   .. automethod::
+      get_sample
+   .. automethod::
+      read_image
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

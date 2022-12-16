@@ -1,0 +1,6 @@
+\_merge\_categories
+===================
+
+.. currentmodule:: cocohelper.merge
+
+.. autofunction:: _merge_categories

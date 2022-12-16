@@ -1,0 +1,6 @@
+\_create\_image\_mapping
+========================
+
+.. currentmodule:: cocohelper.merge
+
+.. autofunction:: _create_image_mapping

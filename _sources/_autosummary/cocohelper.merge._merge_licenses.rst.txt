@@ -1,0 +1,6 @@
+\_merge\_licenses
+=================
+
+.. currentmodule:: cocohelper.merge
+
+.. autofunction:: _merge_licenses

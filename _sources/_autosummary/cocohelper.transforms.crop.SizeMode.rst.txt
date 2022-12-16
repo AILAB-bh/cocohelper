@@ -1,0 +1,44 @@
+SizeMode
+========
+
+.. currentmodule:: cocohelper.transforms.crop
+
+.. autoclass:: SizeMode
+   :show-inheritance:
+
+
+   
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~SizeMode.pixel
+      ~SizeMode.percentage
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       pixel
+   .. autoattribute::
+       percentage
+   
+   

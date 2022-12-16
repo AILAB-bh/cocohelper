@@ -1,0 +1,6 @@
+get\_segmentation\_mode
+=======================
+
+.. currentmodule:: cocohelper.utils.segmentation
+
+.. autofunction:: get_segmentation_mode

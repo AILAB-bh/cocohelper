@@ -1,0 +1,6 @@
+fix\_not\_tuple\_object
+=======================
+
+.. currentmodule:: cocohelper.utils.utils
+
+.. autofunction:: fix_not_tuple_object

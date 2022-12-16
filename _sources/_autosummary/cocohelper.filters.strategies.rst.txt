@@ -1,0 +1,41 @@
+strategies
+==========
+
+.. automodule:: cocohelper.filters.strategies
+
+
+
+
+.. rubric:: Submodule
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   cocohelper.filters.strategies.functional
+   cocohelper.filters.strategies.strategies
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

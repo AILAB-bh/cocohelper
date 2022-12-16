@@ -1,0 +1,53 @@
+﻿cocohelper
+==========
+
+.. automodule:: cocohelper
+
+
+
+
+.. rubric:: Submodule
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   cocohelper.adapters
+   cocohelper.dataframe
+   cocohelper.errors
+   cocohelper.filters
+   cocohelper.helper
+   cocohelper.importer
+   cocohelper.joins
+   cocohelper.merge
+   cocohelper.splitters
+   cocohelper.stats
+   cocohelper.transforms
+   cocohelper.utils
+   cocohelper.validator
+   cocohelper.visualizer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

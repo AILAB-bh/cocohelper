@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COCOValidator &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="_assert_dict_value_type" href="cocohelper.validator._assert_dict_value_type.html" />
+    <link rel="prev" title="validator" href="cocohelper.validator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../apigen.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cocohelper.html">cocohelper</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.adapters.html">adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.dataframe.html">dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.errors.html">errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.filters.html">filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.helper.html">helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.importer.html">importer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.joins.html">joins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.merge.html">merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.splitters.html">splitters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.stats.html">stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.transforms.html">transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.utils.html">utils</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cocohelper.validator.html">validator</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">COCOValidator</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#cocohelper.validator.COCOValidator"><code class="docutils literal notranslate"><span class="pre">COCOValidator</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator._annotation_ids_are_unique"><code class="docutils literal notranslate"><span class="pre">COCOValidator._annotation_ids_are_unique()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator._annotations_have_mandatory_keys"><code class="docutils literal notranslate"><span class="pre">COCOValidator._annotations_have_mandatory_keys()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator._annotations_have_valid_category_id"><code class="docutils literal notranslate"><span class="pre">COCOValidator._annotations_have_valid_category_id()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator._annotations_have_valid_image_id"><code class="docutils literal notranslate"><span class="pre">COCOValidator._annotations_have_valid_image_id()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator._categories_have_mandatory_keys"><code class="docutils literal notranslate"><span class="pre">COCOValidator._categories_have_mandatory_keys()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator._category_ids_are_unique"><code class="docutils literal notranslate"><span class="pre">COCOValidator._category_ids_are_unique()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator._has_valid_dataset_tree"><code class="docutils literal notranslate"><span class="pre">COCOValidator._has_valid_dataset_tree()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator._image_ids_are_unique"><code class="docutils literal notranslate"><span class="pre">COCOValidator._image_ids_are_unique()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator._images_have_mandatory_keys"><code class="docutils literal notranslate"><span class="pre">COCOValidator._images_have_mandatory_keys()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator._json_has_mandatory_keys"><code class="docutils literal notranslate"><span class="pre">COCOValidator._json_has_mandatory_keys()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator._licenses_ids_are_unique"><code class="docutils literal notranslate"><span class="pre">COCOValidator._licenses_ids_are_unique()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator.validate_dataset"><code class="docutils literal notranslate"><span class="pre">COCOValidator.validate_dataset()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.validator.COCOValidator.validate_dir"><code class="docutils literal notranslate"><span class="pre">COCOValidator.validate_dir()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.validator._assert_dict_value_type.html">_assert_dict_value_type</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.visualizer.html">visualizer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.validator.html">validator</a></li>
+      <li class="breadcrumb-item active">COCOValidator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/cocohelper.validator.COCOValidator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cocovalidator">
+<h1>COCOValidator<a class="headerlink" href="#cocovalidator" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cocohelper.validator.</span></span><span class="sig-name descname"><span class="pre">COCOValidator</span></span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class validates COCO datasets.</p>
+<p class="rubric">Method List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator._annotation_ids_are_unique" title="cocohelper.validator.COCOValidator._annotation_ids_are_unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_annotation_ids_are_unique</span></code></a>(json_data)</p></td>
+<td><p>Check if there are duplicated annotations ids.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator._annotations_have_mandatory_keys" title="cocohelper.validator.COCOValidator._annotations_have_mandatory_keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_annotations_have_mandatory_keys</span></code></a>(json_data)</p></td>
+<td><p>Check if annotations have the mandatory keys.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator._annotations_have_valid_category_id" title="cocohelper.validator.COCOValidator._annotations_have_valid_category_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_annotations_have_valid_category_id</span></code></a>(json_data)</p></td>
+<td><p>Check that annotations have a valid category id.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator._annotations_have_valid_image_id" title="cocohelper.validator.COCOValidator._annotations_have_valid_image_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_annotations_have_valid_image_id</span></code></a>(json_data)</p></td>
+<td><p>Check that annotations have a valid image id.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator._categories_have_mandatory_keys" title="cocohelper.validator.COCOValidator._categories_have_mandatory_keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_categories_have_mandatory_keys</span></code></a>(json_data[, ...])</p></td>
+<td><p>Check if categories have the mandatory keys.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator._category_ids_are_unique" title="cocohelper.validator.COCOValidator._category_ids_are_unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_category_ids_are_unique</span></code></a>(json_data)</p></td>
+<td><p>Check if there are duplicated category ids.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator._has_valid_dataset_tree" title="cocohelper.validator.COCOValidator._has_valid_dataset_tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_has_valid_dataset_tree</span></code></a>()</p></td>
+<td><p>Check dataset directory tree validity</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator._image_ids_are_unique" title="cocohelper.validator.COCOValidator._image_ids_are_unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_image_ids_are_unique</span></code></a>(json_data)</p></td>
+<td><p>Check if there are duplicated image ids.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator._images_have_mandatory_keys" title="cocohelper.validator.COCOValidator._images_have_mandatory_keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_images_have_mandatory_keys</span></code></a>(json_data[, ...])</p></td>
+<td><p>Check if images have the mandatory keys.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator._json_has_mandatory_keys" title="cocohelper.validator.COCOValidator._json_has_mandatory_keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_json_has_mandatory_keys</span></code></a>(json_data[, ...])</p></td>
+<td><p>Check if the input COCO annotation json file has the mandatory keys.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator._licenses_ids_are_unique" title="cocohelper.validator.COCOValidator._licenses_ids_are_unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_licenses_ids_are_unique</span></code></a>(json_data)</p></td>
+<td><p>Check if there are duplicated licenses ids.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator.validate_dataset" title="cocohelper.validator.COCOValidator.validate_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_dataset</span></code></a>()</p></td>
+<td><p>Check if this is a valid COCO dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.validator.COCOValidator.validate_dir" title="cocohelper.validator.COCOValidator.validate_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_dir</span></code></a>(dataset_dir[, json_fname])</p></td>
+<td><p>Checks the COCO dataset validity based on the dir structure.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Details</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator._annotation_ids_are_unique">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_annotation_ids_are_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator._annotation_ids_are_unique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator._annotation_ids_are_unique" title="Permalink to this definition"></a></dt>
+<dd><p>Check if there are duplicated annotations ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_data</strong> (<em>Dict</em>) – data from a coco json file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the annotation ids are unique, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator._annotations_have_mandatory_keys">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_annotations_have_mandatory_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mandatory_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator._annotations_have_mandatory_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator._annotations_have_mandatory_keys" title="Permalink to this definition"></a></dt>
+<dd><p>Check if annotations have the mandatory keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_data</strong> (<em>Dict</em>) – data from a coco json file.</p></li>
+<li><p><strong>mandatory_keys</strong> (<em>Optional</em><em>[</em><em>List</em><em>]</em>) – mandatory keys for a valid COCO json file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the dictionary has mandatory keys, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator._annotations_have_valid_category_id">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_annotations_have_valid_category_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator._annotations_have_valid_category_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator._annotations_have_valid_category_id" title="Permalink to this definition"></a></dt>
+<dd><p>Check that annotations have a valid category id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_data</strong> (<em>Dict</em>) – data from a coco json file.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator._annotations_have_valid_image_id">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_annotations_have_valid_image_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator._annotations_have_valid_image_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator._annotations_have_valid_image_id" title="Permalink to this definition"></a></dt>
+<dd><p>Check that annotations have a valid image id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_data</strong> (<em>Dict</em>) – data from a coco json file.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator._categories_have_mandatory_keys">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_categories_have_mandatory_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mandatory_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recommended_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator._categories_have_mandatory_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator._categories_have_mandatory_keys" title="Permalink to this definition"></a></dt>
+<dd><p>Check if categories have the mandatory keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_data</strong> (<em>Dict</em>) – data from a coco json file.</p></li>
+<li><p><strong>mandatory_keys</strong> (<em>Optional</em><em>[</em><em>List</em><em>]</em>) – mandatory keys for a valid COCO json file.
+If missing, validation fails.</p></li>
+<li><p><strong>recommended_keys</strong> (<em>Optional</em><em>[</em><em>List</em><em>]</em>) – recommended keys for a valid COCO json file.
+If missing, generates a warning. The check on these keys is
+run only after checking the mandatory keys.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the dictionary has mandatory keys, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator._category_ids_are_unique">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_category_ids_are_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator._category_ids_are_unique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator._category_ids_are_unique" title="Permalink to this definition"></a></dt>
+<dd><p>Check if there are duplicated category ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_data</strong> (<em>Dict</em>) – data from a coco json file.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator._has_valid_dataset_tree">
+<span class="sig-name descname"><span class="pre">_has_valid_dataset_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator._has_valid_dataset_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator._has_valid_dataset_tree" title="Permalink to this definition"></a></dt>
+<dd><p>Check dataset directory tree validity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the dataset tree is valid, False otherwise</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator._image_ids_are_unique">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_image_ids_are_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator._image_ids_are_unique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator._image_ids_are_unique" title="Permalink to this definition"></a></dt>
+<dd><p>Check if there are duplicated image ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_data</strong> (<em>Dict</em>) – data from a coco json file.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator._images_have_mandatory_keys">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_images_have_mandatory_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mandatory_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator._images_have_mandatory_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator._images_have_mandatory_keys" title="Permalink to this definition"></a></dt>
+<dd><p>Check if images have the mandatory keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_data</strong> (<em>Dict</em>) – data from a coco json file.</p></li>
+<li><p><strong>mandatory_keys</strong> (<em>Optional</em><em>[</em><em>List</em><em>]</em>) – mandatory keys for a valid COCO json file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the dictionary has mandatory keys, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator._json_has_mandatory_keys">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_json_has_mandatory_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mandatory_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator._json_has_mandatory_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator._json_has_mandatory_keys" title="Permalink to this definition"></a></dt>
+<dd><p>Check if the input COCO annotation json file has the mandatory keys.</p>
+<p>Correct COCO annotation json files must have the following keys: “images”,
+“annotations”, “categories”. There are some exceptions: for example, the
+“categories” field does not exist for caption annotations. In these cases,
+you can explicitly feed the mandatory_keys to the function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_data</strong> (<em>Dict</em>) – data from a coco json file.</p></li>
+<li><p><strong>mandatory_keys</strong> (<em>Optional</em><em>[</em><em>List</em><em>]</em>) – mandatory keys for a valid COCO json file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the json file has mandatory keys, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator._licenses_ids_are_unique">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_licenses_ids_are_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator._licenses_ids_are_unique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator._licenses_ids_are_unique" title="Permalink to this definition"></a></dt>
+<dd><p>Check if there are duplicated licenses ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_data</strong> (<em>Dict</em>) – data from a coco json file.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator.validate_dataset">
+<span class="sig-name descname"><span class="pre">validate_dataset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator.validate_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator.validate_dataset" title="Permalink to this definition"></a></dt>
+<dd><p>Check if this is a valid COCO dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if this is a valida dataset.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.validator.COCOValidator.validate_dir">
+<span class="sig-name descname"><span class="pre">validate_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_fname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coco.json'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/validator.html#COCOValidator.validate_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.validator.COCOValidator.validate_dir" title="Permalink to this definition"></a></dt>
+<dd><p>Checks the COCO dataset validity based on the dir structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_dir</strong> (<em>str</em>) – </p></li>
+<li><p><strong>json_fname</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cocohelper.validator.html" class="btn btn-neutral float-left" title="validator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cocohelper.validator._assert_dict_value_type.html" class="btn btn-neutral float-right" title="_assert_dict_value_type" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

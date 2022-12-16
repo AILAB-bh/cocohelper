@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cocohelper.dataframe &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../apigen.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cocohelper.dataframe</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cocohelper.dataframe</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">IndexLabel</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">cocohelper.utils.colmapper</span> <span class="kn">import</span> <span class="n">ColMap</span>
+
+
+<div class="viewcode-block" id="COCODataFrame"><a class="viewcode-back" href="../../_autosummary/cocohelper.dataframe.COCODataFrame.html#cocohelper.dataframe.COCODataFrame">[docs]</a><span class="k">class</span> <span class="nc">COCODataFrame</span><span class="p">(</span><span class="n">DataFrame</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+            <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">col_mappers</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ColMap</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Extends pandas Dataframe to easy column remapping and join with COCO</span>
+<span class="sd">        Datasets.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dataframe: the original data.</span>
+<span class="sd">            name: the name of the dataframe.</span>
+<span class="sd">            col_mappers: a list of Column Mapper objects that can be used to</span>
+<span class="sd">                remap other columns of the original dataframe.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># convert dtypes to the best possible, and convert numpy types (e.g. int64) to nullable pandas types (Int64)</span>
+        <span class="c1"># TODO: do we need to convert_dtypes ? This create problem when we convert back to numpy</span>
+        <span class="c1">#  if we don&#39;t explicitly specify the numpy dtype.</span>
+        <span class="c1"># dataframe = dataframe.convert_dtypes()</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">COCODataFrame</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map_dataframe_cols</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">col_mappers</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">COCODataFrame</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;COCODataFrame created by a COCODataFrame without using a copy constructor.&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__col_mappers</span> <span class="o">=</span> <span class="n">col_mappers</span>
+
+        <span class="k">if</span> <span class="s1">&#39;id&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_id&quot;</span>
+        <span class="c1"># self.index.name = self.name + &#39;_id&#39;</span>
+
+<div class="viewcode-block" id="COCODataFrame.copy"><a class="viewcode-back" href="../../_autosummary/cocohelper.dataframe.COCODataFrame.html#cocohelper.dataframe.COCODataFrame.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">deep</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;COCODataFrame&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns a copy of the COCODataFrame. The copy is deep by default.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            deep: if True, the copy is deep.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A copy of the COCODataFrame.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">COCODataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__col_mappers</span><span class="p">)</span></div>
+
+    <span class="c1"># def __deepcopy__(self, memodict={}):</span>
+    <span class="c1">#     return COCODataFrame(super().__deepcopy__(memodict), self.name, self.__col_mappers)</span>
+
+<div class="viewcode-block" id="COCODataFrame.auto_reset_index"><a class="viewcode-back" href="../../_autosummary/cocohelper.dataframe.COCODataFrame.html#cocohelper.dataframe.COCODataFrame.auto_reset_index">[docs]</a>    <span class="k">def</span> <span class="nf">auto_reset_index</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">level</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IndexLabel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="c1"># todo: `Hashable | Sequence[Hashable] | None = None` gives error on python 3.8</span>
+            <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">col_level</span><span class="p">:</span> <span class="n">Hashable</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">col_fill</span><span class="p">:</span> <span class="n">Hashable</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Similar to reset_index but, index will drop if index name is None.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            level: only remove the given levels from the index. Removes all</span>
+<span class="sd">                levels by default.</span>
+<span class="sd">            inplace: if to modify the DataFrame rather than creating a new one.</span>
+<span class="sd">            col_level: if the columns have multiple levels, determines which</span>
+<span class="sd">                level the labels are inserted into. By default, it is inserted</span>
+<span class="sd">                into the first level.</span>
+<span class="sd">            col_fill: if the columns have multiple levels, determines how the</span>
+<span class="sd">                other levels are named. If None then the index name is repeated.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DataFrame or None. Changed row labels or None if ``inplace=True``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="n">inplace</span><span class="p">,</span> <span class="n">col_level</span><span class="o">=</span><span class="n">col_level</span><span class="p">,</span> <span class="n">col_fill</span><span class="o">=</span><span class="n">col_fill</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCODataFrame.set_index"><a class="viewcode-back" href="../../_autosummary/cocohelper.dataframe.COCODataFrame.html#cocohelper.dataframe.COCODataFrame.set_index">[docs]</a>    <span class="k">def</span> <span class="nf">set_index</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">keys</span><span class="p">,</span>
+            <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">append</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">verify_integrity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the DataFrame index using existing columns.</span>
+
+<span class="sd">        Set the DataFrame index (row labels) using one or more existing</span>
+<span class="sd">        columns or arrays (of the correct length). The index can replace the</span>
+<span class="sd">        existing index or expand on it.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            keys: label or array-like or list of labels/arrays This parameter can be either a single column key, a</span>
+<span class="sd">                single array of the same length as the calling DataFrame, or a list containing an arbitrary combination</span>
+<span class="sd">                of column keys and arrays. Here, &quot;array&quot; encompasses :class:`Series`, :class:`Index`, ``np.ndarray``,</span>
+<span class="sd">                 and instances of :class:`~collections.abc.Iterator`.</span>
+<span class="sd">            drop: bool, default True. Delete columns to be used as the new index.</span>
+<span class="sd">            append: bool, default False. Whether to append columns to existing index.</span>
+<span class="sd">            inplace: bool, default False. Whether to modify the DataFrame rather than creating a new one.</span>
+<span class="sd">            verify_integrity: bool, default False. Check the new index for duplicates. Otherwise, defer the check until</span>
+<span class="sd">                necessary. Setting to False will improve the performance of this method.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DataFrame or None. Changed row labels or None if ``inplace=True``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Before setting index, reset the index keeping it if the index has a name:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">COCODataFrame</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">keys</span><span class="o">=</span><span class="n">keys</span><span class="p">,</span>
+                                                    <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span>
+                                                    <span class="n">append</span><span class="o">=</span><span class="n">append</span><span class="p">,</span>
+                                                    <span class="n">inplace</span><span class="o">=</span><span class="n">inplace</span><span class="p">,</span>
+                                                    <span class="n">verify_integrity</span><span class="o">=</span><span class="n">verify_integrity</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the DataFrame with columns mapped to the new names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">orig_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the original DataFrame remapping columns to the original names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unmap_dataframe_cols</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__col_mappers</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the name assigned to this dataframe.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+
+<div class="viewcode-block" id="COCODataFrame.cocojoin"><a class="viewcode-back" href="../../_autosummary/cocohelper.dataframe.COCODataFrame.html#cocohelper.dataframe.COCODataFrame.cocojoin">[docs]</a>    <span class="k">def</span> <span class="nf">cocojoin</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">cdf</span><span class="p">:</span> <span class="s2">&quot;COCODataFrame&quot;</span><span class="p">,</span>
+            <span class="n">how</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;COCODataFrame&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Automatically join the dataframe with an input dataframe exploiting the index column names as foreign keys.</span>
+
+<span class="sd">        If the `cdf` has a column with the same name of the self dataframe index column, that column will be used as a</span>
+<span class="sd">        foreign key and the join is performed. If self dataframe has a column with the same name of the `cdf` index</span>
+<span class="sd">        column, that column will be used as a foreign key and the join is performed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cdf: the COCODataFrame on which execute the join.</span>
+<span class="sd">            how: the type of join</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            a new COCODataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cdf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Trying to join with `None` value, skipping and returning self.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cdf</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Trying to join with an empty COCODataFrame, skipping and returning self.&quot;</span><span class="p">)</span>
+
+        <span class="n">joined_col_mappers</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__col_mappers</span> <span class="o">+</span> <span class="n">cdf</span><span class="o">.</span><span class="n">__col_mappers</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cdf</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_id&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cdf</span>
+        <span class="k">elif</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_id&quot;</span> <span class="ow">in</span> <span class="n">cdf</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">cdf</span><span class="p">,</span> <span class="bp">self</span>
+            <span class="n">how</span> <span class="o">=</span> <span class="n">COCODataFrame</span><span class="o">.</span><span class="n">_invert_join_how</span><span class="p">(</span><span class="n">how</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;We can&#39;t join the two COCODataFrame&quot;</span><span class="p">)</span>
+
+        <span class="n">out_df</span> <span class="o">=</span> <span class="n">left</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="n">left</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="n">how</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">right</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_id&quot;</span><span class="p">)</span>
+        <span class="c1"># out_df = out_df.convert_dtypes()</span>
+
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">COCODataFrame</span><span class="p">(</span><span class="n">out_df</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">left</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">right</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">col_mappers</span><span class="o">=</span><span class="n">joined_col_mappers</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCODataFrame._invert_join_how"><a class="viewcode-back" href="../../_autosummary/cocohelper.dataframe.COCODataFrame.html#cocohelper.dataframe.COCODataFrame._invert_join_how">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_invert_join_how</span><span class="p">(</span><span class="n">how</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inverts the join option.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            how: input `how` parameter for the join</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Inverted (opposite) `how` parameter for the join</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">how</span> <span class="o">==</span> <span class="s1">&#39;left&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;right&#39;</span>
+        <span class="k">if</span> <span class="n">how</span> <span class="o">==</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;left&#39;</span>
+        <span class="k">return</span> <span class="n">how</span></div>
+
+<div class="viewcode-block" id="COCODataFrame.map_dataframe_cols"><a class="viewcode-back" href="../../_autosummary/cocohelper.dataframe.COCODataFrame.html#cocohelper.dataframe.COCODataFrame.map_dataframe_cols">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">map_dataframe_cols</span><span class="p">(</span>
+            <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+            <span class="n">col_mappers</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ColMap</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies a mapping to the DataFrame columns according to the provided column mappers.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dataframe: DataFrame to modify</span>
+<span class="sd">            col_mappers: column mappers to be applied</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DataFrame with mapped columns according to the provided column mappers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">col_mapper</span> <span class="ow">in</span> <span class="n">col_mappers</span><span class="p">:</span>
+            <span class="n">dataframe</span> <span class="o">=</span> <span class="n">COCODataFrame</span><span class="o">.</span><span class="n">try_remap_col</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">col_mapper</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dataframe</span></div>
+
+<div class="viewcode-block" id="COCODataFrame.unmap_dataframe_cols"><a class="viewcode-back" href="../../_autosummary/cocohelper.dataframe.COCODataFrame.html#cocohelper.dataframe.COCODataFrame.unmap_dataframe_cols">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">unmap_dataframe_cols</span><span class="p">(</span>
+            <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+            <span class="n">col_mappers</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ColMap</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Unmaps a column in a DataFrame.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dataframe: DataFrame to be unmapped</span>
+<span class="sd">            col_mappers: column mapper</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The DataFrame with unmapped columns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">col_mapper</span> <span class="ow">in</span> <span class="n">col_mappers</span><span class="p">:</span>
+            <span class="n">dataframe</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">col_mapper</span><span class="o">.</span><span class="n">to_orig</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dataframe</span></div>
+
+<div class="viewcode-block" id="COCODataFrame.try_remap_col"><a class="viewcode-back" href="../../_autosummary/cocohelper.dataframe.COCODataFrame.html#cocohelper.dataframe.COCODataFrame.try_remap_col">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">try_remap_col</span><span class="p">(</span>
+            <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+            <span class="n">col_mapper</span><span class="p">:</span> <span class="n">ColMap</span><span class="p">,</span>
+            <span class="n">to_orig</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempts to remap a column in a DataFrame.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dataframe: DataFrame whose column you want to remap</span>
+<span class="sd">            col_mapper: column mapper</span>
+<span class="sd">            to_orig: if True, the color mapper will be mapped to the origin mapper instead of new</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The DataFrame with remapped columns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">col_map</span> <span class="o">=</span> <span class="n">col_mapper</span><span class="o">.</span><span class="n">to_orig</span> <span class="k">if</span> <span class="n">to_orig</span> <span class="k">else</span> <span class="n">col_mapper</span><span class="o">.</span><span class="n">to_new</span>
+        <span class="n">from_col</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">col_map</span><span class="o">.</span><span class="n">items</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">to_col</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">col_map</span><span class="o">.</span><span class="n">items</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dataframe</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">col_map</span><span class="p">)</span>
+            <span class="n">dataframe</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">to_col</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Can&#39;t find column name `</span><span class="si">{</span><span class="n">from_col</span><span class="si">}</span><span class="s2">`: remap to `</span><span class="si">{</span><span class="n">to_col</span><span class="si">}</span><span class="s2">` is skipped.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dataframe</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

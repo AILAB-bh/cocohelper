@@ -1,0 +1,6 @@
+\_crop\_bbox
+============
+
+.. currentmodule:: cocohelper.transforms.crop
+
+.. autofunction:: _crop_bbox

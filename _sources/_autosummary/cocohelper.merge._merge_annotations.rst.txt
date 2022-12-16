@@ -1,0 +1,6 @@
+\_merge\_annotations
+====================
+
+.. currentmodule:: cocohelper.merge
+
+.. autofunction:: _merge_annotations

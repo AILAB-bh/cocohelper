@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RandomCrop &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SizeMode" href="cocohelper.transforms.crop.SizeMode.html" />
+    <link rel="prev" title="Crop" href="cocohelper.transforms.crop.Crop.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../apigen.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cocohelper.html">cocohelper</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.adapters.html">adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.dataframe.html">dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.errors.html">errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.filters.html">filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.helper.html">helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.importer.html">importer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.joins.html">joins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.merge.html">merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.splitters.html">splitters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.stats.html">stats</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cocohelper.transforms.html">transforms</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.transforms.compose.html">compose</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="cocohelper.transforms.crop.html">crop</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.transforms.crop.CenterCrop.html">CenterCrop</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.transforms.crop.Crop.html">Crop</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">RandomCrop</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.transforms.crop.RandomCrop"><code class="docutils literal notranslate"><span class="pre">RandomCrop</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#cocohelper.transforms.crop.RandomCrop.apply"><code class="docutils literal notranslate"><span class="pre">RandomCrop.apply()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#cocohelper.transforms.crop.RandomCrop.compute_bbox_area"><code class="docutils literal notranslate"><span class="pre">RandomCrop.compute_bbox_area()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#cocohelper.transforms.crop.RandomCrop.transform_dataset"><code class="docutils literal notranslate"><span class="pre">RandomCrop.transform_dataset()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#cocohelper.transforms.crop.RandomCrop._abc_impl"><code class="docutils literal notranslate"><span class="pre">RandomCrop._abc_impl</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.transforms.crop.SizeMode.html">SizeMode</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.transforms.crop._check_bbox.html">_check_bbox</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.transforms.crop._crop_bbox.html">_crop_bbox</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.transforms.crop._crop_segmentation.html">_crop_segmentation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.transforms.crop._norm_bbox.html">_norm_bbox</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.transforms.crop.crop_img.html">crop_img</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.transforms.randomflip.html">randomflip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.transforms.resize.html">resize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cocohelper.transforms.transform.html">transform</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.utils.html">utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.validator.html">validator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.visualizer.html">visualizer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.transforms.html">transforms</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.transforms.crop.html">crop</a></li>
+      <li class="breadcrumb-item active">RandomCrop</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/cocohelper.transforms.crop.RandomCrop.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="randomcrop">
+<h1>RandomCrop<a class="headerlink" href="#randomcrop" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cocohelper.transforms.crop.RandomCrop">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cocohelper.transforms.crop.</span></span><span class="sig-name descname"><span class="pre">RandomCrop</span></span><a class="reference internal" href="../_modules/cocohelper/transforms/crop.html#RandomCrop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.transforms.crop.RandomCrop" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="cocohelper.transforms.transform.Transform.html#cocohelper.transforms.transform.Transform" title="cocohelper.transforms.transform.Transform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transform</span></code></a></p>
+<p>Perform a random crop on image and annotations.</p>
+<p>You must provide width and height, while the crop position is randomized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>w</strong> – The fixed width of the area to crop.</p></li>
+<li><p><strong>h</strong> – The fixed height of the area to crop.</p></li>
+<li><p><strong>mode</strong> – How to handle bbox values, pixels or percentages.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Method List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.transforms.crop.RandomCrop.apply" title="cocohelper.transforms.crop.RandomCrop.apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply</span></code></a>(img, anns)</p></td>
+<td><p>Apply the transformation to the image array and its annotations.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.transforms.crop.RandomCrop.compute_bbox_area" title="cocohelper.transforms.crop.RandomCrop.compute_bbox_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_bbox_area</span></code></a>(bbox)</p></td>
+<td><p>Compute area from a bounding box.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.transforms.crop.RandomCrop.transform_dataset" title="cocohelper.transforms.crop.RandomCrop.transform_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform_dataset</span></code></a>(coco, out_dir)</p></td>
+<td><p>Apply an abstract transformation on the whole dataset.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.transforms.crop.RandomCrop._abc_impl" title="cocohelper.transforms.crop.RandomCrop._abc_impl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_abc_impl</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Details</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.transforms.crop.RandomCrop.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anns</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/transforms/crop.html#RandomCrop.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.transforms.crop.RandomCrop.apply" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the transformation to the image array and its annotations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>ndarray</em>) – image array.</p></li>
+<li><p><strong>anns</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – annotations for this image.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Transformed image array and annotations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Tuple</em>[<em>ndarray</em>, <em>List</em>[dict]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.transforms.crop.RandomCrop.compute_bbox_area">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_bbox_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cocohelper.transforms.crop.RandomCrop.compute_bbox_area" title="Permalink to this definition"></a></dt>
+<dd><p>Compute area from a bounding box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bbox</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – bounding box.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The area inside the given bounding box.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.transforms.crop.RandomCrop.transform_dataset">
+<span class="sig-name descname"><span class="pre">transform_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coco</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cocohelper.transforms.crop.RandomCrop.transform_dataset" title="Permalink to this definition"></a></dt>
+<dd><p>Apply an abstract transformation on the whole dataset.</p>
+<dl class="simple">
+<dt>TODO: should we apply on the whole dataset eagerly or use a lazy execution when the data is obtained?</dt><dd><ul class="simple">
+<li><p>In the first case, <em>apply</em> takes a COCODataset and returns a new modified COCODataset.</p></li>
+<li><p>In the second case probably COCODataset should have a reference to a Transform and apply just-in-time
+when an element is retrieved.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coco</strong> (<a class="reference internal" href="cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a>) – </p></li>
+<li><p><strong>out_dir</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Attribute Details</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.transforms.crop.RandomCrop._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cocohelper.transforms.crop.RandomCrop._abc_impl" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cocohelper.transforms.crop.Crop.html" class="btn btn-neutral float-left" title="Crop" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cocohelper.transforms.crop.SizeMode.html" class="btn btn-neutral float-right" title="SizeMode" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+Transform
+=========
+
+.. currentmodule:: cocohelper.transforms.transform
+
+.. autoclass:: Transform
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~Transform.apply
+      ~Transform.compute_bbox_area
+      ~Transform.transform_dataset
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~Transform._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      apply
+   .. automethod::
+      compute_bbox_area
+   .. automethod::
+      transform_dataset
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

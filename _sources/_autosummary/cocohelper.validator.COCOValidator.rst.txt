@@ -1,0 +1,81 @@
+COCOValidator
+=============
+
+.. currentmodule:: cocohelper.validator
+
+.. autoclass:: COCOValidator
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~COCOValidator._annotation_ids_are_unique
+      ~COCOValidator._annotations_have_mandatory_keys
+      ~COCOValidator._annotations_have_valid_category_id
+      ~COCOValidator._annotations_have_valid_image_id
+      ~COCOValidator._categories_have_mandatory_keys
+      ~COCOValidator._category_ids_are_unique
+      ~COCOValidator._has_valid_dataset_tree
+      ~COCOValidator._image_ids_are_unique
+      ~COCOValidator._images_have_mandatory_keys
+      ~COCOValidator._json_has_mandatory_keys
+      ~COCOValidator._licenses_ids_are_unique
+      ~COCOValidator.validate_dataset
+      ~COCOValidator.validate_dir
+   
+   
+
+
+
+   
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      _annotation_ids_are_unique
+   .. automethod::
+      _annotations_have_mandatory_keys
+   .. automethod::
+      _annotations_have_valid_category_id
+   .. automethod::
+      _annotations_have_valid_image_id
+   .. automethod::
+      _categories_have_mandatory_keys
+   .. automethod::
+      _category_ids_are_unique
+   .. automethod::
+      _has_valid_dataset_tree
+   .. automethod::
+      _image_ids_are_unique
+   .. automethod::
+      _images_have_mandatory_keys
+   .. automethod::
+      _json_has_mandatory_keys
+   .. automethod::
+      _licenses_ids_are_unique
+   .. automethod::
+      validate_dataset
+   .. automethod::
+      validate_dir
+   
+
+
+   
+   
+   

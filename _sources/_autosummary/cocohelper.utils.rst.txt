@@ -1,0 +1,46 @@
+utils
+=====
+
+.. automodule:: cocohelper.utils
+
+
+
+
+.. rubric:: Submodule
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   cocohelper.utils.colmapper
+   cocohelper.utils.dataframe
+   cocohelper.utils.path
+   cocohelper.utils.segmentation
+   cocohelper.utils.timer
+   cocohelper.utils.types
+   cocohelper.utils.utils
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,40 @@
+stratified
+==========
+
+.. automodule:: cocohelper.splitters.stratified
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  StratifiedDataSplitter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

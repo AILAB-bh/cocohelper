@@ -1,0 +1,6 @@
+encode\_mask
+============
+
+.. currentmodule:: cocohelper.utils.segmentation
+
+.. autofunction:: encode_mask

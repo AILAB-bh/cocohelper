@@ -1,0 +1,54 @@
+crop
+====
+
+.. automodule:: cocohelper.transforms.crop
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  CenterCrop
+  Crop
+  RandomCrop
+  SizeMode
+
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Functions
+
+.. autosummary::
+  :toctree:
+
+  _check_bbox
+  _crop_bbox
+  _crop_segmentation
+  _norm_bbox
+  crop_img
+
+
+
+
+
+
+
+
+
+

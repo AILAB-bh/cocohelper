@@ -1,0 +1,62 @@
+StratifiedDataSplitter
+======================
+
+.. currentmodule:: cocohelper.splitters.stratified
+
+.. autoclass:: StratifiedDataSplitter
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~StratifiedDataSplitter._compute_label_ratios
+      ~StratifiedDataSplitter._get_ids
+      ~StratifiedDataSplitter.apply
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~StratifiedDataSplitter._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      _compute_label_ratios
+   .. automethod::
+      _get_ids
+   .. automethod::
+      apply
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

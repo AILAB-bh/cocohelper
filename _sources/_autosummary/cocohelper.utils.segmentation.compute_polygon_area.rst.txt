@@ -1,0 +1,6 @@
+compute\_polygon\_area
+======================
+
+.. currentmodule:: cocohelper.utils.segmentation
+
+.. autofunction:: compute_polygon_area

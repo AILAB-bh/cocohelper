@@ -1,0 +1,62 @@
+CenterCrop
+==========
+
+.. currentmodule:: cocohelper.transforms.crop
+
+.. autoclass:: CenterCrop
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~CenterCrop.apply
+      ~CenterCrop.compute_bbox_area
+      ~CenterCrop.transform_dataset
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~CenterCrop._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      apply
+   .. automethod::
+      compute_bbox_area
+   .. automethod::
+      transform_dataset
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

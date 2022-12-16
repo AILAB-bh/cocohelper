@@ -1,0 +1,62 @@
+DatasetAdapter
+==============
+
+.. currentmodule:: cocohelper.adapters.dataset_adapter
+
+.. autoclass:: DatasetAdapter
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~DatasetAdapter.get_categories
+      ~DatasetAdapter.get_sample
+      ~DatasetAdapter.read_image
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~DatasetAdapter._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      get_categories
+   .. automethod::
+      get_sample
+   .. automethod::
+      read_image
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

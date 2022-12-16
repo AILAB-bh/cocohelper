@@ -1,0 +1,6 @@
+compressed\_rle\_to\_mask
+=========================
+
+.. currentmodule:: cocohelper.utils.segmentation
+
+.. autofunction:: compressed_rle_to_mask

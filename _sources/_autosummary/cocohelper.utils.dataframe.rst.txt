@@ -1,0 +1,43 @@
+dataframe
+=========
+
+.. automodule:: cocohelper.utils.dataframe
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Functions
+
+.. autosummary::
+  :toctree:
+
+  df_to_records
+  drop_duplicate_rows
+  fix_fk_after_drop_duplicate
+  records_to_df
+  serialize_row
+
+
+
+
+
+
+
+
+
+

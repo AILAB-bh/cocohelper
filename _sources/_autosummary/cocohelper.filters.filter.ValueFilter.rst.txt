@@ -1,0 +1,62 @@
+ValueFilter
+===========
+
+.. currentmodule:: cocohelper.filters.filter
+
+.. autoclass:: ValueFilter
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~ValueFilter._apply
+      ~ValueFilter.apply
+      ~ValueFilter.set_strategy
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~ValueFilter._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      _apply
+   .. automethod::
+      apply
+   .. automethod::
+      set_strategy
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

@@ -1,0 +1,6 @@
+mask\_to\_rle
+=============
+
+.. currentmodule:: cocohelper.utils.segmentation
+
+.. autofunction:: mask_to_rle

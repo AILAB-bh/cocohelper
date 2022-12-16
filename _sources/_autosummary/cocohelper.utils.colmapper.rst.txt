@@ -1,0 +1,41 @@
+colmapper
+=========
+
+.. automodule:: cocohelper.utils.colmapper
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  ColMap
+  ColsMapper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

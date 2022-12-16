@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cocohelper.stats &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../apigen.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cocohelper.stats</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cocohelper.stats</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cached_property</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">cocohelper</span> <span class="kn">import</span> <span class="n">COCOHelper</span>
+
+
+<div class="viewcode-block" id="COCOStats"><a class="viewcode-back" href="../../_autosummary/cocohelper.stats.COCOStats.html#cocohelper.stats.COCOStats">[docs]</a><span class="k">class</span> <span class="nc">COCOStats</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coco_helper</span><span class="p">:</span> <span class="n">COCOHelper</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This class contains methods to calculate stats on a dataset.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            coco_helper: Coco dataset to calculate stats on.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="p">:</span> <span class="n">COCOHelper</span> <span class="o">=</span> <span class="n">coco_helper</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">coco_helper</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span>
+
+<div class="viewcode-block" id="COCOStats.get_image_size_stats"><a class="viewcode-back" href="../../_autosummary/cocohelper.stats.COCOStats.html#cocohelper.stats.COCOStats.get_image_size_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_image_size_stats</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-16</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Obtain statistics about dataset images sizes for each individual axis.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            eps: epsilon used to compute average height/width ratio.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Size information about dataset images in the form of a dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: compute each of these information once offering a property-getter and using cached properties.</span>
+        <span class="c1">#       NB: our target is to make COCOHelper an immutable class, so computed statistics can&#39;t be invalidated.</span>
+        <span class="c1">#       NB: this means that we must avoid inplace operations and close the class to modifications</span>
+        <span class="c1">#           (we should never return a reference to something contained in the class, but a referenco to a copy</span>
+        <span class="c1">#           of that)</span>
+        <span class="n">imgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">imgs</span>
+        <span class="n">size_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">imgs</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">imgs</span><span class="o">.</span><span class="n">width</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># .astype(int)</span>
+
+        <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">size_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
+            <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">size_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
+            <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">size_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
+            <span class="s2">&quot;median&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">size_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
+            <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">size_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
+            <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">size_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="s2">&quot;iqr&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">iqr</span><span class="p">(</span><span class="n">size_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
+            <span class="s2">&quot;skewness&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">size_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
+            <span class="s2">&quot;kurtosis&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">(</span><span class="n">size_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
+            <span class="c1"># &quot;mean height/width ratio&quot;: np.mean([x / (y + eps) for (x, y) in size_list])</span>
+            <span class="s2">&quot;avg_size_ratio&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">size_array</span><span class="p">])</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">metrics</span></div>
+
+<div class="viewcode-block" id="COCOStats.get_annotation_size_stats"><a class="viewcode-back" href="../../_autosummary/cocohelper.stats.COCOStats.html#cocohelper.stats.COCOStats.get_annotation_size_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_annotation_size_stats</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;bbox&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Obtain dataset labels size statistics in the form of a dictionary.</span>
+
+<span class="sd">        The dictionary pairs each dataset size in the dataset to the list of the</span>
+<span class="sd">        smallest bounding box size inside the image. This can be useful to define</span>
+<span class="sd">        the optimal rescaling of the image and avoid loosing small boxes when</span>
+<span class="sd">        resizing data to a smaller dimension.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            mode: annotation type to be used to extract size statistics. Default</span>
+<span class="sd">                to bbox.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A dictionary with the statistics of the label size in the dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: restructure the code, move to COCOHelper class using a getter on ann_id ?</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;bbox&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Modes different from &#39;mode&#39; are not currently supported.&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_get_size_from_bbox</span><span class="p">(</span><span class="n">annotation</span><span class="p">):</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">annotation</span><span class="p">[</span><span class="n">mode</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span>
+
+        <span class="n">annotation_size_by_image_size</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">image</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">annotations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">filtered_anns</span><span class="p">(</span><span class="n">img_ids</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+
+            <span class="c1"># if there is at least one annotation: add it to the stats</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">annotations</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+                <span class="n">widths</span><span class="p">,</span> <span class="n">heights</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">_get_size_from_bbox</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">annotations</span><span class="o">.</span><span class="n">iloc</span><span class="p">])</span>
+                <span class="n">min_width</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">widths</span><span class="p">)</span>
+                <span class="n">min_height</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+
+                <span class="c1"># set image size and width ad dictionary key:</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">],</span> <span class="n">image</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">annotation_size_by_image_size</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">annotation_size_by_image_size</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">min_height</span><span class="p">,</span> <span class="n">min_width</span><span class="p">)]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">annotation_size_by_image_size</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">min_height</span><span class="p">,</span> <span class="n">min_width</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">annotation_size_by_image_size</span></div>
+
+<div class="viewcode-block" id="COCOStats.get_optimal_image_size"><a class="viewcode-back" href="../../_autosummary/cocohelper.stats.COCOStats.html#cocohelper.stats.COCOStats.get_optimal_image_size">[docs]</a>    <span class="k">def</span> <span class="nf">get_optimal_image_size</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;median&quot;</span><span class="p">,</span>
+            <span class="n">n_pixels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Estimate optimal image size based on the dataset&#39;s image and</span>
+<span class="sd">        annotation statistics.</span>
+
+<span class="sd">        This function:</span>
+<span class="sd">          1. Computes the label stats of the dataset paired to each image size.</span>
+<span class="sd">          2. Computes the minimum image size that guarantees images resampled to</span>
+<span class="sd">            that resolution do not lose labels.</span>
+<span class="sd">          2. Computes the statistic defined by the argument mode (mode can be in</span>
+<span class="sd">            [&quot;mean&quot;, &quot;median&quot;, &quot;mode&quot;]).</span>
+<span class="sd">          4. returns the maximum between the minimum image size that guarantees</span>
+<span class="sd">            to maintain an annotation size of at least n_pixels on both the width</span>
+<span class="sd">            and the height image axis AND the values computed in (3).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            mode: statistics to be used to define the optimal image size.</span>
+<span class="sd">            n_pixels: minimum number of annotation pixels remaining over the</span>
+<span class="sd">                width and height axis after resizing an image to the returned the</span>
+<span class="sd">                optimal image size</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A tuple containing the optimal height and width for resizing all the</span>
+<span class="sd">            images of the dataset to the same dimension while preserving label</span>
+<span class="sd">            information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">n_pixels</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The minimum number of pixels must be &gt;= 1.&quot;</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Computing the recommended image size values. &quot;</span>
+                     <span class="sa">f</span><span class="s2">&quot;The recommended size ensures that, after resizing, the annotations will have thickness of at &quot;</span>
+                     <span class="sa">f</span><span class="s2">&quot;least n_pixels: </span><span class="si">{</span><span class="n">n_pixels</span><span class="si">}</span><span class="s2">. Statistics on the image size are computed in mode: </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">.&quot;</span>
+                     <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Processing...&quot;</span><span class="p">)</span>
+
+        <span class="c1"># get info on the smaller annotation dimension for each image size:</span>
+        <span class="n">annotation_size_by_image_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_annotation_size_stats</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;bbox&quot;</span><span class="p">)</span>
+        <span class="n">smaller_annotation_size_by_image_size</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">annotation_size_by_image_size</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">smaller_annotation_size_by_image_size</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">annotation_size_by_image_size</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># compute maximum compression ratio for each image size (given the smallest annotation within sizes)</span>
+        <span class="n">min_compressed_dims</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">image_h</span><span class="p">,</span> <span class="n">image_w</span><span class="p">),</span> <span class="p">(</span><span class="n">annotation_h</span><span class="p">,</span> <span class="n">annotation_w</span><span class="p">)</span> <span class="ow">in</span> <span class="n">smaller_annotation_size_by_image_size</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">min_compressed_dims</span><span class="p">[(</span><span class="n">image_h</span><span class="p">,</span> <span class="n">image_w</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_pixels</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">image_h</span><span class="p">)</span> <span class="o">/</span> <span class="n">annotation_h</span><span class="p">,</span>
+                                                       <span class="n">n_pixels</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">image_w</span><span class="p">)</span> <span class="o">/</span> <span class="n">annotation_w</span><span class="p">)</span>
+
+        <span class="c1"># get lower bound as the maximum value among the min compressed dims</span>
+        <span class="n">min_h</span><span class="p">,</span> <span class="n">min_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">min_compressed_dims</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># compute image size as the upper value between (min_h, min_w) and the median dimension in the dataset</span>
+        <span class="n">stat_h</span><span class="p">,</span> <span class="n">stat_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_image_size_stats</span><span class="p">()[</span><span class="n">mode</span><span class="p">]</span>
+
+        <span class="n">optimal_h</span><span class="p">,</span> <span class="n">optimal_w</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">stat_h</span><span class="p">,</span> <span class="n">min_h</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">stat_w</span><span class="p">,</span> <span class="n">min_w</span><span class="p">))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Done. Optimal values are: (</span><span class="si">{</span><span class="n">optimal_h</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">optimal_w</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">optimal_h</span><span class="p">,</span> <span class="n">optimal_w</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nb_imgs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Number of images in the dataset&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">imgs</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nb_cats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Number of categories in the dataset&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">cats</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nb_anns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Number of annotations in the dataset&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">anns</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__get_annotations_ratios</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">na_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the ratios of annotations for each value in column.</span>
+
+<span class="sd">        The function picks the imgs/anns/cats join and uses value_counts to</span>
+<span class="sd">        return a dict with the ratio for each value. Values are normalized in</span>
+<span class="sd">        [0, 1] by the argument `normalize=True`. Missing values in the column</span>
+<span class="sd">        will be replaced by `na_value`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict associating each value in col with the fraction of annotations</span>
+<span class="sd">            (in [0, 1]).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">imgs_anns_cats</span>
+        <span class="n">_df</span> <span class="o">=</span> <span class="n">_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">na_value</span><span class="p">)</span>
+        <span class="n">_df</span> <span class="o">=</span> <span class="n">_df</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">cat_nms_ratios</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;For each category, compute how many images in the dataset contains at</span>
+<span class="sd">        least an annotation for that category.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A dictionary associating to each category name the fraction of images</span>
+<span class="sd">            in the dataset containing at least an annotation of that category</span>
+<span class="sd">            (in [0, 1]).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_annotations_ratios</span><span class="p">(</span><span class="s1">&#39;category_name&#39;</span><span class="p">,</span> <span class="n">na_value</span><span class="o">=</span><span class="s1">&#39;&lt;NA&gt;&#39;</span><span class="p">)</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">cat_ids_ratios</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;For each category, compute how many images in the dataset contains at</span>
+<span class="sd">        least an annotation for that category.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A dictionary associating to each category id the fraction of images</span>
+<span class="sd">            in the dataset containing at least an annotation of that category</span>
+<span class="sd">            (in [0, 1]).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_annotations_ratios</span><span class="p">(</span><span class="s1">&#39;category_id&#39;</span><span class="p">,</span> <span class="n">na_value</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

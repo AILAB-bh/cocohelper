@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cocohelper.visualizer &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../apigen.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cocohelper.visualizer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cocohelper.visualizer</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">cocohelper</span> <span class="kn">import</span> <span class="n">COCOHelper</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">cocohelper.utils.segmentation</span> <span class="kn">import</span> <span class="n">convert_to_mode</span>
+
+
+<div class="viewcode-block" id="COCOVisualizer"><a class="viewcode-back" href="../../_autosummary/cocohelper.visualizer.COCOVisualizer.html#cocohelper.visualizer.COCOVisualizer">[docs]</a><span class="k">class</span> <span class="nc">COCOVisualizer</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">helper</span><span class="p">:</span> <span class="n">COCOHelper</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This class contains methods to visualize COCO images and annotations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            helper: Coco dataset to visualize.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">helper</span> <span class="o">=</span> <span class="n">helper</span>
+
+<div class="viewcode-block" id="COCOVisualizer.load_image_array"><a class="viewcode-back" href="../../_autosummary/cocohelper.visualizer.COCOVisualizer.html#cocohelper.visualizer.COCOVisualizer.load_image_array">[docs]</a>    <span class="k">def</span> <span class="nf">load_image_array</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">img_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load image with a given image id and returns it as numpy array.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            img_id: image id.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A numpy array with the image associated with the image id in the</span>
+<span class="sd">            COCO dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">helper</span><span class="o">.</span><span class="n">get_img</span><span class="p">(</span><span class="n">img_id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOVisualizer.visualize"><a class="viewcode-back" href="../../_autosummary/cocohelper.visualizer.COCOVisualizer.html#cocohelper.visualizer.COCOVisualizer.visualize">[docs]</a>    <span class="k">def</span> <span class="nf">visualize</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">img_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">show_bbox</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">show_segmentation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Visualize an image given its image id using matplotlib.</span>
+
+<span class="sd">        If `show_bbox` or `show_segmentation` are True, show also the image</span>
+<span class="sd">        annotations on top of the plotted image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            img_id: image id in the COCO dataset.</span>
+<span class="sd">            show_bbox: if true, show bounding boxes on top of the image.</span>
+<span class="sd">            show_segmentation: show segmentation masks on top of the image.</span>
+<span class="sd">            **kwargs: additional kwargs for the generated matplotlib figure</span>
+<span class="sd">                (see `COCOVisualizer._visualize()` docs).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_image_array</span><span class="p">(</span><span class="n">img_id</span><span class="o">=</span><span class="n">img_id</span><span class="p">)</span>
+        <span class="n">anns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">helper</span><span class="o">.</span><span class="n">filtered_anns</span><span class="p">(</span><span class="n">img_ids</span><span class="o">=</span><span class="n">img_id</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s2">&quot;records&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_visualize</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="n">anns</span><span class="p">,</span>
+                        <span class="n">show_bbox</span><span class="o">=</span><span class="n">show_bbox</span><span class="p">,</span> <span class="n">show_segmentation</span><span class="o">=</span><span class="n">show_segmentation</span><span class="p">,</span>
+                        <span class="n">img_id</span><span class="o">=</span><span class="n">img_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="COCOVisualizer._visualize"><a class="viewcode-back" href="../../_autosummary/cocohelper.visualizer.COCOVisualizer.html#cocohelper.visualizer.COCOVisualizer._visualize">[docs]</a>    <span class="k">def</span> <span class="nf">_visualize</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="n">annotations</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+            <span class="n">show_bbox</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">show_segmentation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">img_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">figsize</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">ax</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Draws an image and its annotations using matplotlib.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image: image to be shown.</span>
+<span class="sd">            annotations: annotations for the given the image.</span>
+<span class="sd">            show_bbox: if true, show bounding boxes on top of the image.</span>
+<span class="sd">            show_segmentation: if true, show segmentation masks on top of the</span>
+<span class="sd">                image.</span>
+<span class="sd">            title: title for the plotted image.</span>
+<span class="sd">            img_id: image id in the COCO dataset. Needed only if `title` is None.</span>
+<span class="sd">            figsize: figure size for the plotted image (for details, see</span>
+<span class="sd">                matplotlib `plt.figure()`).</span>
+<span class="sd">            dpi: dpi for the plotted image (for details, see matplotlib</span>
+<span class="sd">                `plt.figure()`).</span>
+<span class="sd">            ax: optional Axes object, pass one of the axes generated by</span>
+<span class="sd">                `plt.subplots` to show the figure in a subplot.</span>
+<span class="sd">                Examples:</span>
+<span class="sd">                    To show two figures in two columns</span>
+<span class="sd">                    &gt;&gt;&gt; fig, axs = plt.subplots(1, 2)</span>
+<span class="sd">                    &gt;&gt;&gt; ch = COCOHelper(...)</span>
+<span class="sd">                    &gt;&gt;&gt; visualizer = COCOVisualizer(ch)</span>
+<span class="sd">                    &gt;&gt;&gt; visualizer.visualize(img_id=0, ax=axs[0])</span>
+<span class="sd">                    &gt;&gt;&gt; visualizer.visualize(img_id=1, ax=axs[1])</span>
+<span class="sd">                    &gt;&gt;&gt; plt.show()</span>
+<span class="sd">            **kwargs: additional kwargs for matplotlib `plt.figure()`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">show_bbox</span> <span class="ow">or</span> <span class="n">show_segmentation</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">annotations</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">segmentations</span><span class="p">,</span> <span class="n">bboxes</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> \
+                    <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[(</span><span class="n">convert_to_mode</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="s2">&quot;segmentation&quot;</span><span class="p">],</span>
+                                           <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;polygon&#39;</span><span class="p">,</span>
+                                           <span class="n">height</span><span class="o">=</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                           <span class="n">width</span><span class="o">=</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">a</span><span class="p">[</span><span class="s2">&quot;bbox&quot;</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="s2">&quot;category_id&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">annotations</span><span class="p">])</span>
+
+                <span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pick_color_palette</span><span class="p">(</span><span class="n">number</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bboxes</span><span class="p">))</span>
+
+                <span class="k">for</span> <span class="n">segm</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">lab</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">segmentations</span><span class="p">,</span> <span class="n">bboxes</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+                    <span class="n">bbox_title</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">helper</span><span class="o">.</span><span class="n">filtered_cats</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">lab</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">]</span>
+                    <span class="n">col</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">col</span><span class="p">[</span><span class="mi">2</span><span class="p">])))</span>
+                    <span class="k">if</span> <span class="n">show_segmentation</span><span class="p">:</span>
+                        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_segmentation_mask</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">segmentation</span><span class="o">=</span><span class="n">segm</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">show_bbox</span><span class="p">:</span>
+                        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_bounding_box</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">bbox_title</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># create and plot the figure:</span>
+        <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+            <span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">img_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Image id must not be None when a title is not provided&quot;</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Image ID: </span><span class="si">{</span><span class="n">img_id</span><span class="si">}</span><span class="s1">&#39;</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="COCOVisualizer.draw_segmentation_mask"><a class="viewcode-back" href="../../_autosummary/cocohelper.visualizer.COCOVisualizer.html#cocohelper.visualizer.COCOVisualizer.draw_segmentation_mask">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">draw_segmentation_mask</span><span class="p">(</span>
+            <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="n">segmentation</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
+            <span class="n">color</span><span class="p">:</span> <span class="n">Sequence</span> <span class="o">=</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Draw segmentation mask on top of the input image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image: numpy array with the image.</span>
+<span class="sd">            segmentation: segmentation mask.</span>
+<span class="sd">            color: bounding box color, defaults to gray color.</span>
+<span class="sd">            **kwargs: optional kwargs for plotting the segmentation mask.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Numpy array with the given image and a segmentation drawn on top of it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">segm</span> <span class="ow">in</span> <span class="n">segmentation</span><span class="p">:</span>
+            <span class="n">contours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">segm</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                                       <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">segm</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">contours</span> <span class="o">=</span> <span class="n">contours</span><span class="o">.</span><span class="n">round</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">fillPoly</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">pts</span><span class="o">=</span><span class="p">[</span><span class="n">contours</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image</span></div>
+
+<div class="viewcode-block" id="COCOVisualizer.draw_bounding_box"><a class="viewcode-back" href="../../_autosummary/cocohelper.visualizer.COCOVisualizer.html#cocohelper.visualizer.COCOVisualizer.draw_bounding_box">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">draw_bounding_box</span><span class="p">(</span>
+            <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
+            <span class="n">color</span><span class="p">:</span> <span class="n">Sequence</span> <span class="o">=</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
+            <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">bbox_thickness</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Draws a bounding box on top of the input image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image: numpy array with the image.</span>
+<span class="sd">            bbox: bounding box coordinates.</span>
+<span class="sd">            color: bounding box color, defaults to gray color.</span>
+<span class="sd">            title: title for the bounding box, default to empty title.</span>
+<span class="sd">            bbox_thickness: thickness of the bounding box. Use larger number to</span>
+<span class="sd">                make the boxes more visible in large images.</span>
+<span class="sd">            **kwargs: optional kwargs for plotting bounding boxes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Numpy array with the given image and a bounding box drawn on top of it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">]</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">image</span><span class="p">,</span>
+                      <span class="n">pt1</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">pt2</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span><span class="p">),</span>
+                      <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="n">bbox_thickness</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Bounding box title parameters:</span>
+            <span class="n">font</span><span class="p">,</span> <span class="n">font_scale</span><span class="p">,</span> <span class="n">font_thickness</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="n">bbox_thickness</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox_thickness</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">text_size</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">getTextSize</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">font_scale</span><span class="p">,</span> <span class="n">font_thickness</span><span class="p">)</span>
+            <span class="n">text_w</span><span class="p">,</span> <span class="n">text_h</span> <span class="o">=</span> <span class="n">text_size</span>
+
+            <span class="n">xo</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="n">yo</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="n">text_h</span> <span class="o">+</span> <span class="n">bbox_thickness</span><span class="p">))</span> \
+                <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">text_h</span><span class="p">)</span> <span class="o">+</span> <span class="n">bbox_thickness</span><span class="p">)</span> \
+                <span class="k">else</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">h</span> <span class="o">+</span> <span class="n">bbox_thickness</span><span class="p">)</span>
+
+            <span class="c1"># Draw black background rectangle and add text to the bounding box:</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">pt1</span><span class="o">=</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">),</span> <span class="n">pt2</span><span class="o">=</span><span class="p">(</span><span class="n">xo</span> <span class="o">+</span> <span class="n">text_w</span><span class="p">,</span> <span class="n">yo</span> <span class="o">+</span> <span class="n">text_h</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span>
+                        <span class="n">org</span><span class="o">=</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">yo</span> <span class="o">+</span> <span class="n">text_h</span><span class="p">),</span>
+                        <span class="n">fontFace</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span>
+                        <span class="n">fontScale</span><span class="o">=</span><span class="n">font_scale</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="n">font_thickness</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">image</span></div>
+
+<div class="viewcode-block" id="COCOVisualizer.pick_color_palette"><a class="viewcode-back" href="../../_autosummary/cocohelper.visualizer.COCOVisualizer.html#cocohelper.visualizer.COCOVisualizer.pick_color_palette">[docs]</a>    <span class="k">def</span> <span class="nf">pick_color_palette</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns standard RGB colors palette (+ random colors, if needed).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            number: the number of RGB color triplets to fetch.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of triplets with a `number` RGB colors. The first twelve</span>
+<span class="sd">            colors follow a standard palette, the remaining colors will be</span>
+<span class="sd">            randomly picked.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">palette</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">166</span><span class="p">,</span> <span class="mi">206</span><span class="p">,</span> <span class="mi">227</span><span class="p">),</span>
+                   <span class="p">(</span><span class="mi">253</span><span class="p">,</span> <span class="mi">191</span><span class="p">,</span> <span class="mi">111</span><span class="p">),</span>
+                   <span class="p">(</span><span class="mi">178</span><span class="p">,</span> <span class="mi">223</span><span class="p">,</span> <span class="mi">138</span><span class="p">),</span>
+                   <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">153</span><span class="p">),</span>
+                   <span class="p">(</span><span class="mi">251</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">153</span><span class="p">),</span>
+                   <span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
+                   <span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span>
+                   <span class="p">(</span><span class="mi">227</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span>
+                   <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                   <span class="p">(</span><span class="mi">202</span><span class="p">,</span> <span class="mi">178</span><span class="p">,</span> <span class="mi">214</span><span class="p">),</span>
+                   <span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">154</span><span class="p">),</span>
+                   <span class="p">(</span><span class="mi">177</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">40</span><span class="p">)]</span>
+
+        <span class="k">if</span> <span class="n">number</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">palette</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">palette</span><span class="p">[:</span><span class="n">number</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">extra_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pick_random_colors</span><span class="p">(</span><span class="n">number</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">palette</span><span class="p">))</span>
+            <span class="n">palette</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extra_colors</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">palette</span></div>
+
+<div class="viewcode-block" id="COCOVisualizer.pick_random_colors"><a class="viewcode-back" href="../../_autosummary/cocohelper.visualizer.COCOVisualizer.html#cocohelper.visualizer.COCOVisualizer.pick_random_colors">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">pick_random_colors</span><span class="p">(</span><span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate random RGB colors.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            number: the number of RGB color triplets to fetch</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of triplets containing a `number` RGB colors. The colors are randomly picked.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">number</span><span class="p">))</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">number</span><span class="p">))</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">number</span><span class="p">))</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">colors</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

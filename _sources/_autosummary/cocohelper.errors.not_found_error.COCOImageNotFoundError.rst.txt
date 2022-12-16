@@ -1,0 +1,6 @@
+cocohelper.errors.not\_found\_error.COCOImageNotFoundError
+==========================================================
+
+.. currentmodule:: cocohelper.errors.not_found_error
+
+.. autoexception:: COCOImageNotFoundError

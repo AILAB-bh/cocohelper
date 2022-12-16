@@ -1,0 +1,47 @@
+COCOHelperPaths
+===============
+
+.. currentmodule:: cocohelper.helper
+
+.. autoclass:: COCOHelperPaths
+   :show-inheritance:
+
+
+   
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~COCOHelperPaths.ann_dir
+      ~COCOHelperPaths.ann_fname
+      ~COCOHelperPaths.img_dir
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       ann_dir
+   .. autoattribute::
+       ann_fname
+   .. autoattribute::
+       img_dir
+   
+   

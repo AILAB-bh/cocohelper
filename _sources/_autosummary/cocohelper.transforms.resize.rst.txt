@@ -1,0 +1,40 @@
+resize
+======
+
+.. automodule:: cocohelper.transforms.resize
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  Resize
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

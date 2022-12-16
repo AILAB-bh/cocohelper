@@ -1,0 +1,6 @@
+imgs\_filter
+============
+
+.. currentmodule:: cocohelper.filters.cocofilters.cocofilters
+
+.. autofunction:: imgs_filter

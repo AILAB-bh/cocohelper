@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cocohelper.transforms.randomflip &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../apigen.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cocohelper.transforms.randomflip</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cocohelper.transforms.randomflip</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">cocohelper.transforms</span> <span class="kn">import</span> <span class="n">Transform</span>
+<span class="kn">from</span> <span class="nn">cocohelper.utils</span> <span class="kn">import</span> <span class="n">types</span>
+
+
+<div class="viewcode-block" id="RandomFlip"><a class="viewcode-back" href="../../../_autosummary/cocohelper.transforms.randomflip.RandomFlip.html#cocohelper.transforms.randomflip.RandomFlip">[docs]</a><span class="k">class</span> <span class="nc">RandomFlip</span><span class="p">(</span><span class="n">Transform</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">horizontal_prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+            <span class="n">vertical_prob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Flip images and annotations in vertical and horizontal axes.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            horizontal_prob: probability of the horizontal flip occurring [0-1].</span>
+<span class="sd">            vertical_prob: probability of the vertical flip occurring [0-1].</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_prob</span> <span class="o">=</span> <span class="n">horizontal_prob</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertical_prob</span> <span class="o">=</span> <span class="n">vertical_prob</span>
+
+<div class="viewcode-block" id="RandomFlip.apply"><a class="viewcode-back" href="../../../_autosummary/cocohelper.transforms.randomflip.RandomFlip.html#cocohelper.transforms.randomflip.RandomFlip.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">img</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="n">anns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Apply the transformation to the image array and its annotations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            img: image array.</span>
+<span class="sd">            anns: annotations for this image.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transformed image array and annotations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">flip_h</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_prob</span>
+        <span class="n">flip_v</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertical_prob</span>
+
+        <span class="k">if</span> <span class="n">flip_v</span> <span class="ow">or</span> <span class="n">flip_h</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flip_img</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">flip_h</span><span class="p">,</span> <span class="n">flip_v</span><span class="p">)</span>
+            <span class="n">f_anns</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">anns</span><span class="p">:</span>
+                <span class="n">f_ann</span> <span class="o">=</span> <span class="n">ann</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">f_ann</span><span class="p">[</span><span class="s1">&#39;bbox&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flip_bbox</span><span class="p">(</span><span class="n">f_ann</span><span class="p">[</span><span class="s1">&#39;bbox&#39;</span><span class="p">],</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">flip_h</span><span class="p">,</span> <span class="n">flip_v</span><span class="p">)</span>
+                <span class="n">f_ann</span><span class="p">[</span><span class="s1">&#39;segmentation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flip_segmentations</span><span class="p">(</span><span class="n">f_ann</span><span class="p">[</span><span class="s1">&#39;segmentation&#39;</span><span class="p">],</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">flip_h</span><span class="p">,</span> <span class="n">flip_v</span><span class="p">)</span>
+                <span class="n">f_anns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f_ann</span><span class="p">)</span>
+            <span class="n">anns</span> <span class="o">=</span> <span class="n">f_anns</span>
+
+        <span class="k">return</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">anns</span></div>
+
+<div class="viewcode-block" id="RandomFlip._flip_img"><a class="viewcode-back" href="../../../_autosummary/cocohelper.transforms.randomflip.RandomFlip.html#cocohelper.transforms.randomflip.RandomFlip._flip_img">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_flip_img</span><span class="p">(</span>
+            <span class="n">img</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="n">horizontal</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+            <span class="n">vertical</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">horizontal</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fliplr</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vertical</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">img</span></div>
+
+<div class="viewcode-block" id="RandomFlip._flip_bbox"><a class="viewcode-back" href="../../../_autosummary/cocohelper.transforms.randomflip.RandomFlip.html#cocohelper.transforms.randomflip.RandomFlip._flip_bbox">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_flip_bbox</span><span class="p">(</span>
+            <span class="n">bbox</span><span class="p">:</span> <span class="n">types</span><span class="o">.</span><span class="n">BBox</span><span class="p">,</span>
+            <span class="n">shape</span><span class="p">:</span> <span class="n">types</span><span class="o">.</span><span class="n">Shape</span><span class="p">,</span>
+            <span class="n">horizontal</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+            <span class="n">vertical</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">types</span><span class="o">.</span><span class="n">BBox</span><span class="p">:</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">bbox</span>
+        <span class="k">if</span> <span class="n">vertical</span><span class="p">:</span>
+            <span class="n">y_max</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">h</span> <span class="o">-</span> <span class="n">y_max</span>
+        <span class="k">if</span> <span class="n">horizontal</span><span class="p">:</span>
+            <span class="n">x_max</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">x_max</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span></div>
+
+<div class="viewcode-block" id="RandomFlip._flip_segmentations"><a class="viewcode-back" href="../../../_autosummary/cocohelper.transforms.randomflip.RandomFlip.html#cocohelper.transforms.randomflip.RandomFlip._flip_segmentations">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_flip_segmentations</span><span class="p">(</span>
+            <span class="n">segmentation</span><span class="p">:</span> <span class="n">types</span><span class="o">.</span><span class="n">Segment</span><span class="p">,</span>
+            <span class="n">shape</span><span class="p">:</span> <span class="n">types</span><span class="o">.</span><span class="n">Shape</span><span class="p">,</span>
+            <span class="n">horizontal</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+            <span class="n">vertical</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">types</span><span class="o">.</span><span class="n">Segment</span><span class="p">:</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">shape</span>
+
+        <span class="c1"># TODO: check segmentation format, convert to polygon if needed and convert back to the original.</span>
+        <span class="n">f_segmentations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">segm</span> <span class="ow">in</span> <span class="n">segmentation</span><span class="p">:</span>
+            <span class="n">x_coords</span> <span class="o">=</span> <span class="n">segm</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">y_coords</span> <span class="o">=</span> <span class="n">segm</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+
+            <span class="n">f_segm</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">horizontal</span><span class="p">:</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">x</span>
+                <span class="k">if</span> <span class="n">vertical</span><span class="p">:</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">h</span> <span class="o">-</span> <span class="n">y</span>
+                <span class="n">f_segm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="n">f_segm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+            <span class="n">f_segmentations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f_segm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">f_segmentations</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

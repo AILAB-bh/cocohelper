@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COCOVisualizer &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="visualizer" href="cocohelper.visualizer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../apigen.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cocohelper.html">cocohelper</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.adapters.html">adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.dataframe.html">dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.errors.html">errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.filters.html">filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.helper.html">helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.importer.html">importer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.joins.html">joins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.merge.html">merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.splitters.html">splitters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.stats.html">stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.transforms.html">transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.utils.html">utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.validator.html">validator</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cocohelper.visualizer.html">visualizer</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">COCOVisualizer</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer"><code class="docutils literal notranslate"><span class="pre">COCOVisualizer</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer._visualize"><code class="docutils literal notranslate"><span class="pre">COCOVisualizer._visualize()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.draw_bounding_box"><code class="docutils literal notranslate"><span class="pre">COCOVisualizer.draw_bounding_box()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.draw_segmentation_mask"><code class="docutils literal notranslate"><span class="pre">COCOVisualizer.draw_segmentation_mask()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.load_image_array"><code class="docutils literal notranslate"><span class="pre">COCOVisualizer.load_image_array()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.pick_color_palette"><code class="docutils literal notranslate"><span class="pre">COCOVisualizer.pick_color_palette()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.pick_random_colors"><code class="docutils literal notranslate"><span class="pre">COCOVisualizer.pick_random_colors()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.visualize"><code class="docutils literal notranslate"><span class="pre">COCOVisualizer.visualize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.visualizer.html">visualizer</a></li>
+      <li class="breadcrumb-item active">COCOVisualizer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/cocohelper.visualizer.COCOVisualizer.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cocovisualizer">
+<h1>COCOVisualizer<a class="headerlink" href="#cocovisualizer" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cocohelper.visualizer.COCOVisualizer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cocohelper.visualizer.</span></span><span class="sig-name descname"><span class="pre">COCOVisualizer</span></span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class contains methods to visualize COCO images and annotations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>helper</strong> – Coco dataset to visualize.</p>
+</dd>
+</dl>
+<p class="rubric">Method List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer._visualize" title="cocohelper.visualizer.COCOVisualizer._visualize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_visualize</span></code></a>(image, annotations[, show_bbox, ...])</p></td>
+<td><p>Draws an image and its annotations using matplotlib.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.draw_bounding_box" title="cocohelper.visualizer.COCOVisualizer.draw_bounding_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_bounding_box</span></code></a>(image, bbox[, color, ...])</p></td>
+<td><p>Draws a bounding box on top of the input image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.draw_segmentation_mask" title="cocohelper.visualizer.COCOVisualizer.draw_segmentation_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_segmentation_mask</span></code></a>(image, segmentation)</p></td>
+<td><p>Draw segmentation mask on top of the input image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.load_image_array" title="cocohelper.visualizer.COCOVisualizer.load_image_array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_image_array</span></code></a>(img_id)</p></td>
+<td><p>Load image with a given image id and returns it as numpy array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.pick_color_palette" title="cocohelper.visualizer.COCOVisualizer.pick_color_palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_color_palette</span></code></a>(number)</p></td>
+<td><p>Returns standard RGB colors palette (+ random colors, if needed).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.pick_random_colors" title="cocohelper.visualizer.COCOVisualizer.pick_random_colors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pick_random_colors</span></code></a>(number)</p></td>
+<td><p>Generate random RGB colors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer.visualize" title="cocohelper.visualizer.COCOVisualizer.visualize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize</span></code></a>(img_id[, show_bbox, show_segmentation])</p></td>
+<td><p>Visualize an image given its image id using matplotlib.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Details</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.visualizer.COCOVisualizer._visualize">
+<span class="sig-name descname"><span class="pre">_visualize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_segmentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer._visualize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer._visualize" title="Permalink to this definition"></a></dt>
+<dd><p>Draws an image and its annotations using matplotlib.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>ndarray</em>) – image to be shown.</p></li>
+<li><p><strong>annotations</strong> (<em>list</em>) – annotations for the given the image.</p></li>
+<li><p><strong>show_bbox</strong> (<em>bool</em>) – if true, show bounding boxes on top of the image.</p></li>
+<li><p><strong>show_segmentation</strong> (<em>bool</em>) – if true, show segmentation masks on top of the
+image.</p></li>
+<li><p><strong>title</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – title for the plotted image.</p></li>
+<li><p><strong>img_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – image id in the COCO dataset. Needed only if <cite>title</cite> is None.</p></li>
+<li><p><strong>figsize</strong> (<em>Optional</em><em>[</em><em>Sequence</em><em>]</em>) – figure size for the plotted image (for details, see
+matplotlib <cite>plt.figure()</cite>).</p></li>
+<li><p><strong>dpi</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – dpi for the plotted image (for details, see matplotlib
+<cite>plt.figure()</cite>).</p></li>
+<li><p><strong>ax</strong> (<em>Optional</em><em>[</em><em>Axes</em><em>]</em>) – <p>optional Axes object, pass one of the axes generated by
+<cite>plt.subplots</cite> to show the figure in a subplot.
+.. rubric:: Examples</p>
+<p>To show two figures in two columns
+&gt;&gt;&gt; fig, axs = plt.subplots(1, 2)
+&gt;&gt;&gt; ch = COCOHelper(…)
+&gt;&gt;&gt; visualizer = COCOVisualizer(ch)
+&gt;&gt;&gt; visualizer.visualize(img_id=0, ax=axs[0])
+&gt;&gt;&gt; visualizer.visualize(img_id=1, ax=axs[1])
+&gt;&gt;&gt; plt.show()</p>
+</p></li>
+<li><p><strong>**kwargs</strong> – additional kwargs for matplotlib <cite>plt.figure()</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.visualizer.COCOVisualizer.draw_bounding_box">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(128,</span> <span class="pre">128,</span> <span class="pre">128)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox_thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer.draw_bounding_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer.draw_bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>Draws a bounding box on top of the input image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>ndarray</em>) – numpy array with the image.</p></li>
+<li><p><strong>bbox</strong> (<em>Sequence</em>) – bounding box coordinates.</p></li>
+<li><p><strong>color</strong> (<em>Sequence</em>) – bounding box color, defaults to gray color.</p></li>
+<li><p><strong>title</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – title for the bounding box, default to empty title.</p></li>
+<li><p><strong>bbox_thickness</strong> (<em>int</em>) – thickness of the bounding box. Use larger number to
+make the boxes more visible in large images.</p></li>
+<li><p><strong>**kwargs</strong> – optional kwargs for plotting bounding boxes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Numpy array with the given image and a bounding box drawn on top of it.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>ndarray</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.visualizer.COCOVisualizer.draw_segmentation_mask">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_segmentation_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segmentation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(128,</span> <span class="pre">128,</span> <span class="pre">128)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer.draw_segmentation_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer.draw_segmentation_mask" title="Permalink to this definition"></a></dt>
+<dd><p>Draw segmentation mask on top of the input image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>ndarray</em>) – numpy array with the image.</p></li>
+<li><p><strong>segmentation</strong> (<em>Sequence</em>) – segmentation mask.</p></li>
+<li><p><strong>color</strong> (<em>Sequence</em>) – bounding box color, defaults to gray color.</p></li>
+<li><p><strong>**kwargs</strong> – optional kwargs for plotting the segmentation mask.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Numpy array with the given image and a segmentation drawn on top of it.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>ndarray</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.visualizer.COCOVisualizer.load_image_array">
+<span class="sig-name descname"><span class="pre">load_image_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer.load_image_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer.load_image_array" title="Permalink to this definition"></a></dt>
+<dd><p>Load image with a given image id and returns it as numpy array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img_id</strong> (<em>int</em>) – image id.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A numpy array with the image associated with the image id in the
+COCO dataset.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>ndarray</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.visualizer.COCOVisualizer.pick_color_palette">
+<span class="sig-name descname"><span class="pre">pick_color_palette</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer.pick_color_palette"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer.pick_color_palette" title="Permalink to this definition"></a></dt>
+<dd><p>Returns standard RGB colors palette (+ random colors, if needed).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>number</strong> (<em>int</em>) – the number of RGB color triplets to fetch.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of triplets with a <cite>number</cite> RGB colors. The first twelve
+colors follow a standard palette, the remaining colors will be
+randomly picked.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>List</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.visualizer.COCOVisualizer.pick_random_colors">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pick_random_colors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer.pick_random_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer.pick_random_colors" title="Permalink to this definition"></a></dt>
+<dd><p>Generate random RGB colors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>number</strong> (<em>int</em>) – the number of RGB color triplets to fetch</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of triplets containing a <cite>number</cite> RGB colors. The colors are randomly picked.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>List</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.visualizer.COCOVisualizer.visualize">
+<span class="sig-name descname"><span class="pre">visualize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_segmentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer.visualize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer.visualize" title="Permalink to this definition"></a></dt>
+<dd><p>Visualize an image given its image id using matplotlib.</p>
+<p>If <cite>show_bbox</cite> or <cite>show_segmentation</cite> are True, show also the image
+annotations on top of the plotted image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_id</strong> (<em>int</em>) – image id in the COCO dataset.</p></li>
+<li><p><strong>show_bbox</strong> (<em>bool</em>) – if true, show bounding boxes on top of the image.</p></li>
+<li><p><strong>show_segmentation</strong> (<em>bool</em>) – show segmentation masks on top of the image.</p></li>
+<li><p><strong>**kwargs</strong> – additional kwargs for the generated matplotlib figure
+(see <cite>COCOVisualizer._visualize()</cite> docs).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cocohelper.visualizer.html" class="btn btn-neutral float-left" title="visualizer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+drop\_duplicate\_rows
+=====================
+
+.. currentmodule:: cocohelper.utils.dataframe
+
+.. autofunction:: drop_duplicate_rows

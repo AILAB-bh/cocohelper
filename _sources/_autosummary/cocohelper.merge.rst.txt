@@ -1,0 +1,46 @@
+merge
+=====
+
+.. automodule:: cocohelper.merge
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Functions
+
+.. autosummary::
+  :toctree:
+
+  _create_cat_mapping
+  _create_image_mapping
+  _merge_annotations
+  _merge_categories
+  _merge_images
+  _merge_info
+  _merge_licenses
+  merge_coco
+
+
+
+
+
+
+
+
+
+

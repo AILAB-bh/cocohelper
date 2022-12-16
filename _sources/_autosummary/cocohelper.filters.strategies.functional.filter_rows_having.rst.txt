@@ -1,0 +1,6 @@
+filter\_rows\_having
+====================
+
+.. currentmodule:: cocohelper.filters.strategies.functional
+
+.. autofunction:: filter_rows_having

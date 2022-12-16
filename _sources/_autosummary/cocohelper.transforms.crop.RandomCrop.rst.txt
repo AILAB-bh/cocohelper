@@ -1,0 +1,62 @@
+RandomCrop
+==========
+
+.. currentmodule:: cocohelper.transforms.crop
+
+.. autoclass:: RandomCrop
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~RandomCrop.apply
+      ~RandomCrop.compute_bbox_area
+      ~RandomCrop.transform_dataset
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~RandomCrop._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      apply
+   .. automethod::
+      compute_bbox_area
+   .. automethod::
+      transform_dataset
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

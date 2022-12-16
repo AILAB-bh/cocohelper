@@ -1,0 +1,63 @@
+COCOVisualizer
+==============
+
+.. currentmodule:: cocohelper.visualizer
+
+.. autoclass:: COCOVisualizer
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~COCOVisualizer._visualize
+      ~COCOVisualizer.draw_bounding_box
+      ~COCOVisualizer.draw_segmentation_mask
+      ~COCOVisualizer.load_image_array
+      ~COCOVisualizer.pick_color_palette
+      ~COCOVisualizer.pick_random_colors
+      ~COCOVisualizer.visualize
+   
+   
+
+
+
+   
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      _visualize
+   .. automethod::
+      draw_bounding_box
+   .. automethod::
+      draw_segmentation_mask
+   .. automethod::
+      load_image_array
+   .. automethod::
+      pick_color_palette
+   .. automethod::
+      pick_random_colors
+   .. automethod::
+      visualize
+   
+
+
+   
+   
+   

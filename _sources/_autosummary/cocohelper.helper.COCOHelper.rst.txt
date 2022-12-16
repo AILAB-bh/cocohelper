@@ -1,0 +1,167 @@
+COCOHelper
+==========
+
+.. currentmodule:: cocohelper.helper
+
+.. autoclass:: COCOHelper
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~COCOHelper._copy_images
+      ~COCOHelper._read_annotations_file
+      ~COCOHelper._remove_unlinked_anns
+      ~COCOHelper.copy
+      ~COCOHelper.drop_duplicate_anns
+      ~COCOHelper.drop_duplicate_cats
+      ~COCOHelper.drop_duplicate_imgs
+      ~COCOHelper.drop_duplicate_licenses
+      ~COCOHelper.drop_labelled
+      ~COCOHelper.drop_unlabelled
+      ~COCOHelper.filter
+      ~COCOHelper.filter_anns
+      ~COCOHelper.filter_cats
+      ~COCOHelper.filter_imgs
+      ~COCOHelper.filtered_anns
+      ~COCOHelper.filtered_cats
+      ~COCOHelper.filtered_imgs
+      ~COCOHelper.get_ann_sample
+      ~COCOHelper.get_img
+      ~COCOHelper.get_img_sample
+      ~COCOHelper.load
+      ~COCOHelper.load_data
+      ~COCOHelper.load_json
+      ~COCOHelper.merge
+      ~COCOHelper.new_info_dict
+      ~COCOHelper.save
+      ~COCOHelper.to_coco
+      ~COCOHelper.to_json_dataset
+      ~COCOHelper.write_annotations_file
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~COCOHelper.anns
+      ~COCOHelper.cats
+      ~COCOHelper.imgs
+      ~COCOHelper.info
+      ~COCOHelper.joins
+      ~COCOHelper.labelled_imgs
+      ~COCOHelper.licenses
+      ~COCOHelper.paths
+      ~COCOHelper.root_path
+      ~COCOHelper.unlabelled_imgs
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      _copy_images
+   .. automethod::
+      _read_annotations_file
+   .. automethod::
+      _remove_unlinked_anns
+   .. automethod::
+      copy
+   .. automethod::
+      drop_duplicate_anns
+   .. automethod::
+      drop_duplicate_cats
+   .. automethod::
+      drop_duplicate_imgs
+   .. automethod::
+      drop_duplicate_licenses
+   .. automethod::
+      drop_labelled
+   .. automethod::
+      drop_unlabelled
+   .. automethod::
+      filter
+   .. automethod::
+      filter_anns
+   .. automethod::
+      filter_cats
+   .. automethod::
+      filter_imgs
+   .. automethod::
+      filtered_anns
+   .. automethod::
+      filtered_cats
+   .. automethod::
+      filtered_imgs
+   .. automethod::
+      get_ann_sample
+   .. automethod::
+      get_img
+   .. automethod::
+      get_img_sample
+   .. automethod::
+      load
+   .. automethod::
+      load_data
+   .. automethod::
+      load_json
+   .. automethod::
+      merge
+   .. automethod::
+      new_info_dict
+   .. automethod::
+      save
+   .. automethod::
+      to_coco
+   .. automethod::
+      to_json_dataset
+   .. automethod::
+      write_annotations_file
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       anns
+   .. autoattribute::
+       cats
+   .. autoattribute::
+       imgs
+   .. autoattribute::
+       info
+   .. autoattribute::
+       joins
+   .. autoattribute::
+       labelled_imgs
+   .. autoattribute::
+       licenses
+   .. autoattribute::
+       paths
+   .. autoattribute::
+       root_path
+   .. autoattribute::
+       unlabelled_imgs
+   
+   

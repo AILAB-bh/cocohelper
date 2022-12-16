@@ -1,0 +1,6 @@
+mask\_to\_polygon
+=================
+
+.. currentmodule:: cocohelper.utils.segmentation
+
+.. autofunction:: mask_to_polygon

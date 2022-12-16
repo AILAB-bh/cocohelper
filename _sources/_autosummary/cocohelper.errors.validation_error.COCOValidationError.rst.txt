@@ -1,0 +1,6 @@
+cocohelper.errors.validation\_error.COCOValidationError
+=======================================================
+
+.. currentmodule:: cocohelper.errors.validation_error
+
+.. autoexception:: COCOValidationError

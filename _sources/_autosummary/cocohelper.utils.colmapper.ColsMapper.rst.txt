@@ -1,0 +1,44 @@
+ColsMapper
+==========
+
+.. currentmodule:: cocohelper.utils.colmapper
+
+.. autoclass:: ColsMapper
+   :show-inheritance:
+
+
+   
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~ColsMapper.all
+      ~ColsMapper.to_origs
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       all
+   .. autoattribute::
+       to_origs
+   
+   

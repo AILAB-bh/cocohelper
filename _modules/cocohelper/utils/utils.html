@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cocohelper.utils.utils &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../apigen.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cocohelper.utils.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cocohelper.utils.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+
+<div class="viewcode-block" id="isArrayLike"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.utils.isArrayLike.html#cocohelper.utils.utils.isArrayLike">[docs]</a><span class="k">def</span> <span class="nf">isArrayLike</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if an object has attribute __iter__ and __len__.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="not_empty_intersect"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.utils.not_empty_intersect.html#cocohelper.utils.utils.not_empty_intersect">[docs]</a><span class="k">def</span> <span class="nf">not_empty_intersect</span><span class="p">(</span>
+        <span class="n">a</span><span class="p">:</span> <span class="nb">set</span><span class="p">,</span>
+        <span class="n">b</span><span class="p">:</span> <span class="nb">set</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return intersection of a and b if both a and b are not empty sets.</span>
+<span class="sd">    If one of those is an empty set, it returns the non-empty set. If both are empty set, returns an empty set</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: A python set.</span>
+<span class="sd">        b: Another python set.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Intersection of a and b if both a and b are not empty, otherwise the non-empty set.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">a</span>
+    <span class="k">return</span> <span class="n">b</span></div>
+
+
+<div class="viewcode-block" id="fix_not_tuple_object"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.utils.fix_not_tuple_object.html#cocohelper.utils.utils.fix_not_tuple_object">[docs]</a><span class="k">def</span> <span class="nf">fix_not_tuple_object</span><span class="p">(</span><span class="n">obj_val</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If object is not an array-like object, it will return a tuple containing that object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        obj_val: an array-like object or an object/value.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        a tuple containing the object/value or a conversion of the array-like object to a tuple.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">isArrayLike</span><span class="p">(</span><span class="n">obj_val</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">obj_val</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">obj_val</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="fix_not_tuple"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.utils.fix_not_tuple.html#cocohelper.utils.utils.fix_not_tuple">[docs]</a><span class="k">def</span> <span class="nf">fix_not_tuple</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert each argument to a tuple.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        *args: an array-like objects or value/objects.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        for each argument, returns that argument converted to a tuple.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ret_values</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="n">ret_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fix_not_tuple_object</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ret_values</span><span class="p">)</span></div>
+
+<span class="c1">#</span>
+<span class="c1"># def is_empty_array(iterable):</span>
+<span class="c1">#     &quot;&quot;&quot; Return True if iterable is empty. &quot;&quot;&quot;</span>
+<span class="c1">#     return len(iterable) == 0</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># def are_empty_arrays(*args):</span>
+<span class="c1">#     &quot;&quot;&quot; &quot;&quot;&quot;</span>
+<span class="c1">#     ret = True</span>
+<span class="c1">#     for arg in args:</span>
+<span class="c1">#         ret = ret and is_empty_array(arg)</span>
+<span class="c1">#     return ret</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+
+<span class="c1">#</span>
+<span class="c1"># def run_once(f):</span>
+<span class="c1">#     &quot;&quot;&quot; Decorator to run a function only once. &quot;&quot;&quot;</span>
+<span class="c1">#     def wrapper(*args, **kwargs):</span>
+<span class="c1">#         if not wrapper.has_run:</span>
+<span class="c1">#             wrapper.has_run = True</span>
+<span class="c1">#             return f(*args, **kwargs)</span>
+<span class="c1">#         # else: the function will return None</span>
+<span class="c1">#     wrapper.has_run = False</span>
+<span class="c1">#     return wrapper</span>
+
+
+<span class="c1"># def reindex_category_ids_for_file(file_path: Union[str, Path]):</span>
+<span class="c1">#     &quot;&quot;&quot; Reindex category ids as range(num_categories) in the specified COCO annotation file</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#     Args:</span>
+<span class="c1">#         file_path:  the path to the COCO annotation file</span>
+<span class="c1">#</span>
+<span class="c1">#     Returns: COCO annotations with re-indexed categories</span>
+<span class="c1">#</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     with open(file_path) as file:</span>
+<span class="c1">#         data = json.load(file)</span>
+<span class="c1">#</span>
+<span class="c1">#     # 1. build the mapping between old and new category ids</span>
+<span class="c1">#     n_categories = len(data[&quot;categories&quot;])</span>
+<span class="c1">#     new_categories_ids = list(range(n_categories))</span>
+<span class="c1">#     categories_ids = new_categories_ids.copy()</span>
+<span class="c1">#     for i, cat in enumerate(data[&quot;categories&quot;]):</span>
+<span class="c1">#         categories_ids[i] = cat[&quot;id&quot;]</span>
+<span class="c1">#     map_to_new_id = dict(zip(categories_ids, new_categories_ids))</span>
+<span class="c1">#</span>
+<span class="c1">#     # 2. substitute the old category ids with the new ones</span>
+<span class="c1">#     for ann in data[&quot;annotations&quot;]:</span>
+<span class="c1">#         ann[&quot;category_id&quot;] = map_to_new_id[ann[&quot;category_id&quot;]]</span>
+<span class="c1">#     for cat in data[&quot;categories&quot;]:</span>
+<span class="c1">#         cat[&quot;id&quot;] = map_to_new_id[cat[&quot;id&quot;]]</span>
+<span class="c1">#</span>
+<span class="c1">#     return data</span>
+<span class="c1">#</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

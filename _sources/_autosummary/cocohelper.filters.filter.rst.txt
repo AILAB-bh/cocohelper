@@ -1,0 +1,47 @@
+filter
+======
+
+.. automodule:: cocohelper.filters.filter
+
+
+
+
+
+
+
+
+
+
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  AndFilter
+  ColumnFilter
+  ComposeFilter
+  Filter
+  NotFilter
+  OrFilter
+  RangeFilter
+  ValueFilter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

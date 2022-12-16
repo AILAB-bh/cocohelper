@@ -1,0 +1,45 @@
+Importer
+========
+
+.. currentmodule:: cocohelper.importer
+
+.. autoclass:: Importer
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~Importer.create
+   
+   
+
+
+
+   
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      create
+   
+
+
+   
+   
+   

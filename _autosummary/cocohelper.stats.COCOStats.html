@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COCOStats &mdash; cocohelper  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="transforms" href="cocohelper.transforms.html" />
+    <link rel="prev" title="stats" href="cocohelper.stats.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> cocohelper
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../apigen.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cocohelper.html">cocohelper</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.adapters.html">adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.dataframe.html">dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.errors.html">errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.filters.html">filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.helper.html">helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.importer.html">importer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.joins.html">joins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.merge.html">merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.splitters.html">splitters</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cocohelper.stats.html">stats</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">COCOStats</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#cocohelper.stats.COCOStats"><code class="docutils literal notranslate"><span class="pre">COCOStats</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.__get_annotations_ratios"><code class="docutils literal notranslate"><span class="pre">COCOStats.__get_annotations_ratios()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.get_annotation_size_stats"><code class="docutils literal notranslate"><span class="pre">COCOStats.get_annotation_size_stats()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.get_image_size_stats"><code class="docutils literal notranslate"><span class="pre">COCOStats.get_image_size_stats()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.get_optimal_image_size"><code class="docutils literal notranslate"><span class="pre">COCOStats.get_optimal_image_size()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.cat_ids_ratios"><code class="docutils literal notranslate"><span class="pre">COCOStats.cat_ids_ratios</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.cat_nms_ratios"><code class="docutils literal notranslate"><span class="pre">COCOStats.cat_nms_ratios</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.coco_helper"><code class="docutils literal notranslate"><span class="pre">COCOStats.coco_helper</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_anns"><code class="docutils literal notranslate"><span class="pre">COCOStats.nb_anns</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_cats"><code class="docutils literal notranslate"><span class="pre">COCOStats.nb_cats</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_imgs"><code class="docutils literal notranslate"><span class="pre">COCOStats.nb_imgs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.transforms.html">transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.utils.html">utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.validator.html">validator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cocohelper.visualizer.html">visualizer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cocohelper</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
+          <li class="breadcrumb-item"><a href="cocohelper.stats.html">stats</a></li>
+      <li class="breadcrumb-item active">COCOStats</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/cocohelper.stats.COCOStats.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cocostats">
+<h1>COCOStats<a class="headerlink" href="#cocostats" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cocohelper.stats.</span></span><span class="sig-name descname"><span class="pre">COCOStats</span></span><a class="reference internal" href="../_modules/cocohelper/stats.html#COCOStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.stats.COCOStats" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class contains methods to calculate stats on a dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>coco_helper</strong> – Coco dataset to calculate stats on.</p>
+</dd>
+</dl>
+<p class="rubric">Method List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.get_annotation_size_stats" title="cocohelper.stats.COCOStats.get_annotation_size_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_annotation_size_stats</span></code></a>([mode])</p></td>
+<td><p>Obtain dataset labels size statistics in the form of a dictionary.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.get_image_size_stats" title="cocohelper.stats.COCOStats.get_image_size_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_image_size_stats</span></code></a>([eps])</p></td>
+<td><p>Obtain statistics about dataset images sizes for each individual axis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.get_optimal_image_size" title="cocohelper.stats.COCOStats.get_optimal_image_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_optimal_image_size</span></code></a>([mode, n_pixels])</p></td>
+<td><p>Estimate optimal image size based on the dataset's image and annotation statistics.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes List</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.cat_ids_ratios" title="cocohelper.stats.COCOStats.cat_ids_ratios"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cat_ids_ratios</span></code></a></p></td>
+<td><p>For each category, compute how many images in the dataset contains at least an annotation for that category.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.cat_nms_ratios" title="cocohelper.stats.COCOStats.cat_nms_ratios"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cat_nms_ratios</span></code></a></p></td>
+<td><p>For each category, compute how many images in the dataset contains at least an annotation for that category.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.coco_helper" title="cocohelper.stats.COCOStats.coco_helper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coco_helper</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_anns" title="cocohelper.stats.COCOStats.nb_anns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nb_anns</span></code></a></p></td>
+<td><p>Number of annotations in the dataset</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_cats" title="cocohelper.stats.COCOStats.nb_cats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nb_cats</span></code></a></p></td>
+<td><p>Number of categories in the dataset</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_imgs" title="cocohelper.stats.COCOStats.nb_imgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nb_imgs</span></code></a></p></td>
+<td><p>Number of images in the dataset</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Details</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.__get_annotations_ratios">
+<span class="sig-name descname"><span class="pre">__get_annotations_ratios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_value=&lt;NA&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cocohelper.stats.COCOStats.__get_annotations_ratios" title="Permalink to this definition"></a></dt>
+<dd><p>Get the ratios of annotations for each value in column.</p>
+<p>The function picks the imgs/anns/cats join and uses value_counts to
+return a dict with the ratio for each value. Values are normalized in
+[0, 1] by the argument <cite>normalize=True</cite>. Missing values in the column
+will be replaced by <cite>na_value</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dict associating each value in col with the fraction of annotations
+(in [0, 1]).</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – </p></li>
+<li><p><strong>na_value</strong> (<em>Any</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.get_annotation_size_stats">
+<span class="sig-name descname"><span class="pre">get_annotation_size_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bbox'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/stats.html#COCOStats.get_annotation_size_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.stats.COCOStats.get_annotation_size_stats" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain dataset labels size statistics in the form of a dictionary.</p>
+<p>The dictionary pairs each dataset size in the dataset to the list of the
+smallest bounding box size inside the image. This can be useful to define
+the optimal rescaling of the image and avoid loosing small boxes when
+resizing data to a smaller dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mode</strong> (<em>str</em>) – annotation type to be used to extract size statistics. Default
+to bbox.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary with the statistics of the label size in the dataset.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Dict</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.get_image_size_stats">
+<span class="sig-name descname"><span class="pre">get_image_size_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-16</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/stats.html#COCOStats.get_image_size_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.stats.COCOStats.get_image_size_stats" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain statistics about dataset images sizes for each individual axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>eps</strong> (<em>float</em>) – epsilon used to compute average height/width ratio.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Size information about dataset images in the form of a dictionary.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Dict</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.get_optimal_image_size">
+<span class="sig-name descname"><span class="pre">get_optimal_image_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'median'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_pixels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/stats.html#COCOStats.get_optimal_image_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.stats.COCOStats.get_optimal_image_size" title="Permalink to this definition"></a></dt>
+<dd><p>Estimate optimal image size based on the dataset’s image and
+annotation statistics.</p>
+<dl>
+<dt>This function:</dt><dd><ol class="arabic simple">
+<li><p>Computes the label stats of the dataset paired to each image size.</p></li>
+<li><p>Computes the minimum image size that guarantees images resampled to</p></li>
+</ol>
+<blockquote>
+<div><p>that resolution do not lose labels.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Computes the statistic defined by the argument mode (mode can be in</p></li>
+</ol>
+<blockquote>
+<div><p>[“mean”, “median”, “mode”]).</p>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>returns the maximum between the minimum image size that guarantees</p></li>
+</ol>
+<blockquote>
+<div><p>to maintain an annotation size of at least n_pixels on both the width
+and the height image axis AND the values computed in (3).</p>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode</strong> (<em>str</em>) – statistics to be used to define the optimal image size.</p></li>
+<li><p><strong>n_pixels</strong> (<em>int</em>) – minimum number of annotation pixels remaining over the
+width and height axis after resizing an image to the returned the
+optimal image size</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple containing the optimal height and width for resizing all the
+images of the dataset to the same dimension while preserving label
+information.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Tuple</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Attribute Details</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.cat_ids_ratios">
+<span class="sig-name descname"><span class="pre">cat_ids_ratios</span></span><a class="headerlink" href="#cocohelper.stats.COCOStats.cat_ids_ratios" title="Permalink to this definition"></a></dt>
+<dd><p>For each category, compute how many images in the dataset contains at
+least an annotation for that category.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary associating to each category id the fraction of images
+in the dataset containing at least an annotation of that category
+(in [0, 1]).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.cat_nms_ratios">
+<span class="sig-name descname"><span class="pre">cat_nms_ratios</span></span><a class="headerlink" href="#cocohelper.stats.COCOStats.cat_nms_ratios" title="Permalink to this definition"></a></dt>
+<dd><p>For each category, compute how many images in the dataset contains at
+least an annotation for that category.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary associating to each category name the fraction of images
+in the dataset containing at least an annotation of that category
+(in [0, 1]).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.coco_helper">
+<span class="sig-name descname"><span class="pre">coco_helper</span></span><a class="headerlink" href="#cocohelper.stats.COCOStats.coco_helper" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.nb_anns">
+<span class="sig-name descname"><span class="pre">nb_anns</span></span><a class="headerlink" href="#cocohelper.stats.COCOStats.nb_anns" title="Permalink to this definition"></a></dt>
+<dd><p>Number of annotations in the dataset</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.nb_cats">
+<span class="sig-name descname"><span class="pre">nb_cats</span></span><a class="headerlink" href="#cocohelper.stats.COCOStats.nb_cats" title="Permalink to this definition"></a></dt>
+<dd><p>Number of categories in the dataset</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.nb_imgs">
+<span class="sig-name descname"><span class="pre">nb_imgs</span></span><a class="headerlink" href="#cocohelper.stats.COCOStats.nb_imgs" title="Permalink to this definition"></a></dt>
+<dd><p>Number of images in the dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cocohelper.stats.html" class="btn btn-neutral float-left" title="stats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cocohelper.transforms.html" class="btn btn-neutral float-right" title="transforms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AILAB-BH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
