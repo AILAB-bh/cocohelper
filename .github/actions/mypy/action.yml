@@ -1,0 +1,48 @@
+name: "Lint python code"
+description: "Lint python code"
+inputs:
+  extra-mypy-options:
+    description: "Extra options: mypy $(extra-mypy-options) $(python-root-list)"
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniconda-version: "latest"
+        auto-update-conda: true
+        channels: conda-forge
+        use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
+        activate-environment: ${{ github.event.repository.name }}
+        environment-file: environment.yml
+        auto-activate-base: false
+
+    - name: Install Dependencies with Poetry
+      shell: bash -el {0}
+      run: |
+        poetry install
+
+
+    - name: Run mypy
+      shell: bash -el {0}
+      run: |
+        MATCHERS=$GITHUB_ACTION_PATH/matchers/*.json
+        
+        for matcher in $MATCHERS
+        do
+          echo adding matcher $matcher
+          echo "::add-matcher::${matcher}"
+        done
+        
+        echo "TERM: changing from $TERM -> xterm"
+        export TERM=xterm
+        mypy --show-column-numbers ${{ inputs.extra-mypy-options }} src
+        exit_code=$?
+        if [ "$exit_code" = "0" ]; then
+            echo "mypy ok"
+        else
+            echo "mypy error"
+        fi

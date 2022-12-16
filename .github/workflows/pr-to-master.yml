@@ -1,0 +1,78 @@
+name: Pull Request to Master - Validation
+
+# Controls when the workflows will run
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches: [ master ]
+  
+  workflow_dispatch:
+    # Allows you to run these workflows manually from the Actions tab
+
+
+jobs:
+
+  ########### Unit Tests and Code Coverage
+  run-tests:
+    runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      pull-requests: write  # only needed unless run with comment_mode: off
+      #contents: read  # only needed for private repository
+      #issues: read  # only needed for private repository
+
+    steps:
+
+      - name: Download Repository
+        uses: actions/checkout@v2
+
+      - name: Run PyTest
+        uses: ./.github/actions/pytest
+
+
+  ########### Static code analysis
+  static-code-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Repository
+        uses: actions/checkout@v2
+
+      - name: static code analysis
+        uses: ./.github/actions/mypy
+
+
+
+  ########### Check if we have already released the current version
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: check version
+        id: check_version
+        uses: ./.github/actions/check-version-poetry
+
+
+      - name: fail if exists
+        if: ${{ steps.check_version.outputs.is_released == 'true'}}
+        run: |
+          echo "Tag ${{ steps.check_version.outputs.version }} already exists. Kindly update setup.cfg with a new version"
+          exit 1
+
+  ########### Test Doc Build
+  doc-build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: doc build
+        uses: ./.github/actions/doc-deploy
+
+        with:
+          cicd_token: ${{ secrets.CICD_TOKEN}}
+          only_build: true

@@ -1,0 +1,30 @@
+name: 'Create Environment'
+description: 'Create or Update conda environment using environment.yml and install Poetry project using pyptoject.toml'
+inputs:
+  github_token:
+    description: 'GitHub API Access Token'
+    default: ${{ github.token }}
+    required: false
+  repository:
+    description: 'GitHub Repository name'
+    default: ${{ github.event.repository.name }}
+    required: false
+
+runs:
+  using: "composite"
+
+  steps:
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniconda-version: "latest"
+        auto-update-conda: true
+        channels: conda-forge
+        use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
+        activate-environment: ${{ github.event.repository.name }}
+        environment-file: environment.yml
+        auto-activate-base: false
+
+    - name: Install Dependencies with Poetry
+      shell: bash -el {0}
+      run: |
+        poetry install

@@ -1,0 +1,48 @@
+name: Pull Request to Develop - Validation
+
+# Controls when the workflows will run
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches: [ develop ]
+
+  workflow_dispatch:
+    # Allows you to run these workflows manually from the Actions tab
+
+
+jobs:
+
+  ########### Unit Tests and Code Coverage
+  run-tests:
+    runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      pull-requests: write  # only needed unless run with comment_mode: off
+      #contents: read  # only needed for private repository
+      #issues: read  # only needed for private repository
+
+    steps:
+      - name: Download Repository
+        uses: actions/checkout@v2
+
+      - name: Run PyTest
+        uses: ./.github/actions/pytest
+
+
+  ########### Static code analysis
+  static-code-analysis:
+    runs-on: ubuntu-latest
+    # needs: setup-runner
+
+    steps:
+      - name: Download Repository
+        uses: actions/checkout@v2
+
+      - name: static code analysis
+        uses:  ./.github/actions/mypy
+
+
+

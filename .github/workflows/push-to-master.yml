@@ -1,103 +1,43 @@
 name: Production Pipeline
 
-# Controls when the workflows will run
 on:
-  # Run when pushed to master
   push:
     branches:
-    - master
-  
-  # Allows you to run these workflows manually from the Actions tab
+    - master  # Run when pushed to master
   workflow_dispatch:
+    # Allows you to run these workflows manually from the Actions tab
 
-# A workflows run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
-#############################################################################################
-############################# JOB 0 - Check if initial commit ###############################
-#############################################################################################
-  check-initial-commit:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
-    # Map a step output to a job output
-    outputs:
-      commit_count: ${{ steps.check_count.outputs.commit_count }}
-      
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      
-      # Check if initial commit
-      - name: check initial commit
-        id: check_count
-        run: |
-          COMMIT_COUNT=$(git rev-list HEAD --count)
-          echo "::set-output name=commit_count::$COMMIT_COUNT"
-          
 
-#############################################################################################
-############################# JOB 1 - Setup Self Hosted Runner ##############################
-#############################################################################################
-  setup-self-hosted-runner:
-    # The type of runner that the job will run on
-    runs-on: self-hosted
-    needs: check-initial-commit
-
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      - name: Setup Conda Environment
-        uses: AILAB-bh/gh-actions@setup-conda-poetry-env--1.0.1
-
-
-#############################################################################################
-############################# JOB 2 - Release and Publish ###################################
-#############################################################################################
-  
+  ########### Release and Publish
   release-publish:
-    # The type of runner that the job will run on
-    runs-on: self-hosted
-    needs: setup-self-hosted-runner
-    
-    # We will not run on template repository
-    if: ${{ !github.event.repository.is_template && needs.check-initial-commit.outputs.commit_count != '1'}}
-    
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: ubuntu-latest
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
       - name: check version
         id: check_version
-        uses: AILAB-bh/gh-actions@check-version-poetry--master
+        uses: ./.github/actions/check-version-poetry
 
       - name: release
-        uses: AILAB-bh/gh-actions@release-poetry--1.0.0
+        uses: ./.github/actions/release-poetry
         if: ${{ steps.check_version.outputs.is_released == 'false'}}
         with:
           tag_name: ${{ steps.check_version.outputs.version }}
-          pypy_pwd: ${{ secrets.PYPY_PASSWORD }}
-          cicd_token: ${{ secrets.CICD_TOKEN}}
+#          pypy_pwd: ${{ secrets.PYPY_PASSWORD }}
+#          cicd_token: ${{ secrets.CICD_TOKEN}}
 
-#############################################################################################
-############################# JOB 3 - Publish documentation #################################
-#############################################################################################
-  
-  # publish documentation
+
+
+  ###########  Publish documentation
   doc-publish:
-    # The type of runner that the job will run on
-    runs-on: self-hosted
-    needs: setup-self-hosted-runner
-    if: ${{ needs.check-initial-commit.outputs.commit_count != '1'}}
-    
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
       - name: doc build
-        uses: AILAB-bh/gh-actions@doc-deploy--1.0.0
+        uses:  ./.github/actions/doc-deploy
         with:
           cicd_token: ${{ secrets.CICD_TOKEN}}

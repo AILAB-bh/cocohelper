@@ -1,0 +1,77 @@
+# action.yml
+name: 'Check Version (Poetry project)'
+description: 'Extracts version and checks if it is already released'
+inputs:
+  github_token:
+    description: 'GitHub API Access Token'
+    default: ${{ github.token }}
+    required: false
+outputs:
+  version:
+    description: 'Version of the app/lib'
+    value: ${{ steps.extract_version.outputs.version }}
+  is_released:
+    description: 'Do we have a release for this version ?'
+    value: ${{ steps.check_tag.outputs.is_released }}
+runs:
+  using: "composite"
+  steps:
+    - name: Check for Python3
+      run: |
+        echo '##[group]Check for Python3'
+        # we check version here just to execute `python3` with an argument
+        # on Windows, there is a `python3.exe` that is a proxy to trigger installation from app store
+        # command `which python3` finds that, but `python3 -V` does not return the version on stdout
+        if ! which python3 || [[ $(python3 -V) != *"python 3."* && $(python3 -V) != *"Python 3."* ]]
+        then
+          if ! which python || [[ $(python -V) != *"python 3."* && $(python -V) != *"Python 3."* ]]
+          then
+            echo "::error::No python3 interpreter found. Please setup python before running this action. You could use https://github.com/actions/setup-python."
+            exit 1
+          fi
+          interpreter="$(which python)"
+          if [[ ! -e "${interpreter}3" ]]
+          then
+            mkdir -p "$RUNNER_TEMP/bin/"
+            ln -s "$interpreter" "$RUNNER_TEMP/bin/python3"
+            echo "$RUNNER_TEMP/bin" >> $GITHUB_PATH
+          fi
+        fi
+        echo '##[endgroup]'
+      shell: bash
+
+    - name: Install Python dependencies
+      run: |
+        echo '##[group]Install Python dependencies'
+        python3 -m pip install -r $GITHUB_ACTION_PATH/src/requirements.txt
+        echo '##[endgroup]'
+      shell: bash
+    
+    - name: Extract version
+      id: extract_version
+      shell: bash
+      run: python $GITHUB_ACTION_PATH/src/extract_version.py
+      
+    - name: Check if released
+      id: check_tag
+      shell: bash
+      run: |
+          # Check tag on GitHub
+          GET_API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/git/ref/tags/${{ steps.extract_version.outputs.version }}"
+          echo "Checking for tag on GitHub..."
+          HTTP_STATUS_CODE=$(curl -LI $GET_API_URL -o /dev/null -w '%{http_code}\n' -s \
+            -H "Authorization: token ${{ inputs.github_token }}")
+          echo "GitHub returned with a ${HTTP_STATUS_CODE}."
+          # Exit if tag exists
+          if [ "$HTTP_STATUS_CODE" = "404" ]
+          then
+            echo "::set-output name=is_released::false"
+          elif [ "$HTTP_STATUS_CODE" = "200" ]
+          then
+            echo "::set-output name=is_released::true"
+          else
+            echo "::set-output name=is_released::false"
+            echo "Remote tag unable to be determined."
+            exit 1
+          fi
+              

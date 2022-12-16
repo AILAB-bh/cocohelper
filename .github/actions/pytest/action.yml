@@ -1,0 +1,65 @@
+name: "PyTest"
+description: "Run python tests with PyTest"
+
+
+runs:
+  using: "composite"
+  steps:
+
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniconda-version: "latest"
+        auto-update-conda: true
+        channels: conda-forge
+        use-only-tar-bz2: true  # IMPORTANT: This needs to be set for caching to work properly!
+        activate-environment: ${{ github.event.repository.name }}
+        environment-file: environment.yml
+        auto-activate-base: false
+
+    - name: Install Dependencies with Poetry
+      shell: bash -el {0}
+      run: |
+        poetry install
+
+    - name: Run PyTest
+      shell: bash -el {0}
+      run: |
+        python -m pytest --cov=src --cov-report xml tests/ --junitxml=out_report.xml
+
+    - name: Check PyTest Output
+      shell: bash -el {0}
+      if: always()
+      run: |
+        cat out_report.xml
+        cat coverage.xml
+
+    - name: Publish Coverage Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      if: always()
+      with:
+        filename: "coverage.xml"
+        badge: true
+        fail_below_min: true
+        format: markdown
+        hide_branch_rate: false
+        hide_complexity: true
+        indicators: true
+        output: both
+        thresholds: '30 75'
+
+    - name: Add Coverage PR Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      if: github.event_name == 'pull_request'
+      with:
+        recreate: true
+        path: code-coverage-results.md
+
+    - name: Write to Job Summary
+      shell: bash -el {0}
+      run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        junit_files: "out_report.xml"
