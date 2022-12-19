@@ -3,13 +3,16 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-COCO-Helper
+COCOHelper
 ===================================================
 
-This library provide a handy interface to manage COCO-style datasets.
+Microsoft COCO is a large-scale dataset and data annotation format.
+Today, COCO is a widely adopted standard for object detection, segmentation, and captioning.
 
-COCO-Helper can be used in place of pycocotools library, providing
-a more pythonic and complete interface.
+COCOHelper makes working with the COCO format super-easy! 
+You can use it to efficiently run complex operations such as statistical 
+analysis and dataset arithmetic with just a few lines of code. 
+Check our documentation and tutorials to learn how!
 
 .. toctree::
    :maxdepth: 2

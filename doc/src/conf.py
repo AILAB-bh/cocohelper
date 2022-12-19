@@ -7,7 +7,7 @@
 
 project = 'cocohelper'
 copyright = '2022, AILAB-BH'
-
+html_favicon = 'favicon_dark.png'
 
 # -- Extensions ---------------------------------------------------------------
 extensions = [

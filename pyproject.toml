@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cocohelper"
-version = "0.3.1b"
+version = "0.3.2b"
 description = "Object Oriented library to manage MS-COCO-like datasets efficiently. "
 authors = [
     "delchiaro-bh <Riccardo.DelChiaro@bakerhughes.com>",

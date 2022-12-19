@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./doc/logo.png">
+  <img src="./doc/src/logo_light.png">
 </div>
 <div align="center">
 
@@ -10,17 +10,14 @@
 </div>
 
 # Mission 
-Microsoft COCO is both a large-scale dataset and a data annotation format.
-Since its first release, COCO has emerged as a widely adopted annotation 
-standard for object detection, segmentation, and captioning.
-Despite Microsoft providing a simple API to interact with the COCO format, 
-performing complex analysis and operations within and across COCO datasets 
-requires ad-hoc implementations by the users.
+#### An Open-Source Library to Make COCO Simpler
+Microsoft COCO is a large-scale dataset and data annotation format.
+Today, COCO is a widely adopted standard for object detection, segmentation, and captioning.
 
-Our library, COCO Helper, makes working with the COCO format considerably 
-easier.
-COCO Helper allows to efficiently run complex operations such as statistical 
-analysis and dataset arithmetic using just a few lines of code. 
+COCOHelper makes working with the COCO format super-easy! 
+You can use it to efficiently run complex operations such as statistical 
+analysis and dataset arithmetic with just a few lines of code. 
+Check our documentation and tutorials to learn how!
 
 **Quick Links**:
  - [Documentation](https://ailab-bh.github.io/cocohelper/)
@@ -30,7 +27,7 @@ analysis and dataset arithmetic using just a few lines of code.
  
 
 ## Installation
-To install the library you can download the latest wheel package from this repo
+To install the library, download the latest wheel package from this repo
 and install through **pip**, **poetry**, or other python package managers.
 
 > NB: We are still working to publish the library to public PyPi.
@@ -38,8 +35,7 @@ and install through **pip**, **poetry**, or other python package managers.
 
 
 ## Usage
-Examples of usage can be found in [usage.md](doc/src-man/usage.md) and in 
-the [notebooks](notebooks/) folder.
+You can find examples of usage in [usage.md](doc/src-man/usage.md) and [notebooks](notebooks/) folder.
 
 
 
@@ -53,16 +49,16 @@ Thanks a lot to all of our outstanding contributors!
   
 ## Citing COCOHelper
   
-We would appreciate your citation if you find COCO Helper useful in your 
+We would appreciate your citation if you find COCOHelper useful in your 
 research.
 
-You can cite COCO Helper using the following BibTeX entry:
+You can cite COCOHelper using the following BibTeX entry:
 
 ```bibtex  
 @misc{cocohelper,  
-  title={COCO Helper},  
-  author={TBD},  
+  title={COCOHelper},  
+  author={Riccardo Del Chiaro, Elia Lotti, Andrea Panizza, Giacomo Veneri, Gabriele Valvano},  
   year={2022},  
-  howpublished={\url{https://github.com/baker-hughes/cocohelper}},  
+  howpublished={https://github.com/baker-hughes/cocohelper},  
 }  
 ```
