@@ -1,3 +1,61 @@
+/*
+BH Dark Gren:       #05322B
+
+BH Green:           #018374
+BH Light Green:     #02BC94
+
+BH Gray:            #949494
+BH Light Gray       #D0D0D0
+*/
+
 .wy-nav-content {
     max-width: 1200px;
+}
+
+.wy-side-nav-search, .wy-nav-top {
+  background: #05322B;
+}
+/* Sidebar */
+.wy-nav-side {
+  background: #05322B;
+}
+
+
+a:link {
+    color: #05322B;
+}
+a:visited{
+    color: #018374;
+}
+a:hover{
+  color: #018374;
+}
+a:active{
+  color: #02BC94;
+}
+
+.wy-side-nav-search a {
+    color: #fcfcfc;
+}
+
+.wy-menu-vertical header, .wy-menu-vertical p.caption{
+  color: #fcfcfc;
+}
+
+.wy-menu-vertical header, .wy-menu-vertical a:link{
+  color: #d9d9d9;
+}
+
+.wy-menu-vertical header, .wy-menu-vertical a:visited{
+  color: #fcfcfc;
+}
+
+.wy-menu-vertical header, .wy-menu-vertical a:hover{
+  color: #fcfcfc;
+  background:#018374
+
+}
+
+.wy-menu-vertical header, .wy-menu-vertical a:active {
+  background:#02BC94
 }
