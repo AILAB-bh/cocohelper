@@ -21,8 +21,8 @@ Check our documentation and tutorials to learn how!
 
 **Quick Links**:
  - [Documentation](https://ailab-bh.github.io/cocohelper/)
- - [Contribution Guidelines](doc/src-man/contributing.md)
- - [Roadmap](doc/src-man/roadmap.md)
+ - [Contribution Guidelines](doc/src/contributing.md)
+ - [Roadmap](doc/src/roadmap.md)
 
  
 
@@ -35,13 +35,13 @@ and install through **pip**, **poetry**, or other python package managers.
 
 
 ## Usage
-You can find examples of usage in [usage.md](doc/src-man/usage.md) and [notebooks](notebooks/) folder.
+You can find examples of usage in [usage.md](doc/src/usage.md) and [notebooks](notebooks/) folder.
 
 
 
 ## Contributing
 Contributors are always welcome to help us fix an issue, add tests, improve
-code and documentation quality. If you'd like to contribute, please see our [contributing guide](doc/src-man/contributing.md).
+code and documentation quality. If you'd like to contribute, please see our [contributing guide](doc/src/contributing.md).
 
 Thanks a lot to all of our outstanding contributors!
 
