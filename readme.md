@@ -5,7 +5,7 @@
 
   [![Python](https://img.shields.io/badge/python-v3.8.0+-success.svg)](https://www.python.org/)
   [![License](https://img.shields.io/badge/License-Apache_2.0-yellowgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-  [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](.github/contributing.md)
+  [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](doc/src/contributing.md)
   [![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://ailab-bh.github.io/cocohelper/apigen.html)
 </div>
 
