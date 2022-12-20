@@ -57,8 +57,12 @@ You can cite COCOHelper using the following BibTeX entry:
 ```bibtex  
 @misc{cocohelper,  
   title={COCOHelper},  
-  author={Riccardo Del Chiaro, Elia Lotti, Andrea Panizza, Giacomo Veneri, Gabriele Valvano},  
+  author={Riccardo Del Chiaro, Andrea Panizza, Giacomo Veneri, Gabriele Valvano},  
   year={2022},  
   howpublished={https://github.com/baker-hughes/cocohelper},  
 }  
 ```
+
+#### Acknowledgments
+We thank the main authors and all the contributors for their help in developing the library. 
+We also thank Elia Lotti for his precious work on this project.
