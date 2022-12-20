@@ -1,3 +1,5 @@
+"""Split the COCO dataset according to a K-fold rule.
+"""
 from typing import List
 import random
 from cocohelper.splitters.proportional import ProportionalDataSplitter

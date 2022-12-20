@@ -1,3 +1,5 @@
+"""Access to different joins of a COCO dataset tables.
+"""
 from typing import TYPE_CHECKING
 from pandas import DataFrame
 from cocohelper.dataframe import COCODataFrame

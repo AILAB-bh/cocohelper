@@ -1,3 +1,5 @@
+"""Filters for the COCO images, annotations, and categories.
+"""
 from typing import Type, List, Optional, Tuple
 from cocohelper.filters.strategies import HAVING_VALUE, ValueFilterStrategy, RangeFilterStrategy, IN_RANGE
 from cocohelper.filters.filter import ValueFilter, RangeFilter, ComposeFilter, Filter, ColumnFilter

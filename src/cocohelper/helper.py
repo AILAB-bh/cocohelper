@@ -1,3 +1,5 @@
+"""Represent a dataset in the COCO format.
+"""
 from __future__ import annotations
 from typing import Union, Optional, Tuple, Type, Dict, Sequence, TYPE_CHECKING
 from pycocotools.coco import COCO

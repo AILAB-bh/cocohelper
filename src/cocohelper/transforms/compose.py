@@ -1,3 +1,5 @@
+"""Composition of multiple transformations.
+"""
 from typing import List, Tuple
 import numpy as np
 from cocohelper.transforms import Transform

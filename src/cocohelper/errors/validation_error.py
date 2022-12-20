@@ -1,3 +1,6 @@
+"""Errors for non-valid COCO dataset.
+"""
+
 class COCOValidationError(Exception):
     def __init__(self):
         """Error raised when the input COCO is not in a valid COCO format."""

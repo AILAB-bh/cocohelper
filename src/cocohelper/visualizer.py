@@ -1,3 +1,5 @@
+"""Visualize COCO images and annotations.
+"""
 from cocohelper import COCOHelper
 import numpy as np
 import cv2

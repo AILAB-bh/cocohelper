@@ -1,3 +1,5 @@
+"""Check COCO dataset validity based on data ids and directory tree.
+"""
 from typing import Dict, List, Optional, Type, Union, Sequence, Any, Tuple
 from functools import partial
 import logging

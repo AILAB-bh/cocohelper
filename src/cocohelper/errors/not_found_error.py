@@ -1,3 +1,6 @@
+"""Errors for not found items in the COCO dataset.
+"""
+
 class COCOImageNotFoundError(Exception):
 
     def __init__(

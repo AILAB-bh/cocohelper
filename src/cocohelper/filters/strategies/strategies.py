@@ -1,3 +1,5 @@
+"""Filtering strategies, as classes.
+"""
 from __future__ import annotations  # for sure needed for python <= 3.7, don't know about python 3.8+
 from typing import TYPE_CHECKING, Tuple
 from pandas import DataFrame

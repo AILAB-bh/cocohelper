@@ -1,3 +1,5 @@
+"""Several Crop transformations for the COCO images and annotations.
+"""
 from typing import List, Tuple
 from enum import Enum
 import numpy as np

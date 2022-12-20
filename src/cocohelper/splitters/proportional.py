@@ -1,3 +1,5 @@
+"""Split the COCO dataset according to a proportional rule.
+"""
 from typing import List
 import random
 from cocohelper.splitters.splitter import Splitter

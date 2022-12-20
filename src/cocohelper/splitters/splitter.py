@@ -1,3 +1,5 @@
+"""Generic split of the COCO dataset according to a given strategy.
+"""
 from abc import ABC, abstractmethod
 from typing import List
 from cocohelper import COCOHelper

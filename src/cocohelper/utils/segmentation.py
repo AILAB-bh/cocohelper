@@ -1,3 +1,5 @@
+"""Utils for converting segmentation annotations between different formats.
+"""
 from typing import List, Tuple, Dict, Union, Iterable, Optional, Callable, Any
 
 import numpy.typing as npt

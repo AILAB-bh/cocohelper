@@ -1,3 +1,5 @@
+"""Generate COCOHelper objects from a generic dataset interface.
+"""
 import datetime as dt
 from pathlib import Path
 from typing import Optional, Union

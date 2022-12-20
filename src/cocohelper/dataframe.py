@@ -1,3 +1,5 @@
+"""Extend pandas Dataframe to allow easier manipulation of COCO Datasets.
+"""
 from typing import Tuple, Hashable, Optional, Union
 from pandas._typing import IndexLabel
 from pandas import DataFrame

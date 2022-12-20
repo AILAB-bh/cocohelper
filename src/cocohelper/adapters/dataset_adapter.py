@@ -1,3 +1,5 @@
+"""A generic adapter for converting datasets an arbitrary format to COCO format.
+"""
 from typing import List, Optional, Tuple
 from abc import ABC, abstractmethod
 import numpy as np

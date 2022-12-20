@@ -1,3 +1,5 @@
+"""Calculate dataset statistics on the images and annotations.
+"""
 import logging
 from functools import cached_property
 from typing import Dict, Tuple, Any, List

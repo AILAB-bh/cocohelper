@@ -1,3 +1,5 @@
+"""Merge multiple COCO datasets together.
+"""
 from cocohelper import COCOHelper
 from typing import List, Tuple
 import pandas as pd

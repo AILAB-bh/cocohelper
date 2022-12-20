@@ -1,3 +1,5 @@
+"""Generic transformation for the COCO images and annotations.
+"""
 from typing import List, Tuple, Union
 from abc import ABC, abstractmethod
 from cocohelper import COCOHelper, COCOHelperPaths

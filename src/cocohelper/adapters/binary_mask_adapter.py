@@ -1,3 +1,5 @@
+"""An adapter for converting datasets with binary masks to COCO format.
+"""
 from typing import List, Dict, Callable, Tuple, Optional, Union
 from scipy import ndimage
 import numpy as np
