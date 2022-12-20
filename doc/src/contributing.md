@@ -27,7 +27,7 @@ If you want to submit a contribution, please follow the steps below:
 > Once the pull request is approved, a team member will take care of merging.
 
 ## Setup environment:
-Setting up your development environment requires you to fork the COCO Helper repository, 
+Setting up your development environment requires you to fork the COCOHelper repository, 
 clone the repository, install the dependencies, and execute the setup file.
 You can do it as:  
 
