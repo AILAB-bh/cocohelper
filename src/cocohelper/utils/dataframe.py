@@ -1,4 +1,4 @@
-"""Utils for `DataFrame`.
+"""Utilities* for `DataFrame` manipulation.
 """
 from pandas.core.util.hashing import hash_pandas_object
 from typing import List, Optional, Tuple, Dict

@@ -1,4 +1,4 @@
-"""Utils for converting segmentation annotations between different formats.
+"""Utilities* for converting segmentation annotations between different formats.
 """
 from typing import List, Tuple, Dict, Union, Iterable, Optional, Callable, Any
 
