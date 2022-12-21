@@ -1,4 +1,4 @@
-"""Filters for the COCO dataset.
+"""Base filters that can be used, composed or extended to extract specific information from dataframes.
 """
 from .filter import Filter
 from .filter import ComposeFilter, AndFilter, OrFilter, NotFilter

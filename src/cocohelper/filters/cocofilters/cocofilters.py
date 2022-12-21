@@ -1,4 +1,4 @@
-"""Filters for the COCO images, annotations, and categories.
+"""Special and complex filters used to obtain specific data from COCO `images`, `annotations` and `categories` tables.
 """
 from typing import Type, List, Optional, Tuple
 from cocohelper.filters.strategies import HAVING_VALUE, ValueFilterStrategy, RangeFilterStrategy, IN_RANGE
