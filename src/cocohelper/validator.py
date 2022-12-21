@@ -1,4 +1,5 @@
-"""Check COCO dataset validity based on data ids and directory tree.
+"""
+Check COCO dataset validity based on data ids and directory tree.
 """
 from typing import Dict, List, Optional, Type, Union, Sequence, Any, Tuple
 from functools import partial
@@ -42,7 +43,8 @@ class COCOValidator:
         return True
 
     def validate_dataset(self) -> bool:
-        """Check if this is a valid COCO dataset.
+        """
+        Check if this is a valid COCO dataset.
 
         Returns:
             True if this is a valida dataset.
@@ -92,7 +94,8 @@ class COCOValidator:
         return True
 
     def _has_valid_dataset_tree(self) -> bool:
-        """Check dataset directory tree validity
+        """
+        Check dataset directory tree validity
 
         Returns:
             True if the dataset tree is valid, False otherwise
@@ -113,7 +116,8 @@ class COCOValidator:
             json_data: Dict,
             mandatory_keys: Optional[List] = None
     ) -> bool:
-        """Check if the input COCO annotation json file has the mandatory keys.
+        """
+        Check if the input COCO annotation json file has the mandatory keys.
 
         Correct COCO annotation json files must have the following keys: "images",
         "annotations", "categories". There are some exceptions: for example, the
@@ -139,7 +143,8 @@ class COCOValidator:
             json_data: Dict,
             mandatory_keys: Optional[List] = None
     ) -> bool:
-        """Check if images have the mandatory keys.
+        """
+        Check if images have the mandatory keys.
 
         Args:
             json_data: data from a coco json file.
@@ -173,7 +178,8 @@ class COCOValidator:
             json_data: Dict,
             mandatory_keys: Optional[List] = None
     ) -> bool:
-        """Check if annotations have the mandatory keys.
+        """
+        Check if annotations have the mandatory keys.
 
         Args:
             json_data: data from a coco json file.
@@ -213,7 +219,8 @@ class COCOValidator:
             mandatory_keys: Optional[List] = None,
             recommended_keys: Optional[List] = None
     ) -> bool:
-        """Check if categories have the mandatory keys.
+        """
+        Check if categories have the mandatory keys.
         
         Args:
             json_data: data from a coco json file.
@@ -258,7 +265,8 @@ class COCOValidator:
     def _annotations_have_valid_category_id(
             json_data: Dict
     ) -> bool:
-        """Check that annotations have a valid category id.
+        """
+        Check that annotations have a valid category id.
 
         Args:
             json_data: data from a coco json file.
@@ -274,7 +282,8 @@ class COCOValidator:
     def _annotations_have_valid_image_id(
             json_data: Dict
     ) -> bool:
-        """Check that annotations have a valid image id.
+        """
+        Check that annotations have a valid image id.
 
         Args:
             json_data: data from a coco json file.
@@ -290,7 +299,8 @@ class COCOValidator:
     def _category_ids_are_unique(
             json_data: Dict
     ) -> bool:
-        """Check if there are duplicated category ids.
+        """
+        Check if there are duplicated category ids.
 
         Args:
             json_data: data from a coco json file.
@@ -304,7 +314,8 @@ class COCOValidator:
     def _licenses_ids_are_unique(
             json_data: Dict
     ) -> bool:
-        """Check if there are duplicated licenses ids.
+        """
+        Check if there are duplicated licenses ids.
 
         Args:
             json_data: data from a coco json file.
@@ -318,7 +329,8 @@ class COCOValidator:
     def _image_ids_are_unique(
             json_data: Dict
     ) -> bool:
-        """Check if there are duplicated image ids.
+        """
+        Check if there are duplicated image ids.
 
         Args:
             json_data: data from a coco json file.
@@ -332,7 +344,8 @@ class COCOValidator:
     def _annotation_ids_are_unique(
             json_data: Dict
     ) -> bool:
-        """Check if there are duplicated annotations ids.
+        """
+        Check if there are duplicated annotations ids.
 
         Args:
             json_data: data from a coco json file.
@@ -352,7 +365,8 @@ def _assert_dict_value_type(
         expected_types: List[Type],
         msg_header=""
 ) -> None:
-    """Check if a dictionary item has the expected type under the given key.
+    """
+    Check if a dictionary item has the expected type under the given key.
 
     Args:
         dictionary: a dictionary containing the pairs (key, value) to be tested

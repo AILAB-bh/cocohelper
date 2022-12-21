@@ -1,4 +1,5 @@
-"""Utilities* for `DataFrame` manipulation.
+"""
+Utilities* for `DataFrame` manipulation.
 """
 from pandas.core.util.hashing import hash_pandas_object
 from typing import List, Optional, Tuple, Dict
@@ -38,7 +39,8 @@ def drop_duplicate_rows(
         df: DataFrame,
         ignore_columns: Optional[List[str]] = None
 ) -> Tuple[DataFrame, dict]:
-    """Drop duplicates rows of a DataFrame and return a map of merged elements.
+    """
+    Drop duplicates rows of a DataFrame and return a map of merged elements.
 
     Duplicate are defined as rows with the same values except the index. Some
     columns can be ignored at the end of identifying duplicates.
@@ -89,7 +91,8 @@ def fix_fk_after_drop_duplicate(
         fk_column: str,
         merge_index_mapping: Dict
 ) -> DataFrame:
-    """Fix the foreign key of a dataframe connected to a dataframe with dropped
+    """
+    Fix the foreign key of a dataframe connected to a dataframe with dropped
     duplicates.
 
     The foreign keys of connected_df that where pointing to indices that have

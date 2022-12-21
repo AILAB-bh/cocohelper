@@ -1,2 +1,3 @@
-"""Split the COCO dataset in sub-portions.
+"""
+Split the COCO dataset in sub-portions.
 """

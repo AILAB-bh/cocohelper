@@ -1,4 +1,5 @@
-"""The abstraction of an Adapter for converting datasets an arbitrary format to COCO format.
+"""
+The abstraction of an Adapter for converting datasets an arbitrary format to COCO format.
 """
 from typing import List, Optional, Tuple
 from abc import ABC, abstractmethod
@@ -8,7 +9,8 @@ import numpy as np
 class DatasetAdapter(ABC):
 
     def __iter__(self):
-        """DatasetAdapter interface that converts a dataset format to COCOHelper
+        """
+        DatasetAdapter interface that converts a dataset format to COCOHelper
         format.
 
         Returns:
@@ -18,7 +20,8 @@ class DatasetAdapter(ABC):
         return self
 
     def __next__(self):
-        """Get the next sample in the sequence.
+        """
+        Get the next sample in the sequence.
 
         Returns:
             self.
@@ -36,7 +39,8 @@ class DatasetAdapter(ABC):
 
     @abstractmethod
     def get_categories(self) -> List[dict]:
-        """Get the categories.
+        """
+        Get the categories.
 
         Returns:
             A list of categories as dictionaries.
@@ -48,7 +52,8 @@ class DatasetAdapter(ABC):
             self,
             idx: int
     ) -> Optional[Tuple[dict, List[dict]]]:
-        """A method for loading samples. To be implemented.
+        """
+        A method for loading samples. To be implemented.
 
         Args:
             idx: index of the element to be fetched.
@@ -63,7 +68,8 @@ class DatasetAdapter(ABC):
             self,
             idx: int
     ) -> np.ndarray:
-        """A method for reading images. To be implemented.
+        """
+        A method for reading images. To be implemented.
 
         Args:
             idx: index of the element to be fetched.

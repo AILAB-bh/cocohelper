@@ -1,4 +1,5 @@
-"""Special and complex filters used to obtain specific data from COCO `images`, `annotations` and `categories` tables.
+"""
+Special and complex filters used to obtain specific data from COCO `images`, `annotations` and `categories` tables.
 """
 from typing import Type, List, Optional, Tuple
 from cocohelper.filters.strategies import HAVING_VALUE, ValueFilterStrategy, RangeFilterStrategy, IN_RANGE
@@ -49,7 +50,8 @@ def cats_filter(
         composition: Type[ComposeFilter] = AndFilter,
         strategy: ValueFilterStrategy = HAVING_VALUE
 ) -> Filter:
-    """A Filter for the categories with the required characteristics.
+    """
+    A Filter for the categories with the required characteristics.
 
     Args:
         ids: a filter for the category id.
@@ -80,7 +82,8 @@ def imgs_filter(
         composition: Type[ComposeFilter] = AndFilter,
         strategy: ValueFilterStrategy = HAVING_VALUE
 ) -> Filter:
-    """A Filter for the images with the required characteristics.
+    """
+    A Filter for the images with the required characteristics.
 
     Args:
         ids: a filter for the image id.

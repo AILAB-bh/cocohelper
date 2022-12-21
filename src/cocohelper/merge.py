@@ -1,4 +1,5 @@
-"""Merge multiple COCO datasets together.
+"""
+Merge multiple COCO datasets together.
 """
 from cocohelper import COCOHelper
 from typing import List, Tuple
@@ -9,7 +10,8 @@ def merge_coco(
         *coco_helpers: COCOHelper,
         drop_duplicates: bool = True
 ) -> COCOHelper:
-    """Merge multiple `COCOHelper` merging all categories, images and annotations.
+    """
+    Merge multiple `COCOHelper` merging all categories, images and annotations.
 
     Args:
         *coco_helpers: the list of COCOHelper datasets to merge.
@@ -40,7 +42,8 @@ def merge_coco(
 def _merge_info(
         *coco_helpers: COCOHelper
 ) -> dict:
-    """Merge multiple COCOHelpers info fields.
+    """
+    Merge multiple COCOHelpers info fields.
 
     Args:
         *coco_helpers: the list of COCOHelper datasets to merge.
@@ -73,7 +76,8 @@ def _merge_licenses(
 def _merge_categories(
         *coco_helpers: COCOHelper
 ) -> Tuple[pd.DataFrame, List[dict]]:
-    """Merge the categories of all datasets.
+    """
+    Merge the categories of all datasets.
 
     Returns:
         A tuple with 2 items: the first is a dataframe with the merged categories,

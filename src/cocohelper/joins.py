@@ -1,4 +1,5 @@
-"""Access to different joins of a COCO dataset tables.
+"""
+Access to different joins of a COCO dataset tables.
 """
 from typing import TYPE_CHECKING
 from pandas import DataFrame
@@ -12,7 +13,8 @@ if TYPE_CHECKING:
 class COCOJoins:
 
     def __init__(self, coco_helper: "COCOHelper"):
-        """Enable easy access to different joins of a COCO dataset tables.
+        """
+        Enable easy access to different joins of a COCO dataset tables.
 
         Args:
             coco_helper: the COCOHelper object representing a COCO dataset.
@@ -77,7 +79,8 @@ class COCOJoins:
             self,
             joined_cats: DataFrame
     ) -> DataFrame:
-        """Extract cats view from a cats dataframe merged with other dataframes.
+        """
+        Extract cats view from a cats dataframe merged with other dataframes.
 
         Useful to extract columns compatible with standard coco categories and
         merge/assign to COCOHelper cats property.
@@ -103,7 +106,8 @@ class COCOJoins:
             self,
             joined_imgs: DataFrame
     ) -> DataFrame:
-        """Extract imgs view from an imgs dataframe merged with other dataframes.
+        """
+        Extract imgs view from an imgs dataframe merged with other dataframes.
 
         Useful to extract columns compatible with standard coco images and
         merge/assign to COCOHelper imgs property.
@@ -129,8 +133,9 @@ class COCOJoins:
             self,
             joined_anns: DataFrame
     ) -> DataFrame:
-        """Get annotation view from an annotation dataframe merged with other
-         dataframes.
+        """
+        Get annotation view from an annotation dataframe merged with other
+        dataframes.
 
         Useful to extract columns compatible with standard coco annotations and
         merge/assign to COCOHelper annotations property.

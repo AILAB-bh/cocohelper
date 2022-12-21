@@ -1,4 +1,5 @@
-"""Represent a dataset in the COCO format.
+"""
+Represent a dataset in the COCO format.
 """
 from __future__ import annotations
 from typing import Union, Optional, Tuple, Type, Dict, Sequence, TYPE_CHECKING
@@ -62,7 +63,8 @@ class COCOHelper:
             paths: Optional[COCOHelperPaths] = None,
             validate: bool = True
     ) -> None:
-        """Represent a dataset in the COCO format.
+        """
+        Represent a dataset in the COCO format.
 
         To create an instance of COCOHelper is advisable to use the `load` methods.
 
@@ -108,7 +110,8 @@ class COCOHelper:
             lic_df: Optional[DataFrame] = None,
             info: Optional[dict] = None
     ) -> COCOHelper:
-        """Copy the dataset and optionally change some dataframes.
+        """
+        Copy the dataset and optionally change some dataframes.
         
         When changing categories or images, annotations that
         result as invalid will be removed.
@@ -164,7 +167,8 @@ class COCOHelper:
             fix_img_path: bool = False,
             copy_images: bool = False
     ) -> None:
-        """Save the current `COCOHelper` to a directory.
+        """
+        Save the current `COCOHelper` to a directory.
 
         Args:
             coco_dir: Output root directory.
@@ -203,7 +207,8 @@ class COCOHelper:
             img_dir: str = COCOHelperPaths.img_dir,
             validate: bool = False
     ) -> COCOHelper:
-        """Create a COCOHelper from a COCO dataset stored in a directory.
+        """
+        Create a COCOHelper from a COCO dataset stored in a directory.
 
         Args:
             coco_dir: path to the directory containing the dataset.
@@ -228,7 +233,8 @@ class COCOHelper:
             img_dir: str = COCOHelperPaths.img_dir,
             validate: bool = False
     ) -> COCOHelper:
-        """Create COCOHelper from json annotation file of the COCO dataset stored in a directory.
+        """
+        Create COCOHelper from json annotation file of the COCO dataset stored in a directory.
 
         Args:
             json_annotations_file: path to the json file containing the dataset
@@ -371,7 +377,8 @@ class COCOHelper:
 
     @property
     def unlabelled_imgs(self) -> pd.DataFrame:
-        """Get only the unlabelled images as a DataFrame.
+        """
+        Get only the unlabelled images as a DataFrame.
 
         Returns:
             A pandas.DataFrame containing the unlabelled images.
@@ -380,7 +387,8 @@ class COCOHelper:
 
     @property
     def labelled_imgs(self) -> pd.DataFrame:
-        """Get only the labelled images as a DataFrame.
+        """
+        Get only the labelled images as a DataFrame.
 
         Returns:
             A pandas.DataFrame containing the labelled images.
@@ -392,7 +400,8 @@ class COCOHelper:
     # SPECIAL IMAGES DROPPING METHODS #
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     def drop_unlabelled(self) -> COCOHelper:
-        """Get a new `COCOHelper` dataset that does not contain unlabelled images.
+        """
+        Get a new `COCOHelper` dataset that does not contain unlabelled images.
 
         Returns:
             A new `COCOHelper` object containing only labelled images.
@@ -400,7 +409,8 @@ class COCOHelper:
         return self.copy(img_df=self.labelled_imgs)
 
     def drop_labelled(self) -> COCOHelper:
-        """Get a new COCOHelper dataset that does only contain unlabelled images.
+        """
+        Get a new COCOHelper dataset that does only contain unlabelled images.
 
         Returns:
             A new `COCOHelper` object containing only unlabelled images.
@@ -421,7 +431,8 @@ class COCOHelper:
             composition: Type[ComposeFilter] = AndFilter,
             invert: bool = False
     ) -> COCOHelper:
-        """Get a copy of the dataset with filtered categories.
+        """
+        Get a copy of the dataset with filtered categories.
 
         Args:
             cfilter: a custom Filter for the COCOHelper.
@@ -456,7 +467,8 @@ class COCOHelper:
             composition: Type[ComposeFilter] = AndFilter,
             invert: bool = False
     ) -> COCOHelper:
-        """Get a copy of the dataset with filtered images.
+        """
+        Get a copy of the dataset with filtered images.
 
         Args:
             cfilter: a custom Filter for the COCOHelper.
@@ -493,7 +505,8 @@ class COCOHelper:
             composition: Type[ComposeFilter] = AndFilter,
             invert: bool = False
     ) -> COCOHelper:
-        """Get a copy of the dataset with filtered annotations.
+        """
+        Get a copy of the dataset with filtered annotations.
 
         Args:
             cfilter: a custom Filter for the COCOHelper.
@@ -536,7 +549,8 @@ class COCOHelper:
             invert: bool = False,
             drop_orphans: bool = True
     ) -> COCOHelper:
-        """Get a copy of the dataset with the applied filters.
+        """
+        Get a copy of the dataset with the applied filters.
 
         Args:
             cfilter: a custom Filter for the COCOHelper.
@@ -591,7 +605,8 @@ class COCOHelper:
             composition: Type[ComposeFilter] = AndFilter,
             invert: bool = False
     ) -> pd.DataFrame:
-        """Get dataset's categories, potentially filtered by the provided filters.
+        """
+        Get dataset's categories, potentially filtered by the provided filters.
 
         Args:
             cfilter: a custom Filter for the COCOHelper.
@@ -628,7 +643,8 @@ class COCOHelper:
             composition: Type[ComposeFilter] = AndFilter,
             invert: bool = False
     ) -> pd.DataFrame:
-        """Get dataset's images, after join with annotations and categories and potentially filtered by a filter.
+        """
+        Get dataset's images, after join with annotations and categories and potentially filtered by a filter.
 
         Args:
             cfilter: a custom Filter for the COCOHelper.
@@ -669,7 +685,8 @@ class COCOHelper:
             composition: Type[ComposeFilter] = AndFilter,
             invert: bool = False
     ) -> pd.DataFrame:
-        """Get dataset's annotations after join with categories and images, and potentially after a filtering.
+        """
+        Get dataset's annotations after join with categories and images, and potentially after a filtering.
 
         Args:
             cfilter: a custom Filter for the COCOHelper.
@@ -737,7 +754,8 @@ class COCOHelper:
             *coco_helper: COCOHelper,
             drop_duplicates: bool = True
     ) -> COCOHelper:
-        """Merge different COCO datasets with all categories, images, annotations and licenses merged.
+        """
+        Merge different COCO datasets with all categories, images, annotations and licenses merged.
 
         Args:
             *coco_helper: coco dataset(s) to merge with this coco dataset.
@@ -758,7 +776,8 @@ class COCOHelper:
             self,
             img_id: int
     ) -> np.ndarray:
-        """Load the image with img_id as a numpy array.
+        """
+        Load the image with img_id as a numpy array.
 
         Args:
             img_id: The id of the image to load.
@@ -787,7 +806,8 @@ class COCOHelper:
             idx: Optional[int] = None,
             transform: Optional[Transform] = None
     ) -> Tuple[np.ndarray, dict]:
-        """Load a single annotation with the corresponding image.
+        """
+        Load a single annotation with the corresponding image.
 
         Args:
             ann_id: The id of annotation to load, partially optional (if not
@@ -822,7 +842,8 @@ class COCOHelper:
             idx: Optional[int] = None,
             transform: Optional[Transform] = None
     ) -> Tuple[dict, list]:
-        """Load an image with infos and annotations.
+        """
+        Load an image with infos and annotations.
 
         Args:
             img_id: The id of the image to load, partially optional (if not

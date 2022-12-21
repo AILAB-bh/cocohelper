@@ -1,4 +1,5 @@
-"""A Python API to make working with the COCO dataset format simpler.
+"""
+A Python API to make working with the COCO dataset format simpler.
 """
 from .helper import COCOHelper, COCOColsMapper, COCOHelperPaths
 

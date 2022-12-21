@@ -1,4 +1,5 @@
-"""Split the COCO dataset according to a K-fold rule.
+"""
+Split the COCO dataset according to a K-fold rule.
 """
 from typing import List
 import random
@@ -15,7 +16,8 @@ class KFoldSplitter(Splitter):
             n_fold: int,
             stratified: bool = False
     ):
-        """Split a COCO dataset into n datasets.
+        """
+        Split a COCO dataset into n datasets.
 
         Args:
             n_fold: Defines the number of folds to be used for k-fold
@@ -39,7 +41,8 @@ class KFoldSplitter(Splitter):
             self,
             coco: COCOHelper
     ):
-        """Used to iterate over the dataset splits.
+        """
+        Used to iterate over the dataset splits.
 
         Args:
             coco: a COCOHelper to be iterated over.
@@ -60,7 +63,8 @@ class KFoldSplitter(Splitter):
             self,
             coco: COCOHelper
     ) -> List[COCOHelper]:
-        """Applies the splitter to the given COCOHelper.
+        """
+        Applies the splitter to the given COCOHelper.
 
         Args:
             coco: a COCOHelper containing the source dataset to be split.

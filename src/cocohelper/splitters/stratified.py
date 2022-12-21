@@ -1,4 +1,5 @@
-"""Split the COCO dataset according to stratified dataset splitting rule.
+"""
+Split the COCO dataset according to stratified dataset splitting rule.
 """
 from typing import List
 import random
@@ -17,7 +18,8 @@ class StratifiedDataSplitter(ProportionalDataSplitter):
             self,
             ch: COCOHelper
     ) -> List:
-        """Get the ids needed for the stratified dataset splitting.
+        """
+        Get the ids needed for the stratified dataset splitting.
 
         Args:
             ch: a COCOHelper with the source COCO dataset.
@@ -107,7 +109,8 @@ class StratifiedDataSplitter(ProportionalDataSplitter):
     def _compute_label_ratios(
             images_by_label: dict
     ) -> dict:
-        """Computes the ratio of labels within the COCO dataset.
+        """
+        Computes the ratio of labels within the COCO dataset.
 
         Args:
             images_by_label: a dictionary grouping images by their labels.

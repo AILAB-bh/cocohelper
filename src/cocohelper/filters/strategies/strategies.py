@@ -49,7 +49,8 @@ class HavingValueFilterStrategy(ValueFilterStrategy):
 
 
 class AnyValueFilterStrategy(ValueFilterStrategy):
-    """Filters multi-rows having at least one of the requested values.
+    """
+    Filters multi-rows having at least one of the requested values.
 
     This strategy can be applied to dataframes that can contain multiple rows
     sharing the same index.
@@ -130,7 +131,8 @@ class AnyValueFilterStrategy(ValueFilterStrategy):
 
 
 class AllValueFilterStrategy(ValueFilterStrategy):
-    """Filters multi-rows having at least all the requested values.
+    """
+    Filters multi-rows having at least all the requested values.
 
     This strategy can be applied to dataframes that can contain multiple rows
     sharing the same index.

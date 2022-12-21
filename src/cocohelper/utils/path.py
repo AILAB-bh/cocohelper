@@ -1,4 +1,5 @@
-"""Utilities* for path manipulation.
+"""
+Utilities* for path manipulation.
 """
 from pathlib import Path
 from typing import Union

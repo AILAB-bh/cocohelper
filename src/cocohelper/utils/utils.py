@@ -1,4 +1,5 @@
-"""Other utilities.
+"""
+Other utilities.
 """
 from typing import Any
 

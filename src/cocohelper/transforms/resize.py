@@ -1,4 +1,5 @@
-"""Resizing transformations for the COCO images and annotations.
+"""
+Resizing transformations for the COCO images and annotations.
 """
 from typing import List, Tuple
 import numpy as np
@@ -24,7 +25,8 @@ class Resize(Transform):
             img: np.ndarray,
             anns: List[dict]
     ) -> Tuple[np.ndarray, List[dict]]:
-        """Apply the transformation to the image array and its annotations.
+        """
+        Apply the transformation to the image array and its annotations.
 
         Args:
             img: image array.

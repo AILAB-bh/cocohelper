@@ -1,4 +1,5 @@
-"""Generic split of the COCO dataset according to a given strategy.
+"""
+Generic split of the COCO dataset according to a given strategy.
 """
 from abc import ABC, abstractmethod
 from typing import List
@@ -12,7 +13,8 @@ class Splitter(ABC):
             self,
             coco: COCOHelper
     ) -> List[COCOHelper]:
-        """Split a COCODataset with the current splitting strategy.
+        """
+        Split a COCODataset with the current splitting strategy.
 
         Args:
             coco: The dataset on which we want to apply the split.

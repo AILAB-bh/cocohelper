@@ -1,2 +1,3 @@
-"""Custom exceptions for the library.
+"""
+Custom exceptions for the library.
 """

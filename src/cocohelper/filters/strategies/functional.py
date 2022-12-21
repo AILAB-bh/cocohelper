@@ -1,4 +1,5 @@
-"""Filtering strategies, as functions.
+"""
+Filtering strategies, as functions.
 """
 from typing import Optional, Any, Tuple, Set
 from pandas import DataFrame
