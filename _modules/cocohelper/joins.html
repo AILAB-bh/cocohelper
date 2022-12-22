@@ -70,7 +70,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.joins</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Access to different joins of a COCO dataset tables.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
 <span class="kn">from</span> <span class="nn">cocohelper.dataframe</span> <span class="kn">import</span> <span class="n">COCODataFrame</span>
 
@@ -82,7 +85,8 @@
 <div class="viewcode-block" id="COCOJoins"><a class="viewcode-back" href="../../_autosummary/cocohelper.joins.COCOJoins.html#cocohelper.joins.COCOJoins">[docs]</a><span class="k">class</span> <span class="nc">COCOJoins</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coco_helper</span><span class="p">:</span> <span class="s2">&quot;COCOHelper&quot;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Enable easy access to different joins of a COCO dataset tables.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enable easy access to different joins of a COCO dataset tables.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            coco_helper: the COCOHelper object representing a COCO dataset.</span>
@@ -147,7 +151,8 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">joined_cats</span><span class="p">:</span> <span class="n">DataFrame</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extract cats view from a cats dataframe merged with other dataframes.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract cats view from a cats dataframe merged with other dataframes.</span>
 
 <span class="sd">        Useful to extract columns compatible with standard coco categories and</span>
 <span class="sd">        merge/assign to COCOHelper cats property.</span>
@@ -173,7 +178,8 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">joined_imgs</span><span class="p">:</span> <span class="n">DataFrame</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Extract imgs view from an imgs dataframe merged with other dataframes.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract imgs view from an imgs dataframe merged with other dataframes.</span>
 
 <span class="sd">        Useful to extract columns compatible with standard coco images and</span>
 <span class="sd">        merge/assign to COCOHelper imgs property.</span>
@@ -199,8 +205,9 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">joined_anns</span><span class="p">:</span> <span class="n">DataFrame</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Get annotation view from an annotation dataframe merged with other</span>
-<span class="sd">         dataframes.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get annotation view from an annotation dataframe merged with other</span>
+<span class="sd">        dataframes.</span>
 
 <span class="sd">        Useful to extract columns compatible with standard coco annotations and</span>
 <span class="sd">        merge/assign to COCOHelper annotations property.</span>

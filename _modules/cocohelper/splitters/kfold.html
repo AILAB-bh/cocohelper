@@ -70,7 +70,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.splitters.kfold</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Split the COCO dataset according to a K-fold rule.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">cocohelper.splitters.proportional</span> <span class="kn">import</span> <span class="n">ProportionalDataSplitter</span>
 <span class="kn">from</span> <span class="nn">cocohelper.splitters.stratified</span> <span class="kn">import</span> <span class="n">StratifiedDataSplitter</span>
@@ -85,7 +88,8 @@
             <span class="n">n_fold</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
             <span class="n">stratified</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Split a COCO dataset into n datasets.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Split a COCO dataset into n datasets.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            n_fold: Defines the number of folds to be used for k-fold</span>
@@ -109,7 +113,8 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">coco</span><span class="p">:</span> <span class="n">COCOHelper</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Used to iterate over the dataset splits.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Used to iterate over the dataset splits.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            coco: a COCOHelper to be iterated over.</span>
@@ -130,7 +135,8 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">coco</span><span class="p">:</span> <span class="n">COCOHelper</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">COCOHelper</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Applies the splitter to the given COCOHelper.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies the splitter to the given COCOHelper.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            coco: a COCOHelper containing the source dataset to be split.</span>

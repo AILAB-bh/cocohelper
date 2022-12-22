@@ -70,7 +70,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.filters.cocofilters.cocofilters</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Special and complex filters used to obtain specific data from COCO `images`, `annotations` and `categories` tables.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">from</span> <span class="nn">cocohelper.filters.strategies</span> <span class="kn">import</span> <span class="n">HAVING_VALUE</span><span class="p">,</span> <span class="n">ValueFilterStrategy</span><span class="p">,</span> <span class="n">RangeFilterStrategy</span><span class="p">,</span> <span class="n">IN_RANGE</span>
 <span class="kn">from</span> <span class="nn">cocohelper.filters.filter</span> <span class="kn">import</span> <span class="n">ValueFilter</span><span class="p">,</span> <span class="n">RangeFilter</span><span class="p">,</span> <span class="n">ComposeFilter</span><span class="p">,</span> <span class="n">Filter</span><span class="p">,</span> <span class="n">ColumnFilter</span>
 <span class="kn">from</span> <span class="nn">cocohelper.filters</span> <span class="kn">import</span> <span class="n">AndFilter</span>
@@ -119,7 +122,8 @@
         <span class="n">composition</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ComposeFilter</span><span class="p">]</span> <span class="o">=</span> <span class="n">AndFilter</span><span class="p">,</span>
         <span class="n">strategy</span><span class="p">:</span> <span class="n">ValueFilterStrategy</span> <span class="o">=</span> <span class="n">HAVING_VALUE</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Filter</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A Filter for the categories with the required characteristics.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Filter for the categories with the required characteristics.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ids: a filter for the category id.</span>
@@ -150,7 +154,8 @@
         <span class="n">composition</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ComposeFilter</span><span class="p">]</span> <span class="o">=</span> <span class="n">AndFilter</span><span class="p">,</span>
         <span class="n">strategy</span><span class="p">:</span> <span class="n">ValueFilterStrategy</span> <span class="o">=</span> <span class="n">HAVING_VALUE</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Filter</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A Filter for the images with the required characteristics.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Filter for the images with the required characteristics.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ids: a filter for the image id.</span>

@@ -70,7 +70,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.visualizer</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">cocohelper</span> <span class="kn">import</span> <span class="n">COCOHelper</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Visualize COCO images and annotations.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">cocohelper</span> <span class="kn">import</span> <span class="n">COCOHelper</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">cv2</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
@@ -85,7 +88,8 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">helper</span><span class="p">:</span> <span class="n">COCOHelper</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This class contains methods to visualize COCO images and annotations.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This class contains methods to visualize COCO images and annotations.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            helper: Coco dataset to visualize.</span>
@@ -96,7 +100,8 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">img_id</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Load image with a given image id and returns it as numpy array.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load image with a given image id and returns it as numpy array.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            img_id: image id.</span>
@@ -114,7 +119,8 @@
             <span class="n">show_segmentation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Visualize an image given its image id using matplotlib.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Visualize an image given its image id using matplotlib.</span>
 
 <span class="sd">        If `show_bbox` or `show_segmentation` are True, show also the image</span>
 <span class="sd">        annotations on top of the plotted image.</span>
@@ -221,7 +227,8 @@
             <span class="n">color</span><span class="p">:</span> <span class="n">Sequence</span> <span class="o">=</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
             <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Draw segmentation mask on top of the input image.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Draw segmentation mask on top of the input image.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            image: numpy array with the image.</span>
@@ -289,7 +296,8 @@
         <span class="k">return</span> <span class="n">image</span></div>
 
 <div class="viewcode-block" id="COCOVisualizer.pick_color_palette"><a class="viewcode-back" href="../../_autosummary/cocohelper.visualizer.COCOVisualizer.html#cocohelper.visualizer.COCOVisualizer.pick_color_palette">[docs]</a>    <span class="k">def</span> <span class="nf">pick_color_palette</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns standard RGB colors palette (+ random colors, if needed).</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns standard RGB colors palette (+ random colors, if needed).</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            number: the number of RGB color triplets to fetch.</span>

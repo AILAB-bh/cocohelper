@@ -70,7 +70,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.validator</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Check COCO dataset validity based on data ids and directory tree.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -112,7 +115,8 @@
         <span class="k">return</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="COCOValidator.validate_dataset"><a class="viewcode-back" href="../../_autosummary/cocohelper.validator.COCOValidator.html#cocohelper.validator.COCOValidator.validate_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">validate_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if this is a valid COCO dataset.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if this is a valid COCO dataset.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            True if this is a valida dataset.</span>
@@ -162,7 +166,8 @@
         <span class="k">return</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="COCOValidator._has_valid_dataset_tree"><a class="viewcode-back" href="../../_autosummary/cocohelper.validator.COCOValidator.html#cocohelper.validator.COCOValidator._has_valid_dataset_tree">[docs]</a>    <span class="k">def</span> <span class="nf">_has_valid_dataset_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check dataset directory tree validity</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check dataset directory tree validity</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            True if the dataset tree is valid, False otherwise</span>
@@ -183,7 +188,8 @@
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
             <span class="n">mandatory_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if the input COCO annotation json file has the mandatory keys.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the input COCO annotation json file has the mandatory keys.</span>
 
 <span class="sd">        Correct COCO annotation json files must have the following keys: &quot;images&quot;,</span>
 <span class="sd">        &quot;annotations&quot;, &quot;categories&quot;. There are some exceptions: for example, the</span>
@@ -209,7 +215,8 @@
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
             <span class="n">mandatory_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if images have the mandatory keys.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if images have the mandatory keys.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            json_data: data from a coco json file.</span>
@@ -243,7 +250,8 @@
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
             <span class="n">mandatory_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if annotations have the mandatory keys.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if annotations have the mandatory keys.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            json_data: data from a coco json file.</span>
@@ -283,7 +291,8 @@
             <span class="n">mandatory_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">recommended_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if categories have the mandatory keys.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if categories have the mandatory keys.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            json_data: data from a coco json file.</span>
@@ -328,7 +337,8 @@
     <span class="k">def</span> <span class="nf">_annotations_have_valid_category_id</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check that annotations have a valid category id.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check that annotations have a valid category id.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            json_data: data from a coco json file.</span>
@@ -344,7 +354,8 @@
     <span class="k">def</span> <span class="nf">_annotations_have_valid_image_id</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check that annotations have a valid image id.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check that annotations have a valid image id.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            json_data: data from a coco json file.</span>
@@ -360,7 +371,8 @@
     <span class="k">def</span> <span class="nf">_category_ids_are_unique</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if there are duplicated category ids.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if there are duplicated category ids.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            json_data: data from a coco json file.</span>
@@ -374,7 +386,8 @@
     <span class="k">def</span> <span class="nf">_licenses_ids_are_unique</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if there are duplicated licenses ids.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if there are duplicated licenses ids.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            json_data: data from a coco json file.</span>
@@ -388,7 +401,8 @@
     <span class="k">def</span> <span class="nf">_image_ids_are_unique</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if there are duplicated image ids.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if there are duplicated image ids.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            json_data: data from a coco json file.</span>
@@ -402,7 +416,8 @@
     <span class="k">def</span> <span class="nf">_annotation_ids_are_unique</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if there are duplicated annotations ids.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if there are duplicated annotations ids.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            json_data: data from a coco json file.</span>
@@ -422,7 +437,8 @@
         <span class="n">expected_types</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">],</span>
         <span class="n">msg_header</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Check if a dictionary item has the expected type under the given key.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if a dictionary item has the expected type under the given key.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        dictionary: a dictionary containing the pairs (key, value) to be tested</span>

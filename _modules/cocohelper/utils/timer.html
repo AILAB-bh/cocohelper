@@ -70,7 +70,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.utils.timer</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- encoding: utf-8 -*-</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A timer.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># -*- encoding: utf-8 -*-</span>
 <span class="c1"># ! python3</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -82,7 +85,8 @@
 
 
 <div class="viewcode-block" id="Timer"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.timer.Timer.html#cocohelper.utils.timer.Timer">[docs]</a><span class="k">class</span> <span class="nc">Timer</span><span class="p">(</span><span class="n">ContextDecorator</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Timer class that can be used both as a context manager and function/method decorator.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Timer class that can be used both as a context manager and function/method decorator.</span>
 
 <span class="sd">    Usage:</span>
 
@@ -110,7 +114,8 @@
             <span class="n">end_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;done.&quot;</span><span class="p">,</span>
             <span class="n">log_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">info</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Instantiate new Timer.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate new Timer.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            start_msg: message to print before starting the operation.</span>

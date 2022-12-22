@@ -45,9 +45,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#load-a-coco-dataset">Load a coco dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#visualize-images">Visualize images</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#split-train-val-test">Split train/val/test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorials">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#load-a-coco-dataset">Load a coco dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#visualize-images">Visualize images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#split-train-val-test">Split train/val/test</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="apigen.html">API Reference</a></li>
@@ -79,8 +83,15 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h1>
+<section id="tutorials">
+<h2>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this heading"></a></h2>
+<p>Have a look at our tutorials in the Jupyter notebooks available <span class="xref myst">here</span>.
+If you’d like to contribute with new tutorials, look at our <span class="xref myst">contributing guide</span>.</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h2>
 <section id="load-a-coco-dataset">
-<h2>Load a coco dataset<a class="headerlink" href="#load-a-coco-dataset" title="Permalink to this heading"></a></h2>
+<h3>Load a coco dataset<a class="headerlink" href="#load-a-coco-dataset" title="Permalink to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cocohelper</span> <span class="kn">import</span> <span class="n">COCOHelper</span>
 
 
@@ -89,7 +100,7 @@
 </div>
 </section>
 <section id="visualize-images">
-<h2>Visualize images<a class="headerlink" href="#visualize-images" title="Permalink to this heading"></a></h2>
+<h3>Visualize images<a class="headerlink" href="#visualize-images" title="Permalink to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cocohelper.visualizer</span> <span class="kn">import</span> <span class="n">COCOVisualizer</span>
 
 <span class="n">COCOVisualizer</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">img_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">show_bbox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_segmentation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -97,13 +108,14 @@
 </div>
 </section>
 <section id="split-train-val-test">
-<h2>Split train/val/test<a class="headerlink" href="#split-train-val-test" title="Permalink to this heading"></a></h2>
+<h3>Split train/val/test<a class="headerlink" href="#split-train-val-test" title="Permalink to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cocohelper.splitters.proportional</span> <span class="kn">import</span> <span class="n">ProportionalDataSplitter</span>
 
 <span class="n">splitter</span> <span class="o">=</span> <span class="n">ProportionalDataSplitter</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">ch_train</span><span class="p">,</span> <span class="n">ch_val</span><span class="p">,</span> <span class="n">ch_test</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
 </section>
 </section>
 

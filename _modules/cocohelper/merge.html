@@ -70,7 +70,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.merge</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">cocohelper</span> <span class="kn">import</span> <span class="n">COCOHelper</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Merge multiple COCO datasets together.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">cocohelper</span> <span class="kn">import</span> <span class="n">COCOHelper</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -79,7 +82,8 @@
         <span class="o">*</span><span class="n">coco_helpers</span><span class="p">:</span> <span class="n">COCOHelper</span><span class="p">,</span>
         <span class="n">drop_duplicates</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Merge multiple `COCOHelper` merging all categories, images and annotations.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Merge multiple `COCOHelper` merging all categories, images and annotations.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        *coco_helpers: the list of COCOHelper datasets to merge.</span>
@@ -110,7 +114,8 @@
 <div class="viewcode-block" id="_merge_info"><a class="viewcode-back" href="../../_autosummary/cocohelper.merge._merge_info.html#cocohelper.merge._merge_info">[docs]</a><span class="k">def</span> <span class="nf">_merge_info</span><span class="p">(</span>
         <span class="o">*</span><span class="n">coco_helpers</span><span class="p">:</span> <span class="n">COCOHelper</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Merge multiple COCOHelpers info fields.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Merge multiple COCOHelpers info fields.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        *coco_helpers: the list of COCOHelper datasets to merge.</span>
@@ -143,7 +148,8 @@
 <div class="viewcode-block" id="_merge_categories"><a class="viewcode-back" href="../../_autosummary/cocohelper.merge._merge_categories.html#cocohelper.merge._merge_categories">[docs]</a><span class="k">def</span> <span class="nf">_merge_categories</span><span class="p">(</span>
         <span class="o">*</span><span class="n">coco_helpers</span><span class="p">:</span> <span class="n">COCOHelper</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Merge the categories of all datasets.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Merge the categories of all datasets.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A tuple with 2 items: the first is a dataframe with the merged categories,</span>

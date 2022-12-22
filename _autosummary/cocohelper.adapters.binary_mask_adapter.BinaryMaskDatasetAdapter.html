@@ -173,8 +173,8 @@ filenames.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.extract_bbox_from_binary_mask">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_bbox_from_binary_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/adapters/binary_mask_adapter.html#BinaryMaskDatasetAdapter.extract_bbox_from_binary_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.extract_bbox_from_binary_mask" title="Permalink to this definition"></a></dt>
-<dd><p>Extracts bounding box from segmentation mask.
-NB: we do not support rotated bounding boxes.</p>
+<dd><p>Extracts bounding box from segmentation mask.</p>
+<p>NB: we do not support rotated bounding boxes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>binary_mask</strong> (<em>ndarray</em>) – binary semantic mask of an object.</p>
@@ -191,11 +191,13 @@ NB: we do not support rotated bounding boxes.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.get_categories">
 <span class="sig-name descname"><span class="pre">get_categories</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/adapters/binary_mask_adapter.html#BinaryMaskDatasetAdapter.get_categories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.get_categories" title="Permalink to this definition"></a></dt>
-<dd><p>Get the list of categories.
-:returns: A list of categories</p>
+<dd><p>Get the list of categories.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><em>List</em>[dict]</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of categories</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>List</em>[dict]</p>
 </dd>
 </dl>
 </dd></dl>

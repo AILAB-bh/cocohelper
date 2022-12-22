@@ -70,13 +70,18 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.errors.not_found_error</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="COCOImageNotFoundError"><a class="viewcode-back" href="../../../_autosummary/cocohelper.errors.not_found_error.COCOImageNotFoundError.html#cocohelper.errors.not_found_error.COCOImageNotFoundError">[docs]</a><span></span><span class="k">class</span> <span class="nc">COCOImageNotFoundError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Exceptions for not found items in the COCO dataset.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="COCOImageNotFoundError"><a class="viewcode-back" href="../../../_autosummary/cocohelper.errors.not_found_error.COCOImageNotFoundError.html#cocohelper.errors.not_found_error.COCOImageNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">COCOImageNotFoundError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">image_id</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Error raised when a certain image id does not exist in a dataset.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exceptions raised when a certain image id does not exist in a dataset.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            image_id: the id of the image.</span>
@@ -91,7 +96,8 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">ann_id</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Error raised when a certain annotation id does not exist in a dataset.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exceptions raised when a certain annotation id does not exist in a dataset.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            ann_id: the id of the annotation.</span>

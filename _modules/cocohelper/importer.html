@@ -70,7 +70,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.importer</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Generate COCOHelper objects from a generic dataset interface.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -87,7 +90,8 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">adapter</span><span class="p">:</span> <span class="n">DatasetAdapter</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Importer can generate COCOHelper objects from a generic interface.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Importer can generate COCOHelper objects from a generic interface.</span>
 
 <span class="sd">        We delegate to DatasetAdapter hierarchy the strategy used to load data</span>
 <span class="sd">        from another dataset. Importer expect that a DatasetAdapter is provided</span>
@@ -110,7 +114,8 @@
             <span class="n">img_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">COCOHelperPaths</span><span class="o">.</span><span class="n">img_dir</span><span class="p">,</span>
             <span class="n">save_images</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Generate the new COCOHelper, and optionally save it.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate the new COCOHelper, and optionally save it.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            out_coco_dir: Root path to save the dataset.</span>

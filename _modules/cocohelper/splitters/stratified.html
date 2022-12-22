@@ -70,7 +70,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.splitters.stratified</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Split the COCO dataset according to stratified dataset splitting rule.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">cocohelper.splitters.proportional</span> <span class="kn">import</span> <span class="n">ProportionalDataSplitter</span>
 <span class="kn">from</span> <span class="nn">cocohelper</span> <span class="kn">import</span> <span class="n">COCOHelper</span>
@@ -87,7 +90,8 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">ch</span><span class="p">:</span> <span class="n">COCOHelper</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Get the ids needed for the stratified dataset splitting.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the ids needed for the stratified dataset splitting.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            ch: a COCOHelper with the source COCO dataset.</span>
@@ -177,7 +181,8 @@
     <span class="k">def</span> <span class="nf">_compute_label_ratios</span><span class="p">(</span>
             <span class="n">images_by_label</span><span class="p">:</span> <span class="nb">dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Computes the ratio of labels within the COCO dataset.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the ratio of labels within the COCO dataset.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            images_by_label: a dictionary grouping images by their labels.</span>

@@ -70,7 +70,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.utils.segmentation</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Any</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Utilities* for converting segmentation annotations between different formats.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="kn">import</span> <span class="nn">numpy.typing</span> <span class="k">as</span> <span class="nn">npt</span>
 <span class="kn">from</span> <span class="nn">pycocotools</span> <span class="kn">import</span> <span class="n">mask</span> <span class="k">as</span> <span class="n">coco_mask</span>
@@ -92,7 +95,8 @@
         <span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Converts a binary mask to compressed RLE format.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a binary mask to compressed RLE format.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        mask: a binary mask to encode.</span>
@@ -120,7 +124,8 @@
         <span class="n">compression_factor</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Converts segmentation mask to a list of polygons.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts segmentation mask to a list of polygons.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        mask: numpy array containing multiple segmentation masks. Each mask must</span>
@@ -191,7 +196,8 @@
         <span class="n">binary_mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Converts a binary mask to RLE encoding.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a binary mask to RLE encoding.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        binary_mask: a binary mask as a numpy array.</span>
@@ -218,7 +224,8 @@
         <span class="n">dtype</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">DTypeLike</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Converts an RLE to a binary mask with the given output dtype.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts an RLE to a binary mask with the given output dtype.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        rle_code:</span>
@@ -241,7 +248,8 @@
         <span class="n">dtype</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">DTypeLike</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Converts a compressed RLE to a binary mask with the given output dtype.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a compressed RLE to a binary mask with the given output dtype.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        rle_code: RLE encoding of the semantic mask.</span>
@@ -272,7 +280,8 @@
         <span class="n">dtype</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">DTypeLike</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Creates and returns a mask from polygon in COCO format.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates and returns a mask from polygon in COCO format.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        polygon_code: polygon coordinates.</span>
@@ -322,7 +331,8 @@
         <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">compression_factor</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Encodes a binary mask numpy array into another format.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Encodes a binary mask numpy array into another format.</span>
 
 <span class="sd">    Available formats are &#39;polygon&#39;, &#39;RLE&#39;, or compressed RLE &#39;cRLE&#39; vector.</span>
 
@@ -348,7 +358,8 @@
         <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Decodes a binary mask from another format.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decodes a binary mask from another format.</span>
 
 <span class="sd">    Available conversion formats are &#39;polygon&#39;, &#39;RLE&#39;, or compressed RLE &#39;cRLE&#39;</span>
 <span class="sd">    vector. The mask, in one of these formats can be converted to a binary</span>
@@ -371,7 +382,8 @@
 <div class="viewcode-block" id="get_segmentation_mode"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.segmentation.get_segmentation_mode.html#cocohelper.utils.segmentation.get_segmentation_mode">[docs]</a><span class="k">def</span> <span class="nf">get_segmentation_mode</span><span class="p">(</span>
         <span class="n">segmentation</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">],</span> <span class="n">Dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Automatically detect the segmentation format: RLE, cRLE or polygon.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Automatically detect the segmentation format: RLE, cRLE or polygon.</span>
 
 <span class="sd">    The detection is based on the standard of coco format, where polygons</span>
 <span class="sd">    are represented as lists, RLE as an object with size and counts properties,</span>
@@ -395,7 +407,8 @@
         <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">width</span><span class="p">:</span> <span class="nb">int</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Convert segmentation from different formats to polygon format.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert segmentation from different formats to polygon format.</span>
 
 <span class="sd">    Supported formats are &#39;RLE&#39;, &#39;cRLE&#39; and &#39;polygon&#39;.</span>
 
@@ -417,7 +430,8 @@
         <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">compression_factor</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Convert segmentation to the specified format.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert segmentation to the specified format.</span>
 
 <span class="sd">    Uses `pycocotools` to handle the RLE format.</span>
 
@@ -444,7 +458,8 @@
 <div class="viewcode-block" id="compute_polygon_area"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.segmentation.compute_polygon_area.html#cocohelper.utils.segmentation.compute_polygon_area">[docs]</a><span class="k">def</span> <span class="nf">compute_polygon_area</span><span class="p">(</span>
         <span class="n">polygon</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Computes a segmentation area from its polygon coordinates.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes a segmentation area from its polygon coordinates.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        polygon: polygon coordinates for the segmentation.</span>
@@ -470,7 +485,8 @@
         <span class="n">dest_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
         <span class="n">scaling</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Converts annotations from COCO to binary masks.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts annotations from COCO to binary masks.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ch: a COCOHelper containing the source COCO dataset.</span>

@@ -70,7 +70,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.filters.strategies.strategies</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>  <span class="c1"># for sure needed for python &lt;= 3.7, don&#39;t know about python 3.8+</span>
+<span></span><span class="sd">&quot;&quot;&quot;Filtering strategies, as classes.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>  <span class="c1"># for sure needed for python &lt;= 3.7, don&#39;t know about python 3.8+</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
 <span class="kn">import</span> <span class="nn">abc</span>
@@ -119,7 +121,8 @@
 
 
 <div class="viewcode-block" id="AnyValueFilterStrategy"><a class="viewcode-back" href="../../../../_autosummary/cocohelper.filters.strategies.strategies.AnyValueFilterStrategy.html#cocohelper.filters.strategies.strategies.AnyValueFilterStrategy">[docs]</a><span class="k">class</span> <span class="nc">AnyValueFilterStrategy</span><span class="p">(</span><span class="n">ValueFilterStrategy</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Filters multi-rows having at least one of the requested values.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filters multi-rows having at least one of the requested values.</span>
 
 <span class="sd">    This strategy can be applied to dataframes that can contain multiple rows</span>
 <span class="sd">    sharing the same index.</span>
@@ -200,7 +203,8 @@
 
 
 <div class="viewcode-block" id="AllValueFilterStrategy"><a class="viewcode-back" href="../../../../_autosummary/cocohelper.filters.strategies.strategies.AllValueFilterStrategy.html#cocohelper.filters.strategies.strategies.AllValueFilterStrategy">[docs]</a><span class="k">class</span> <span class="nc">AllValueFilterStrategy</span><span class="p">(</span><span class="n">ValueFilterStrategy</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Filters multi-rows having at least all the requested values.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filters multi-rows having at least all the requested values.</span>
 
 <span class="sd">    This strategy can be applied to dataframes that can contain multiple rows</span>
 <span class="sd">    sharing the same index.</span>

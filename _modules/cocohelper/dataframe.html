@@ -70,7 +70,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.dataframe</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Extend pandas Dataframe to allow easier manipulation of COCO Datasets.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">IndexLabel</span>
 <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -85,7 +88,8 @@
             <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
             <span class="n">col_mappers</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ColMap</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Extends pandas Dataframe to easy column remapping and join with COCO</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extends pandas Dataframe to easy column remapping and join with COCO</span>
 <span class="sd">        Datasets.</span>
 
 <span class="sd">        Args:</span>
@@ -118,7 +122,8 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">deep</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;COCODataFrame&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a copy of the COCODataFrame. The copy is deep by default.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a copy of the COCODataFrame. The copy is deep by default.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            deep: if True, the copy is deep.</span>
@@ -264,6 +269,7 @@
     <span class="k">def</span> <span class="nf">_invert_join_how</span><span class="p">(</span><span class="n">how</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Inverts the join option.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            how: input `how` parameter for the join</span>
 

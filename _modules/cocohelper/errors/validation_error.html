@@ -70,9 +70,14 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cocohelper.errors.validation_error</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="COCOValidationError"><a class="viewcode-back" href="../../../_autosummary/cocohelper.errors.validation_error.COCOValidationError.html#cocohelper.errors.validation_error.COCOValidationError">[docs]</a><span></span><span class="k">class</span> <span class="nc">COCOValidationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span></span><span class="sd">&quot;&quot;&quot;Exception raised when assertion of dataset validity fails.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="COCOValidationError"><a class="viewcode-back" href="../../../_autosummary/cocohelper.errors.validation_error.COCOValidationError.html#cocohelper.errors.validation_error.COCOValidationError">[docs]</a><span class="k">class</span> <span class="nc">COCOValidationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Error raised when the input COCO is not in a valid COCO format.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exceptions raised when the input COCO is not in a valid COCO format.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">COCOValidationError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;The dataset has an invalid COCO format&quot;</span><span class="p">)</span></div>
 </pre></div>
 
