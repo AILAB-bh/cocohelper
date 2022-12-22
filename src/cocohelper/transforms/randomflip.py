@@ -1,3 +1,6 @@
+"""
+Flipping transformations for the COCO images and annotations.
+"""
 from typing import List, Tuple
 import numpy as np
 import random
@@ -12,7 +15,8 @@ class RandomFlip(Transform):
             horizontal_prob: float = 0.5,
             vertical_prob: float = 0.0
     ):
-        """Flip images and annotations in vertical and horizontal axes.
+        """
+        Flip images and annotations in vertical and horizontal axes.
 
         Args:
             horizontal_prob: probability of the horizontal flip occurring [0-1].
@@ -26,7 +30,8 @@ class RandomFlip(Transform):
             img: np.ndarray,
             anns: List[dict]
     ) -> Tuple[np.ndarray, List[dict]]:
-        """Apply the transformation to the image array and its annotations.
+        """
+        Apply the transformation to the image array and its annotations.
 
         Args:
             img: image array.

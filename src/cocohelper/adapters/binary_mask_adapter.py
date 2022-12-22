@@ -1,3 +1,6 @@
+"""
+An adapter for converting datasets with binary masks to COCO format.
+"""
 from typing import List, Dict, Callable, Tuple, Optional, Union
 from scipy import ndimage
 import numpy as np
@@ -16,7 +19,8 @@ class BinaryMaskDatasetAdapter(DatasetAdapter):
             mode: str = 'polygon',
             compression_factor: float = 1.0
     ):
-        """A DatasetAdapter to convert dataset with binary masks to COCO format.
+        """
+        A DatasetAdapter to convert dataset with binary masks to COCO format.
 
         Args:
             data_paths: A dictionary that maps image filenames to its masks
@@ -38,6 +42,7 @@ class BinaryMaskDatasetAdapter(DatasetAdapter):
     def get_categories(self) -> List[dict]:
         """
         Get the list of categories.
+
         Returns:
             A list of categories
         """
@@ -47,7 +52,8 @@ class BinaryMaskDatasetAdapter(DatasetAdapter):
             self,
             idx: int
     ) -> Optional[Tuple[dict, List[dict]]]:
-        """Get the COCO representation for a specific sample and its index.
+        """
+        Get the COCO representation for a specific sample and its index.
 
         Args:
             idx: sample index.
@@ -95,7 +101,8 @@ class BinaryMaskDatasetAdapter(DatasetAdapter):
             self,
             idx: int
     ) -> np.ndarray:
-        """Reads an image in from its positional id in the data paths.
+        """
+        Reads an image in from its positional id in the data paths.
 
         Args:
             idx: image index.
@@ -110,7 +117,9 @@ class BinaryMaskDatasetAdapter(DatasetAdapter):
     def extract_bbox_from_binary_mask(
             binary_mask: np.ndarray
     ) -> List:
-        """Extracts bounding box from segmentation mask.
+        """
+        Extracts bounding box from segmentation mask.
+
         NB: we do not support rotated bounding boxes.
 
         Args:
@@ -133,7 +142,8 @@ class BinaryMaskDatasetAdapter(DatasetAdapter):
             compression_factor: Union[float, Tuple[float, float]],
             **kwargs
     ) -> Tuple[List, List, List]:
-        """Separates disjoint objects inside the same array.
+        """
+        Separates disjoint objects inside the same array.
 
         Objects are separated based on two rules:
           1. objects have different labels in the input mask (e.g. one is

@@ -1,3 +1,6 @@
+"""
+Utilities.
+"""
 from . import path
 from .timer import Timer
 

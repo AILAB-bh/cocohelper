@@ -1,3 +1,6 @@
+"""
+Extend pandas Dataframe to allow easier manipulation of COCO Datasets.
+"""
 from typing import Tuple, Hashable, Optional, Union
 from pandas._typing import IndexLabel
 from pandas import DataFrame
@@ -13,7 +16,8 @@ class COCODataFrame(DataFrame):
             name: str,
             col_mappers: Tuple[ColMap, ...] = tuple()
     ):
-        """Extends pandas Dataframe to easy column remapping and join with COCO
+        """
+        Extends pandas Dataframe to easy column remapping and join with COCO
         Datasets.
 
         Args:
@@ -46,7 +50,8 @@ class COCODataFrame(DataFrame):
             self,
             deep: bool = True
     ) -> "COCODataFrame":
-        """Returns a copy of the COCODataFrame. The copy is deep by default.
+        """
+        Returns a copy of the COCODataFrame. The copy is deep by default.
 
         Args:
             deep: if True, the copy is deep.
@@ -192,6 +197,7 @@ class COCODataFrame(DataFrame):
     def _invert_join_how(how: str):
         """
         Inverts the join option.
+
         Args:
             how: input `how` parameter for the join
 

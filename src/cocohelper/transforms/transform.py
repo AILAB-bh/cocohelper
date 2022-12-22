@@ -1,3 +1,5 @@
+"""Generic transformation for the COCO images and annotations.
+"""
 from typing import List, Tuple, Union
 from abc import ABC, abstractmethod
 from cocohelper import COCOHelper, COCOHelperPaths
@@ -17,7 +19,8 @@ class Transform(ABC):
             coco: COCOHelper,
             out_dir: Union[str, Path]
     ) -> COCOHelper:
-        """Apply an abstract transformation on the whole dataset.
+        """
+        Apply an abstract transformation on the whole dataset.
 
         TODO: should we apply on the whole dataset eagerly or use a lazy execution when the data is obtained?
               - In the first case, *apply* takes a COCODataset and returns a new modified COCODataset.
@@ -68,7 +71,8 @@ class Transform(ABC):
             img: np.ndarray,
             anns: List[dict]
     ) -> Tuple[np.ndarray, List[dict]]:
-        """Apply the transformation to the image array and its annotations.
+        """
+        Apply the transformation to the image array and its annotations.
 
         Args:
             img: image array
@@ -83,7 +87,8 @@ class Transform(ABC):
     def compute_bbox_area(
             bbox: List[int]
     ) -> int:
-        """Compute area from a bounding box.
+        """
+        Compute area from a bounding box.
 
         Args:
             bbox: bounding box.

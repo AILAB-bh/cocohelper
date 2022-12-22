@@ -1,10 +1,15 @@
+"""
+Exceptions for not found items in the COCO dataset.
+"""
+
 class COCOImageNotFoundError(Exception):
 
     def __init__(
             self,
             image_id: int
     ):
-        """Error raised when a certain image id does not exist in a dataset.
+        """
+        Exceptions raised when a certain image id does not exist in a dataset.
 
         Args:
             image_id: the id of the image.
@@ -19,7 +24,8 @@ class COCOAnnotationNotFoundError(Exception):
             self,
             ann_id: int
     ):
-        """Error raised when a certain annotation id does not exist in a dataset.
+        """
+        Exceptions raised when a certain annotation id does not exist in a dataset.
 
         Args:
             ann_id: the id of the annotation.

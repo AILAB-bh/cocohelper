@@ -1,3 +1,6 @@
+"""
+Several Crop transformations for the COCO images and annotations.
+"""
 from typing import List, Tuple
 from enum import Enum
 import numpy as np
@@ -148,7 +151,8 @@ class Crop(Transform):
             xywh: types.BBox,
             mode: SizeMode = SizeMode.pixel
     ):
-        """Perform a crop on image and annotations.
+        """
+        Perform a crop on image and annotations.
 
         Args:
             xywh: The bbox of the area to crop.
@@ -166,7 +170,8 @@ class Crop(Transform):
             img: np.ndarray,
             anns: List[dict]
     ) -> Tuple[np.ndarray, List[dict]]:
-        """Apply the transformation to the image array and its annotations.
+        """
+        Apply the transformation to the image array and its annotations.
 
         Args:
             img: image array.
@@ -187,7 +192,8 @@ class RandomCrop(Transform):
             h: int,
             mode: SizeMode = SizeMode.pixel
     ):
-        """Perform a random crop on image and annotations.
+        """
+        Perform a random crop on image and annotations.
 
         You must provide width and height, while the crop position is randomized.
 
@@ -206,7 +212,8 @@ class RandomCrop(Transform):
             img: np.ndarray,
             anns: List[dict]
     ) -> Tuple[np.ndarray, List[dict]]:
-        """Apply the transformation to the image array and its annotations.
+        """
+        Apply the transformation to the image array and its annotations.
 
         Args:
             img: image array.
@@ -231,7 +238,8 @@ class CenterCrop(Transform):
             h: int,
             mode: SizeMode = SizeMode.pixel
     ):
-        """Perform a crop around the center of the image.
+        """
+        Perform a crop around the center of the image.
 
         Args:
             w: The width of the area to crop.
@@ -248,7 +256,8 @@ class CenterCrop(Transform):
             img: np.ndarray,
             anns: List[dict]
     ) -> Tuple[np.ndarray, List[dict]]:
-        """Apply the transformation to the image array and its annotations.
+        """
+        Apply the transformation to the image array and its annotations.
 
         Args:
             img: image array.

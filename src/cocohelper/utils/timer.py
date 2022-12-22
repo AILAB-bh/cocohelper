@@ -1,3 +1,6 @@
+"""
+A timer.
+"""
 # -*- encoding: utf-8 -*-
 # ! python3
 import logging
@@ -10,7 +13,8 @@ __all__ = ["Timer"]
 
 
 class Timer(ContextDecorator):
-    """Timer class that can be used both as a context manager and function/method decorator.
+    """
+    Timer class that can be used both as a context manager and function/method decorator.
 
     Usage:
 
@@ -38,7 +42,8 @@ class Timer(ContextDecorator):
             end_msg: str = "done.",
             log_fn: Callable[[str], Any] = logging.info
     ):
-        """Instantiate new Timer.
+        """
+        Instantiate new Timer.
         
         Args:
             start_msg: message to print before starting the operation.

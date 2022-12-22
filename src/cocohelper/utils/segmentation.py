@@ -1,3 +1,6 @@
+"""
+Utilities* for converting segmentation annotations between different formats.
+"""
 from typing import List, Tuple, Dict, Union, Iterable, Optional, Callable, Any
 
 import numpy.typing as npt
@@ -20,7 +23,8 @@ def mask_to_compressed_rle(
         mask: np.ndarray,
         **kwargs
 ) -> str:
-    """Converts a binary mask to compressed RLE format.
+    """
+    Converts a binary mask to compressed RLE format.
 
     Args:
         mask: a binary mask to encode.
@@ -48,7 +52,8 @@ def mask_to_polygon(
         compression_factor: Union[float, Tuple[float, float]] = 1.0,
         **kwargs
 ) -> List:
-    """Converts segmentation mask to a list of polygons.
+    """
+    Converts segmentation mask to a list of polygons.
 
     Args:
         mask: numpy array containing multiple segmentation masks. Each mask must
@@ -119,7 +124,8 @@ def mask_to_rle(
         binary_mask: np.ndarray,
         **kwargs
 ) -> Dict[str, list]:
-    """Converts a binary mask to RLE encoding.
+    """
+    Converts a binary mask to RLE encoding.
 
     Args:
         binary_mask: a binary mask as a numpy array.
@@ -146,7 +152,8 @@ def rle_to_mask(
         dtype: npt.DTypeLike = bool,
         **kwargs,
 ):
-    """Converts an RLE to a binary mask with the given output dtype.
+    """
+    Converts an RLE to a binary mask with the given output dtype.
 
     Args:
         rle_code:
@@ -169,7 +176,8 @@ def compressed_rle_to_mask(
         dtype: npt.DTypeLike = bool,
         **kwargs
 ) -> np.ndarray:
-    """Converts a compressed RLE to a binary mask with the given output dtype.
+    """
+    Converts a compressed RLE to a binary mask with the given output dtype.
 
     Args:
         rle_code: RLE encoding of the semantic mask.
@@ -200,7 +208,8 @@ def polygon_to_mask(
         dtype: npt.DTypeLike = np.float32,
         **kwargs,
 ) -> np.ndarray:
-    """Creates and returns a mask from polygon in COCO format.
+    """
+    Creates and returns a mask from polygon in COCO format.
 
     Args:
         polygon_code: polygon coordinates.
@@ -250,7 +259,8 @@ def encode_mask(
         mode: str,
         compression_factor: Union[float, Tuple[float, float]] = 1.0,
 ) -> List:
-    """Encodes a binary mask numpy array into another format.
+    """
+    Encodes a binary mask numpy array into another format.
 
     Available formats are 'polygon', 'RLE', or compressed RLE 'cRLE' vector.
 
@@ -276,7 +286,8 @@ def decode_mask(
         width: int,
         mode: str
 ) -> np.ndarray:
-    """Decodes a binary mask from another format.
+    """
+    Decodes a binary mask from another format.
 
     Available conversion formats are 'polygon', 'RLE', or compressed RLE 'cRLE'
     vector. The mask, in one of these formats can be converted to a binary
@@ -299,7 +310,8 @@ def decode_mask(
 def get_segmentation_mode(
         segmentation: Union[List[List], Dict, str]
 ):
-    """Automatically detect the segmentation format: RLE, cRLE or polygon.
+    """
+    Automatically detect the segmentation format: RLE, cRLE or polygon.
 
     The detection is based on the standard of coco format, where polygons
     are represented as lists, RLE as an object with size and counts properties,
@@ -323,7 +335,8 @@ def convert_to_mask(
         height: int,
         width: int
 ) -> np.ndarray:
-    """Convert segmentation from different formats to polygon format.
+    """
+    Convert segmentation from different formats to polygon format.
 
     Supported formats are 'RLE', 'cRLE' and 'polygon'.
 
@@ -345,7 +358,8 @@ def convert_to_mode(
         height: int, width: int,
         compression_factor: Union[float, Tuple[float, float]] = 1.0
 ):
-    """Convert segmentation to the specified format.
+    """
+    Convert segmentation to the specified format.
 
     Uses `pycocotools` to handle the RLE format.
 
@@ -372,7 +386,8 @@ def convert_to_mode(
 def compute_polygon_area(
         polygon
 ) -> float:
-    """Computes a segmentation area from its polygon coordinates.
+    """
+    Computes a segmentation area from its polygon coordinates.
 
     Args:
         polygon: polygon coordinates for the segmentation.
@@ -398,7 +413,8 @@ def coco_to_binary_masks(
         dest_dir: Union[str, Path],
         scaling: Optional[float] = 1.0
 ):
-    """Converts annotations from COCO to binary masks.
+    """
+    Converts annotations from COCO to binary masks.
 
     Args:
         ch: a COCOHelper containing the source COCO dataset.

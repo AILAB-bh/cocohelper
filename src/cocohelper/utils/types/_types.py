@@ -1,3 +1,6 @@
+"""
+Custom types.
+"""
 from typing import Union, Tuple, List, Sequence, TypeVar
 
 

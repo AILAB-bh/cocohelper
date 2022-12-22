@@ -1,3 +1,6 @@
+"""
+Calculate dataset statistics on the images and annotations.
+"""
 import logging
 from functools import cached_property
 from typing import Dict, Tuple, Any, List
@@ -10,7 +13,8 @@ from cocohelper import COCOHelper
 class COCOStats:
 
     def __init__(self, coco_helper: COCOHelper):
-        """This class contains methods to calculate stats on a dataset.
+        """
+        This class contains methods to calculate stats on a dataset.
 
         Args:
             coco_helper: Coco dataset to calculate stats on.
@@ -25,7 +29,8 @@ class COCOStats:
             self,
             eps: float = 1e-16
     ) -> Dict:
-        """Obtain statistics about dataset images sizes for each individual axis.
+        """
+        Obtain statistics about dataset images sizes for each individual axis.
 
         Args:
             eps: epsilon used to compute average height/width ratio.
@@ -61,7 +66,8 @@ class COCOStats:
             self,
             mode: str = "bbox"
     ) -> Dict:
-        """Obtain dataset labels size statistics in the form of a dictionary.
+        """
+        Obtain dataset labels size statistics in the form of a dictionary.
 
         The dictionary pairs each dataset size in the dataset to the list of the
         smallest bounding box size inside the image. This can be useful to define
@@ -108,7 +114,8 @@ class COCOStats:
             mode: str = "median",
             n_pixels: int = 4
     ) -> Tuple:
-        """Estimate optimal image size based on the dataset's image and
+        """
+        Estimate optimal image size based on the dataset's image and
         annotation statistics.
 
         This function:
@@ -182,7 +189,8 @@ class COCOStats:
             col: str,
             na_value: Any = pd.NA
     ) -> dict:
-        """Get the ratios of annotations for each value in column.
+        """
+        Get the ratios of annotations for each value in column.
 
         The function picks the imgs/anns/cats join and uses value_counts to
         return a dict with the ratio for each value. Values are normalized in
@@ -200,7 +208,8 @@ class COCOStats:
 
     @cached_property
     def cat_nms_ratios(self) -> Dict:
-        """For each category, compute how many images in the dataset contains at
+        """
+        For each category, compute how many images in the dataset contains at
         least an annotation for that category.
 
         Returns:
@@ -212,7 +221,8 @@ class COCOStats:
 
     @cached_property
     def cat_ids_ratios(self) -> Dict:
-        """For each category, compute how many images in the dataset contains at
+        """
+        For each category, compute how many images in the dataset contains at
         least an annotation for that category.
 
         Returns:

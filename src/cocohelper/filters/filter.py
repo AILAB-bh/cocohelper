@@ -1,3 +1,6 @@
+"""
+Generic Filter interface and filtering operations.
+"""
 from pandas import DataFrame
 from typing import Tuple
 from numbers import Number
@@ -15,7 +18,8 @@ class Filter(ABC):
             self,
             df: DataFrame
     ) -> DataFrame:
-        """A method for applying a filter to the given DataFrame.
+        """
+        A method for applying a filter to the given DataFrame.
 
         Args:
             df: DataFrame to filter.
@@ -32,7 +36,8 @@ class ComposeFilter(Filter, ABC):
             self,
             *filters: Filter
     ):
-        """Generic interface for filter composition.
+        """
+        Generic interface for filter composition.
 
         Args:
             *filters: The filters to combine.
@@ -47,7 +52,8 @@ class AndFilter(ComposeFilter):
             self,
             df: DataFrame
     ) -> DataFrame:
-        """Applies the filter to the given DataFrame.
+        """
+        Applies the filter to the given DataFrame.
 
         Args:
             df: DataFrame to filter.
@@ -68,7 +74,8 @@ class OrFilter(ComposeFilter):
             self,
             df: DataFrame
     ) -> DataFrame:
-        """Applies the filter to the given DataFrame.
+        """
+        Applies the filter to the given DataFrame.
 
         Args:
             df: DataFrame to filter.
@@ -89,7 +96,8 @@ class NotFilter(Filter):
             self,
             fltr: Filter
     ):
-        """Negate a given filter to obtain the opposite behavior.
+        """
+        Negate a given filter to obtain the opposite behavior.
 
         Args:
             fltr: Filter to be negated
@@ -100,7 +108,8 @@ class NotFilter(Filter):
             self,
             df: DataFrame
     ) -> DataFrame:
-        """Applies the filter to the given DataFrame.
+        """
+        Applies the filter to the given DataFrame.
 
         Args:
             df: DataFrame to filter.
@@ -119,7 +128,8 @@ class ColumnFilter(Filter, ABC):
             values,
             column: str
     ):
-        """Generic interface of a filter applying constraints over column values.
+        """
+        Generic interface of a filter applying constraints over column values.
 
         Args:
             values: values used to create the constraint and filter the rows.
@@ -134,6 +144,7 @@ class ColumnFilter(Filter, ABC):
     ) -> DataFrame:
         """
         Apply the filter to the DataFrame
+
         Args:
             df: DataFrame to filter
 
@@ -158,7 +169,8 @@ class ColumnFilter(Filter, ABC):
             column: str,
             df: DataFrame
     ) -> DataFrame:
-        """Applies the filter to the given DataFrame rows.
+        """
+        Applies the filter to the given DataFrame rows.
 
         Args:
             values: values to filter in the DataFrame.
@@ -213,7 +225,8 @@ class ValueFilter(ColumnFilter):
             self,
             strategy: strategies.ValueFilterStrategy
     ):
-        """Set the filter strategy.
+        """
+        Set the filter strategy.
 
         Args:
             strategy: used for filtering the dataframe when using apply().
@@ -251,7 +264,8 @@ class RangeFilter(ColumnFilter):
             column: str,
             strategy: strategies.RangeFilterStrategy = strategies.IN_RANGE
     ):
-        """Filter rows containing column values in a certain range.
+        """
+        Filter rows containing column values in a certain range.
 
         Args:
             rng: A tuple that contains the lower and upper bound.
@@ -267,6 +281,7 @@ class RangeFilter(ColumnFilter):
     ):
         """
         Set the filter strategy.
+
         Args:
             strategy: used for filtering the dataframe when using apply().
 
@@ -281,7 +296,8 @@ class RangeFilter(ColumnFilter):
             column: str,
             df: DataFrame
     ) -> DataFrame:
-        """Applies the filter to the given DataFrame rows.
+        """
+        Applies the filter to the given DataFrame rows.
 
         Args:
             values: values to filter in the DataFrame.

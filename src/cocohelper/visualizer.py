@@ -1,3 +1,6 @@
+"""
+Visualize COCO images and annotations.
+"""
 from cocohelper import COCOHelper
 import numpy as np
 import cv2
@@ -13,7 +16,8 @@ class COCOVisualizer:
             self,
             helper: COCOHelper
     ):
-        """This class contains methods to visualize COCO images and annotations.
+        """
+        This class contains methods to visualize COCO images and annotations.
 
         Args:
             helper: Coco dataset to visualize.
@@ -24,7 +28,8 @@ class COCOVisualizer:
             self,
             img_id: int
     ) -> np.ndarray:
-        """Load image with a given image id and returns it as numpy array.
+        """
+        Load image with a given image id and returns it as numpy array.
 
         Args:
             img_id: image id.
@@ -42,7 +47,8 @@ class COCOVisualizer:
             show_segmentation: bool = False,
             **kwargs
     ) -> None:
-        """Visualize an image given its image id using matplotlib.
+        """
+        Visualize an image given its image id using matplotlib.
 
         If `show_bbox` or `show_segmentation` are True, show also the image
         annotations on top of the plotted image.
@@ -149,7 +155,8 @@ class COCOVisualizer:
             color: Sequence = (128, 128, 128),
             **kwargs
     ) -> np.ndarray:
-        """Draw segmentation mask on top of the input image.
+        """
+        Draw segmentation mask on top of the input image.
 
         Args:
             image: numpy array with the image.
@@ -217,7 +224,8 @@ class COCOVisualizer:
         return image
 
     def pick_color_palette(self, number: int) -> List:
-        """Returns standard RGB colors palette (+ random colors, if needed).
+        """
+        Returns standard RGB colors palette (+ random colors, if needed).
 
         Args:
             number: the number of RGB color triplets to fetch.

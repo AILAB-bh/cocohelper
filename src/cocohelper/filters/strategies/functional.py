@@ -1,3 +1,6 @@
+"""
+Filtering strategies, as functions.
+"""
 from typing import Optional, Any, Tuple, Set
 from pandas import DataFrame
 from pandas.core.dtypes.inference import is_list_like

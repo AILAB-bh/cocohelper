@@ -1,3 +1,6 @@
+"""
+Generate COCOHelper objects from a generic dataset interface.
+"""
 import datetime as dt
 from pathlib import Path
 from typing import Optional, Union
@@ -15,7 +18,8 @@ class Importer:
             self,
             adapter: DatasetAdapter
     ):
-        """Importer can generate COCOHelper objects from a generic interface.
+        """
+        Importer can generate COCOHelper objects from a generic interface.
 
         We delegate to DatasetAdapter hierarchy the strategy used to load data
         from another dataset. Importer expect that a DatasetAdapter is provided
@@ -38,7 +42,8 @@ class Importer:
             img_dir: Union[str, Path] = COCOHelperPaths.img_dir,
             save_images: bool = False
     ) -> COCOHelper:
-        """Generate the new COCOHelper, and optionally save it.
+        """
+        Generate the new COCOHelper, and optionally save it.
 
         Args:
             out_coco_dir: Root path to save the dataset.

@@ -1,3 +1,6 @@
+"""
+Split the COCO dataset according to a proportional rule.
+"""
 from typing import List
 import random
 from cocohelper.splitters.splitter import Splitter
@@ -10,7 +13,8 @@ class ProportionalDataSplitter(Splitter):
             self,
             *proportions: float
     ):
-        """Split a COCO dataset into N datasets.
+        """
+        Split a COCO dataset into N datasets.
 
         Each split will contain a part of the original dataset samples
         proportionally to the arguments.
@@ -28,7 +32,8 @@ class ProportionalDataSplitter(Splitter):
             self,
             coco: COCOHelper
     ) -> List[COCOHelper]:
-        """Applies the splitter to the given COCOHelper.
+        """
+        Applies the splitter to the given COCOHelper.
 
         Args:
             coco: a COCOHelper containing the source dataset to be split.
@@ -49,7 +54,8 @@ class ProportionalDataSplitter(Splitter):
             self,
             ch: COCOHelper
     ) -> List:
-        """For each split, GET a list of image ids for a target COCOHelper
+        """
+        For each split, GET a list of image ids for a target COCOHelper
         dataset, respecting the splitting proportions.
 
         Args:

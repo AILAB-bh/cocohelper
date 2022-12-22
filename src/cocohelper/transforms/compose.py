@@ -1,3 +1,6 @@
+"""
+Composition of multiple transformations.
+"""
 from typing import List, Tuple
 import numpy as np
 from cocohelper.transforms import Transform
@@ -9,7 +12,8 @@ class Compose(Transform):
             self,
             transforms: List[Transform]
     ):
-        """Combine different Transform into one.
+        """
+        Combine different Transform into one.
 
         Args:
             transforms: The list of Transform to combine.
@@ -20,7 +24,8 @@ class Compose(Transform):
             self,
             transform: Transform
     ):
-        """Append transformations to be applied to the COCO data.
+        """
+        Append transformations to be applied to the COCO data.
 
         Args:
             transform: a Transformation to be applied.
@@ -72,7 +77,8 @@ class Compose(Transform):
             img: np.ndarray,
             anns: List[dict]
     ) -> Tuple[np.ndarray, List[dict]]:
-        """Apply the transformation to the image array and its annotations.
+        """
+        Apply the transformation to the image array and its annotations.
 
         Args:
             img: image array.

@@ -1,3 +1,5 @@
+"""Filtering strategies, as classes.
+"""
 from __future__ import annotations  # for sure needed for python <= 3.7, don't know about python 3.8+
 from typing import TYPE_CHECKING, Tuple
 from pandas import DataFrame
@@ -47,7 +49,8 @@ class HavingValueFilterStrategy(ValueFilterStrategy):
 
 
 class AnyValueFilterStrategy(ValueFilterStrategy):
-    """Filters multi-rows having at least one of the requested values.
+    """
+    Filters multi-rows having at least one of the requested values.
 
     This strategy can be applied to dataframes that can contain multiple rows
     sharing the same index.
@@ -128,7 +131,8 @@ class AnyValueFilterStrategy(ValueFilterStrategy):
 
 
 class AllValueFilterStrategy(ValueFilterStrategy):
-    """Filters multi-rows having at least all the requested values.
+    """
+    Filters multi-rows having at least all the requested values.
 
     This strategy can be applied to dataframes that can contain multiple rows
     sharing the same index.
