@@ -1,7 +1,7 @@
 """
 Extend pandas Dataframe to allow easier manipulation of COCO Datasets.
 """
-from typing import Tuple, Hashable, Optional, Union
+from typing import Tuple, Hashable, Optional, Union, Literal, overload, Type, List
 from pandas._typing import IndexLabel
 from pandas import DataFrame
 import warnings
@@ -274,3 +274,17 @@ class COCODataFrame(DataFrame):
         except KeyError:
             warnings.warn(f"Can't find column name `{from_col}`: remap to `{to_col}` is skipped.")
         return dataframe
+
+
+    def to_dict(
+            self,
+            orient: Literal[
+                "dict", "list", "series", "split", "tight", "records", "index"
+            ] = "dict",
+            into: Type[dict] = dict,
+            include_index: bool = False,
+    ) -> Union[dict, List[dict]]:
+        if include_index:
+            return self.reset_index().to_dict(orient, into)
+        return super().to_dict(orient, into)
+
