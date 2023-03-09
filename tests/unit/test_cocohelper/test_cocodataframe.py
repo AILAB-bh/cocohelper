@@ -13,6 +13,7 @@ class TestCocoDataframe:
         ch = COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
         yield ch.imgs
 
+
     def test_to_dict_not_having_index_column(self, df_imgs):
         # Act:
         imgs_dict = df_imgs.to_dict()
@@ -21,7 +22,6 @@ class TestCocoDataframe:
         for column in df_imgs.columns:
             assert column in imgs_dict.keys()
         assert 'image_id' not in imgs_dict.keys()
-
 
 
     def test_to_dict_include_index_column(self, df_imgs):
