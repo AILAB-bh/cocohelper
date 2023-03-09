@@ -1317,8 +1317,8 @@ remap other columns of the original dataframe.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.dataframe.COCODataFrame.to_csv" title="cocohelper.dataframe.COCODataFrame.to_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_csv</span></code></a>([path_or_buf, sep, na_rep, ...])</p></td>
 <td><p>Write object to a comma-separated values (csv) file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.dataframe.COCODataFrame.to_dict" title="cocohelper.dataframe.COCODataFrame.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a>([orient, into])</p></td>
-<td><p>Convert the DataFrame to a dictionary.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.dataframe.COCODataFrame.to_dict" title="cocohelper.dataframe.COCODataFrame.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a>([orient, into, include_index])</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.dataframe.COCODataFrame.to_excel" title="cocohelper.dataframe.COCODataFrame.to_excel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_excel</span></code></a>(excel_writer[, sheet_name, na_rep, ...])</p></td>
 <td><p>Write object to an Excel sheet.</p></td>
@@ -19770,110 +19770,19 @@ need to create it using either Pathlib or os:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cocohelper.dataframe.COCODataFrame.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orient='dict'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">into=&lt;class</span> <span class="pre">'dict'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cocohelper.dataframe.COCODataFrame.to_dict" title="Permalink to this definition"></a></dt>
-<dd><p>Convert the DataFrame to a dictionary.</p>
-<p>The type of the key-value pairs can be customized with the parameters
-(see below).</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orient='dict'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">into=&lt;class</span> <span class="pre">'dict'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_index=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/dataframe.html#COCODataFrame.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.dataframe.COCODataFrame.to_dict" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>orient</strong> (<em>str {'dict'</em><em>, </em><em>'list'</em><em>, </em><em>'series'</em><em>, </em><em>'split'</em><em>, </em><em>'tight'</em><em>, </em><em>'records'</em><em>, </em><em>'index'}</em>) – <p>Determines the type of the values of the dictionary.</p>
-<ul>
-<li><p>’dict’ (default) : dict like {column -&gt; {index -&gt; value}}</p></li>
-<li><p>’list’ : dict like {column -&gt; [values]}</p></li>
-<li><p>’series’ : dict like {column -&gt; Series(values)}</p></li>
-<li><p>’split’ : dict like
-{‘index’ -&gt; [index], ‘columns’ -&gt; [columns], ‘data’ -&gt; [values]}</p></li>
-<li><p>’tight’ : dict like
-{‘index’ -&gt; [index], ‘columns’ -&gt; [columns], ‘data’ -&gt; [values],
-‘index_names’ -&gt; [index.names], ‘column_names’ -&gt; [column.names]}</p></li>
-<li><p>’records’ : list like
-[{column -&gt; value}, … , {column -&gt; value}]</p></li>
-<li><p>’index’ : dict like {index -&gt; {column -&gt; value}}</p></li>
-</ul>
-<p>Abbreviations are allowed. <cite>s</cite> indicates <cite>series</cite> and <cite>sp</cite>
-indicates <cite>split</cite>.</p>
-<div class="versionadded">
-<p><span class="versionmodified added">New in version 1.4.0: </span>‘tight’ as an allowed value for the <code class="docutils literal notranslate"><span class="pre">orient</span></code> argument</p>
-</div>
-</p></li>
-<li><p><strong>into</strong> (<em>class</em><em>, </em><em>default dict</em>) – The collections.abc.Mapping subclass used for all Mappings
-in the return value.  Can be the actual class or an empty
-instance of the mapping type you want.  If you want a
-collections.defaultdict, you must pass it initialized.</p></li>
+<li><p><strong>orient</strong> (<em>Literal</em><em>[</em><em>'dict'</em><em>, </em><em>'list'</em><em>, </em><em>'series'</em><em>, </em><em>'split'</em><em>, </em><em>'tight'</em><em>, </em><em>'records'</em><em>, </em><em>'index'</em><em>]</em>) – </p></li>
+<li><p><strong>into</strong> (<em>Type</em><em>[</em><em>dict</em><em>]</em>) – </p></li>
+<li><p><strong>include_index</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Return a collections.abc.Mapping object representing the DataFrame.
-The resulting transformation depends on the <cite>orient</cite> parameter.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict, list or collections.abc.Mapping</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[dict, <em>List</em>[dict]]</p>
 </dd>
 </dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame.from_dict</span></code></dt><dd><p>Create a DataFrame from a dictionary.</p>
-</dd>
-<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame.to_json</span></code></dt><dd><p>Convert a DataFrame to JSON format.</p>
-</dd>
-</dl>
-</div>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;col1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-<span class="gp">... </span>                   <span class="s1">&#39;col2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]},</span>
-<span class="gp">... </span>                  <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;row1&#39;</span><span class="p">,</span> <span class="s1">&#39;row2&#39;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span>
-<span class="go">      col1  col2</span>
-<span class="go">row1     1  0.50</span>
-<span class="go">row2     2  0.75</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-<span class="go">{&#39;col1&#39;: {&#39;row1&#39;: 1, &#39;row2&#39;: 2}, &#39;col2&#39;: {&#39;row1&#39;: 0.5, &#39;row2&#39;: 0.75}}</span>
-</pre></div>
-</div>
-<p>You can specify the return orientation.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;series&#39;</span><span class="p">)</span>
-<span class="go">{&#39;col1&#39;: row1    1</span>
-<span class="go">         row2    2</span>
-<span class="go">Name: col1, dtype: int64,</span>
-<span class="go">&#39;col2&#39;: row1    0.50</span>
-<span class="go">        row2    0.75</span>
-<span class="go">Name: col2, dtype: float64}</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;split&#39;</span><span class="p">)</span>
-<span class="go">{&#39;index&#39;: [&#39;row1&#39;, &#39;row2&#39;], &#39;columns&#39;: [&#39;col1&#39;, &#39;col2&#39;],</span>
-<span class="go"> &#39;data&#39;: [[1, 0.5], [2, 0.75]]}</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)</span>
-<span class="go">[{&#39;col1&#39;: 1, &#39;col2&#39;: 0.5}, {&#39;col1&#39;: 2, &#39;col2&#39;: 0.75}]</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
-<span class="go">{&#39;row1&#39;: {&#39;col1&#39;: 1, &#39;col2&#39;: 0.5}, &#39;row2&#39;: {&#39;col1&#39;: 2, &#39;col2&#39;: 0.75}}</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="go">{&#39;index&#39;: [&#39;row1&#39;, &#39;row2&#39;], &#39;columns&#39;: [&#39;col1&#39;, &#39;col2&#39;],</span>
-<span class="go"> &#39;data&#39;: [[1, 0.5], [2, 0.75]], &#39;index_names&#39;: [None], &#39;column_names&#39;: [None]}</span>
-</pre></div>
-</div>
-<p>You can also specify the mapping type.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">defaultdict</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">into</span><span class="o">=</span><span class="n">OrderedDict</span><span class="p">)</span>
-<span class="go">OrderedDict([(&#39;col1&#39;, OrderedDict([(&#39;row1&#39;, 1), (&#39;row2&#39;, 2)])),</span>
-<span class="go">             (&#39;col2&#39;, OrderedDict([(&#39;row1&#39;, 0.5), (&#39;row2&#39;, 0.75)]))])</span>
-</pre></div>
-</div>
-<p>If you want a <cite>defaultdict</cite>, you need to initialize it:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dd</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">,</span> <span class="n">into</span><span class="o">=</span><span class="n">dd</span><span class="p">)</span>
-<span class="go">[defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;col1&#39;: 1, &#39;col2&#39;: 0.5}),</span>
-<span class="go"> defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;col1&#39;: 2, &#39;col2&#39;: 0.75})]</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="py method">
