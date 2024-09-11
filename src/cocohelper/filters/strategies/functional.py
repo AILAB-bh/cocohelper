@@ -17,7 +17,7 @@ def filter_multi_rows_having_any(
     ids: Set[int] = set()
     for val in values:
         ids = ids.union(set(df[df[column] == val].index))
-    return df.loc[ids]
+    return df.loc[list(ids)]
 
 
 def filter_rows_having(
@@ -43,7 +43,7 @@ def filter_multi_rows_having_all(
     ids = set(df.index)
     for val in values:
         ids = ids.intersection(set(df[df[column] == val].index))
-    return df.loc[ids]
+    return df.loc[list(ids)]
 
 
 def filter_rows_in_range(
