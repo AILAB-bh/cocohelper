@@ -1,19 +1,23 @@
 from typing import List
 import pandas as pd
+import pytest
 
 from cocohelper import COCOHelper
 
 
 # TODO: improve test suite, use AAA approach (Arrange, Act, Assert), use pytest test Classes and fixtures.
 
+@pytest.fixture()
 def ch1():
     return COCOHelper.load_json('tests/data/coco_merge1/annotations/coco.json')
 
+@pytest.fixture()
 def ch2():
     return COCOHelper.load_json('tests/data/coco_merge2/annotations/coco.json')
 
 
 # TEST MERGE WITHOUT DROPPING DUPLICATES
+@pytest.fixture
 def ch_merged_with_duplicates(ch1, ch2):
     return ch1.merge(ch2, drop_duplicates=False)
 
@@ -38,6 +42,7 @@ def test_merged_with_duplicates_nb_licenses(ch_merged_with_duplicates, ch1, ch2)
 
 # TEST MERGE DROPPING DUPLICATES
 
+@pytest.fixture
 def ch_merged(ch1, ch2):
     return ch1.merge(ch2, drop_duplicates=True)
 
@@ -125,12 +130,3 @@ def __df2records(df: pd.DataFrame):
 def __records_footprint(records: List[dict]) -> List[str]:
     return [str(d.values()) for d in records]
 
-
-if __name__ == '__main__':
-    from cocohelper.splitters.kfold import KFoldSplitter
-    from cocohelper.merge import merge_coco
-
-    ch1 = COCOHelper.load_json('tests/data/coco_merge1/annotations/coco.json')
-    splitter = KFoldSplitter(n_fold=3)
-    splits = splitter.apply(ch1)
-    ch = merge_coco(*splits)
