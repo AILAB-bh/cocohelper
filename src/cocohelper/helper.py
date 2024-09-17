@@ -84,7 +84,7 @@ class COCOHelper:
             check is performed only if `validate=True`.
         """
         if lic_df is None:
-            lic_df = DataFrame()
+            lic_df = DataFrame(columns=['id', 'name', 'url'])
 
         self._root_path = coco_dir
         self._paths = paths if paths is not None else COCOHelperPaths()
