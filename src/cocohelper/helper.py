@@ -84,7 +84,7 @@ class COCOHelper:
             check is performed only if `validate=True`.
         """
         if lic_df is None:
-            lic_df = DataFrame()
+            lic_df = DataFrame(columns=['id', 'name', 'url'])
 
         self._root_path = coco_dir
         self._paths = paths if paths is not None else COCOHelperPaths()
@@ -128,13 +128,13 @@ class COCOHelper:
         """
         helper = copy.deepcopy(self)
         if cat_df is not None:
-            helper._cats = COCODataFrame(cat_df, 'category')
+            helper._cats = COCODataFrame(pd.DataFrame(cat_df), 'category')
         if img_df is not None:
-            helper._imgs = COCODataFrame(img_df, 'image')
+            helper._imgs = COCODataFrame(pd.DataFrame(img_df), 'image')
         if ann_df is not None:
-            helper._anns = COCODataFrame(ann_df, 'annotation')
+            helper._anns = COCODataFrame(pd.DataFrame(ann_df), 'annotation')
         if lic_df is not None:
-            helper._lics = COCODataFrame(lic_df, 'license')
+            helper._lics = COCODataFrame(pd.DataFrame(lic_df), 'license')
         if info is not None:
             helper._info = info
 

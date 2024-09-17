@@ -98,7 +98,10 @@ def _merge_categories(
     concat_df['category_id'] = concat_df.index
 
     for _, cat in concat_df.iterrows():
-        mask = (old_cats['name'] == cat['name']) & (old_cats['supercategory'] == cat['supercategory'])
+        if 'supercategory' in old_cats.columns:
+            mask = (old_cats['name'] == cat['name']) & (old_cats['supercategory'] == cat['supercategory'])
+        else:
+            mask = (old_cats['name'] == cat['name'])
         old_cats.loc[mask, 'new_id'] = cat['category_id']
 
     cat_id_mapping = old_cats[['_dataset', 'category_id', 'new_id']] \
