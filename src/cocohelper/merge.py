@@ -22,7 +22,7 @@ def merge_coco(
         Merged COCOHelper.
     """
     if len(coco_helpers) < 2:
-        raise ValueError("Thi minimum number of coco helpers that can be merged is 2. Please feed two or more "
+        raise ValueError("The minimum number of coco helpers that can be merged is 2. Please feed two or more "
                          "COCOHelper objects.")
 
     # TODO: manage duplicates values accordingly to parameters.
