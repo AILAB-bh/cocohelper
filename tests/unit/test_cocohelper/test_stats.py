@@ -1,4 +1,4 @@
-#import pytest
+import pytest
 from numpy import isclose
 
 from cocohelper import COCOHelper
@@ -7,11 +7,11 @@ from cocohelper.stats import COCOStats
 # TODO: improve test suite, use AAA approach (Arrange, Act, Assert), use pytest test Classes and fixtures.
 
 
-#@pytest.fixture
+@pytest.fixture
 def ch():
     return COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
 
-#@pytest.fixture
+@pytest.fixture
 def stats(ch):
     return COCOStats(ch)
 
@@ -62,10 +62,3 @@ def test_cat_nms_ratios(stats):
     # Assert:
     for key, ratio in nms_ratios.items():
         assert isclose(ratio, expected_nms_ratios[key], rtol=1e-6)
-
-
-if __name__ == '__main__':
-    ch = COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
-    stats = COCOStats(ch)
-    test_cat_nms_ratios(stats)
-    test_cat_ids_ratios(stats)

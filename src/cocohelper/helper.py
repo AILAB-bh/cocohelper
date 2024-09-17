@@ -148,7 +148,7 @@ class COCOHelper:
         linked_cats = self.anns['category_id'].isin(self.cats.index)
 
         # Update the annotations in self to remove unlinked anns
-        self._anns = COCODataFrame(self.anns[linked_images & linked_cats], 'annotation')
+        self._anns = COCODataFrame(pd.DataFrame(self.anns[linked_images & linked_cats]), 'annotation')
 
     def to_coco(self) -> COCO:
         """Convert `COCOHelper` to `pycocotools.COCO`"""
