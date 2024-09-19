@@ -25,6 +25,7 @@ from cocohelper.filters import cocofilters as cfilters
 from cocohelper.joins import COCOJoins, COCODataFrame
 from cocohelper.utils.timer import Timer
 from cocohelper.utils.types._types import IDXSelector
+from cocohelper.validator import COCOValidator
 
 
 # IMPORTS FOR TYPE-CHECKING ONLY
@@ -96,9 +97,7 @@ class COCOHelper:
         self._colmaps: COCOColsMapper = COCOColsMapper()
 
         if validate:
-            from cocohelper.validator import COCOValidator
-            is_valid = COCOValidator(self).validate_dataset()
-
+            is_valid = self.validator.validate_dataset()
             if not is_valid:
                 raise COCOValidationError()
 
@@ -108,7 +107,8 @@ class COCOHelper:
             img_df: Optional[DataFrame] = None,
             ann_df: Optional[DataFrame] = None,
             lic_df: Optional[DataFrame] = None,
-            info: Optional[dict] = None
+            info: Optional[dict] = None,
+            validate: bool = True,
     ) -> COCOHelper:
         """
         Copy the dataset and optionally change some dataframes.
@@ -122,6 +122,8 @@ class COCOHelper:
             ann_df: New annotation dataframe, optional
             lic_df: New license dataframe, optional
             info: New info dict, optional
+            validate: If True, validate the COCO dataset and raise an error if
+              invalid
 
         Returns:
             A new `COCOHelper` object.
@@ -139,7 +141,13 @@ class COCOHelper:
             helper._info = info
 
         helper._remove_unlinked_anns()
-        # helper.validator.validate() # TODO
+
+        # validate the dataset
+        if validate:
+            is_valid = self.validator.validate_dataset()
+            if not is_valid:
+                raise COCOValidationError()
+
         return helper
 
     def _remove_unlinked_anns(self):
@@ -369,6 +377,11 @@ class COCOHelper:
     def joins(self):
         """Get a COCOJoins object, that enable easy access to different joins dataset tables."""
         return COCOJoins(self)
+
+    @property
+    def validator(self):
+        """Get a COCOValidator object, that enable easy access to different validation methods."""
+        return COCOValidator(json_data=self.to_json_dataset(), dataset_dir=self.root_path)
 
     #
     # # # # # # # # # # # # # # #
