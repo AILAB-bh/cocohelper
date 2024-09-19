@@ -52,55 +52,90 @@ class COCOValidator:
         logging.info(" | Test passed.")
         return True
 
-    def validate_dataset(self) -> bool:
+    def validate_dataset(self) -> Tuple[bool, dict]:
         """
         Check if this is a valid COCO dataset.
 
         Returns:
             True if this is a valida dataset.
         """
+        error_dict = dict()
+        is_valid = True
+
         logging.info("\n")
         logging.info("Checking COCO dataset validity...")
         fail_message = " | Test failed: this is not a valid COCO dataset:"
 
-        # check folder tree:
-        if not self._has_valid_dataset_tree(self.dataset_dir):
+        # check folder tree
+        error_dict["has_valid_dataset_tree"] = self._has_valid_dataset_tree(self.dataset_dir)
+        is_valid = is_valid and error_dict["has_valid_dataset_tree"]
+        if not error_dict["has_valid_dataset_tree"]:
             logging.error(f"{fail_message} Folders are not organised as expected by a COCO dataset.")
-            return False
 
         # start verifying dataset validity
-        if not self._json_has_mandatory_keys(self.json_data):
+        error_dict["json_has_mandatory_keys"] = self._json_has_mandatory_keys(self.json_data)
+        is_valid = is_valid and error_dict["json_has_mandatory_keys"]
+        if not error_dict["json_has_mandatory_keys"]:
             logging.error(f"{fail_message} There are missing mandatory keys in the json file.")
-            return False
-        if not self._categories_have_mandatory_keys(self.json_data):
+
+        # check if the categories have the mandatory keys
+        error_dict["categories_have_mandatory_keys"] = self._categories_have_mandatory_keys(self.json_data)
+        is_valid = is_valid and error_dict["categories_have_mandatory_keys"]
+        if not error_dict["categories_have_mandatory_keys"]:
             logging.error(f"{fail_message} There are missing mandatory keys in the COCO categories.")
-            return False
-        if not self._images_have_mandatory_keys(self.json_data):
+
+        # check if the images have the mandatory keys
+        error_dict["images_have_mandatory_keys"] = self._images_have_mandatory_keys(self.json_data)
+        is_valid = is_valid and error_dict["images_have_mandatory_keys"]
+        if not error_dict["images_have_mandatory_keys"]:
             logging.error(f"{fail_message} There are missing mandatory keys in the COCO images.")
-            return False
-        if not self._annotations_have_mandatory_keys(self.json_data):
+
+        # check if the annotations have the mandatory keys
+        error_dict["annotations_have_mandatory_keys"] = self._annotations_have_mandatory_keys(self.json_data)
+        is_valid = is_valid and error_dict["annotations_have_mandatory_keys"]
+        if not error_dict["annotations_have_mandatory_keys"]:
             logging.error(f"{fail_message} There are missing mandatory keys in the COCO annotations.")
-            return False
-        if not self._category_ids_are_unique(self.json_data):
+
+        # check if the category ids are unique
+        error_dict["category_ids_are_unique"] = self._category_ids_are_unique(self.json_data)
+        is_valid = is_valid and error_dict["category_ids_are_unique"]
+        if not error_dict["category_ids_are_unique"]:
             logging.error(f"{fail_message} There are duplicated category ids.")
-            return False
-        if not self._licenses_ids_are_unique(self.json_data):
+
+        # check if the licenses ids are unique
+        error_dict["licenses_ids_are_unique"] = self._licenses_ids_are_unique(self.json_data)
+        is_valid = is_valid and error_dict["licenses_ids_are_unique"]
+        if not error_dict["licenses_ids_are_unique"]:
             logging.error(f"{fail_message} There are duplicated licenses ids.")
-            return False
-        if not self._image_ids_are_unique(self.json_data):
+
+        # check if the image ids are unique
+        error_dict["image_ids_are_unique"] = self._image_ids_are_unique(self.json_data)
+        is_valid = is_valid and error_dict["image_ids_are_unique"]
+        if not error_dict["image_ids_are_unique"]:
             logging.error(f"{fail_message} There are duplicated image ids.")
-            return False
-        if not self._annotation_ids_are_unique(self.json_data):
+
+        # check if the annotation ids are unique
+        error_dict["annotation_ids_are_unique"] = self._annotation_ids_are_unique(self.json_data)
+        is_valid = is_valid and error_dict["annotation_ids_are_unique"]
+        if not error_dict["annotation_ids_are_unique"]:
             logging.error(f"{fail_message} There are duplicated annotation ids.")
-            return False
-        if not self._annotations_have_valid_image_id(self.json_data):
+
+        # check if the annotations have valid image id
+        error_dict["annotations_have_valid_image_id"] = self._annotations_have_valid_image_id(self.json_data)
+        is_valid = is_valid and error_dict["annotations_have_valid_image_id"]
+        if not error_dict["annotations_have_valid_image_id"]:
             logging.error(f"{fail_message} There are annotations with invalid image id.")
-            return False
-        if not self._annotations_have_valid_category_id(self.json_data):
+
+        # check if the annotations have valid category id
+        error_dict["annotations_have_valid_category_id"] = self._annotations_have_valid_category_id(self.json_data)
+        is_valid = is_valid and error_dict["annotations_have_valid_category_id"]
+        if not error_dict["annotations_have_valid_category_id"]:
             logging.error(f"{fail_message} There are annotations with invalid category id.")
-            return False
-        logging.info(" | Test passed.")
-        return True
+
+        if is_valid:
+            logging.info(" | Test passed.")
+
+        return is_valid, error_dict
 
     def _has_valid_dataset_tree(self, dataset_dir: Union[str, Path]) -> bool:
         """

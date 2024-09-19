@@ -96,10 +96,9 @@ class COCOHelper:
         self._info = info if info is not None else COCOHelper.new_info_dict()
         self._colmaps: COCOColsMapper = COCOColsMapper()
 
+        # validate the dataset
         if validate:
-            is_valid = self.validator.validate_dataset()
-            if not is_valid:
-                raise COCOValidationError()
+            self._validate()
 
     def copy(
             self,
@@ -108,7 +107,7 @@ class COCOHelper:
             ann_df: Optional[DataFrame] = None,
             lic_df: Optional[DataFrame] = None,
             info: Optional[dict] = None,
-            validate: bool = True,
+            validate: bool = False,
     ) -> COCOHelper:
         """
         Copy the dataset and optionally change some dataframes.
@@ -144,9 +143,7 @@ class COCOHelper:
 
         # validate the dataset
         if validate:
-            is_valid = self.validator.validate_dataset()
-            if not is_valid:
-                raise COCOValidationError()
+            self._validate()
 
         return helper
 
@@ -157,6 +154,18 @@ class COCOHelper:
 
         # Update the annotations in self to remove unlinked anns
         self._anns = COCODataFrame(pd.DataFrame(self.anns[linked_images & linked_cats]), 'annotation')
+
+    def _validate(self) -> None:
+        """
+        Validate the COCO dataset and raise an error if invalid.
+        """
+        is_valid, error_dict = self.validator.validate_dataset()
+        num_checks = len(error_dict)
+        num_passed = sum(error_dict.values())
+        logging.info(f" Validation checks ({num_passed}/{num_checks}): {error_dict}")
+        if not is_valid:
+            logging.error(f" Validation checks ({num_passed}/{num_checks}): {error_dict}")
+            raise COCOValidationError()
 
     def to_coco(self) -> COCO:
         """Convert `COCOHelper` to `pycocotools.COCO`"""
