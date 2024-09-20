@@ -1,4 +1,4 @@
-#import pytest
+import pytest
 import numpy as np
 import os
 from cocohelper import COCOHelper
@@ -19,8 +19,8 @@ from cocohelper.utils.segmentation import (
 )
 
 
-#@pytest.fixture
-def get_mask():
+@pytest.fixture
+def mask():
     # Create a binary mask
     return np.array([
         [0, 0, 1, 1, 0, 0],
@@ -32,9 +32,26 @@ def get_mask():
     ])
 
 
-#@pytest.fixture
-def get_modes():
+@pytest.fixture
+def modes():
     return ['RLE', 'cRLE', 'polygon']
+
+
+@pytest.fixture
+def ch():
+    # Load the COCO dataset
+    return COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
+
+
+@pytest.fixture
+def folder():
+    # create a folder to store the binary masks
+    folder = 'tests/data/test_utils'
+    # if the folder already exists, empty it
+    if os.path.exists(folder):
+        for file in os.listdir(folder):
+            os.remove(os.path.join(folder, file))
+    return folder
 
 
 def test_mask_to_compressed_rle(mask):
@@ -139,33 +156,9 @@ def test_compute_polygon_area():
     assert area == 1.0
 
 
-def test_coco_to_binary_masks():
-    # Load the COCO dataset
-    ch = COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
-
-    folder = 'tests/data/test_utils'
-    # if the folder exists, empty it
-    if os.path.exists(folder):
-        for file in os.listdir(folder):
-            os.remove(os.path.join(folder, file))
-
+def test_coco_to_binary_masks(ch, folder):
     # Convert the COCO-style segmentation to a binary mask
     coco_to_binary_masks(ch, dest_dir=folder)
 
     # Check if now the folder contains the binary masks
     assert len(os.listdir(folder)) > 0
-
-
-if __name__ == '__main__':
-    mask = get_mask()
-    modes = get_modes()
-    # tests all the functions
-    test_mask_to_compressed_rle(mask)
-    test_mask_to_polygon(mask)
-    test_mask_to_rle(mask)
-    test_encode_mask(mask, modes)
-    test_get_segmentation_mode(mask, modes)
-    test_convert_to_mask(mask, modes)
-    test_convert_to_mode(mask, modes)
-    test_compute_polygon_area()
-    test_coco_to_binary_masks()
