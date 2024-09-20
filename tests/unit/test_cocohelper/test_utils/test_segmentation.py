@@ -89,20 +89,6 @@ def test_mask_to_rle(mask):
     assert np.array_equal(mask, decoded_mask)
 
 
-def test_encode_mask(mask, modes):
-    height, width = mask.shape
-
-    for mode in modes:
-        # Encode the mask
-        encoded = encode_mask(mask, mode)
-
-        # Decode the mask
-        decoded = decode_mask(encoded, height, width, mode)
-
-        # Check if the decoded mask is the same as the original mask
-        assert np.array_equal(mask, decoded)
-
-
 def test_get_segmentation_mode(mask, modes):
     for mode in modes:
         # Encode the mask
@@ -113,6 +99,34 @@ def test_get_segmentation_mode(mask, modes):
 
         # Check if the determined format is the same as the format used for encoding
         assert mode == determined_mode
+
+
+def test_encode_mask(mask, modes):
+    height, width = mask.shape
+
+    for mode in modes:
+        # Encode the mask
+        encoded = encode_mask(mask, mode)
+
+        # Decode the mask
+        decoded = decode_mask(encoded, mode, height=height, width=width)
+
+        # Check if the decoded mask is the same as the original mask
+        assert np.array_equal(mask, decoded)
+
+
+def test_decode_mask(mask, modes):
+    height, width = mask.shape
+
+    for mode in modes:
+        # Encode the mask
+        encoded = encode_mask(mask, mode)
+
+        # Decode the mask
+        decoded = decode_mask(encoded, mode, height=height, width=width)
+
+        # Check if the decoded mask is the same as the original mask
+        assert np.array_equal(mask, decoded)
 
 
 def test_convert_to_mask(mask, modes):
@@ -139,7 +153,7 @@ def test_convert_to_mode(mask, modes):
             converted = convert_to_mode(encoded, target_mode, height, width)
 
             # Decode the converted mask
-            decoded = decode_mask(converted, height, width, target_mode)
+            decoded = decode_mask(converted, target_mode, height=height, width=width)
 
             # Check if the decoded mask is the same as the original mask
             assert np.array_equal(mask, decoded)
