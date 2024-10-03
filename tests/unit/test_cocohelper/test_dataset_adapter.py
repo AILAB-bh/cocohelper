@@ -7,14 +7,28 @@ from cocohelper.adapters import BinaryMaskDatasetAdapter
 
 from cocohelper.importer import Importer
 from cocohelper.utils.segmentation import coco_to_binary_masks
+from shutil import rmtree
 
+import pytest
 
 # TODO: improve test suite, use AAA approach (Arrange, Act, Assert), use pytest test Classes and fixtures.
 
-ch = COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
+
+@pytest.fixture
+def ch():
+    return COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
 
 
-def test_binary_reader():
+@pytest.fixture
+def clean_saved_coco():
+    yield
+    try:
+        rmtree('tests/data/test_binary_reader')
+    finally:
+        pass
+
+
+def test_binary_reader(ch, clean_saved_coco):
     images_dir = Path('tests/data/coco_dataset/images')
     mask_dir = Path('tests/data/test_binary_reader/masks')
     out_dir = Path('tests/data/test_binary_reader/out')

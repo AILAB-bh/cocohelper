@@ -2,7 +2,6 @@
 data/**
 !/data/mscoco14/.gitkeep
 notebooks/data/**
-tests/data/test_utils
 
 # Generated requirements
 requirements-gen.txt
