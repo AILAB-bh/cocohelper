@@ -80,7 +80,7 @@ def test_kfold_split(ch):
         assert len(split.imgs) == 2
 
 
-def test_stratified_kfold_split(ch_stratified):
+def test_stratified_kfold_split(ch):
     splitter = KFoldSplitter(n_fold=3, stratified=True)
     splits = splitter.apply(ch)
     assert len(splits) == 3

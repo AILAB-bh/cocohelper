@@ -2,7 +2,7 @@ name: cocohelper
 channels:
   - conda-forge
 dependencies:
-  - python>=3.8,<3.11
+  - python>=3.8
   - pip
   - pip:
     - poetry>=1.2
