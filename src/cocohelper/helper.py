@@ -814,7 +814,7 @@ class COCOHelper:
 
         image_path = self.root_path / self.paths.img_dir / image_file_name
         with Image.open(image_path) as img:
-            image_array = np.array(img)
+            image_array: np.ndarray = np.array(img)
         return image_array
 
     #
