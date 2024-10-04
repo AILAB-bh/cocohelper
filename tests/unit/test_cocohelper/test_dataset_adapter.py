@@ -39,6 +39,9 @@ def test_binary_reader(ch, clean_saved_coco):
 
     images = list(images_dir.glob('*.jpg'))
     masks = list(mask_dir.glob('*.png'))
+    # remove images that are not present in masks
+    mask_basenames = {mask_path.stem for mask_path in masks}
+    images = [image_path for image_path in images if image_path.stem in mask_basenames]
     images.sort()
     masks.sort()
     data_paths = {}
