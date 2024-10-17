@@ -9,24 +9,24 @@ from cocohelper.validator import COCOValidator
 
 # TODO: improve test suite, use AAA approach (Arrange, Act, Assert), use pytest test Classes and fixtures.
 
-
-ch = COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
-coco = ch.to_coco()
+@pytest.fixture
+def ch():
+    return COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
 
 
 @pytest.fixture
 def clean_saved_coco():
     yield
     try:
-        rmtree('data/coco_dataset_saved')
+        rmtree('tests/data/coco_dataset_saved')
     finally:
         pass
 
 
 @pytest.mark.usefixtures('clean_saved_coco')
-def test_save():
+def test_save(ch):
     ch_filtered = ch.filter_imgs(img_ids=[1, 2, 3])
-    ch_filtered.save('data/coco_dataset_saved')
+    ch_filtered.save('tests/data/coco_dataset_saved')
 
-    ch_saved = ch.load_json('data/coco_dataset_saved/annotations/coco.json')
-    assert COCOValidator(ch_saved).validate_dataset()
+    ch_saved = COCOHelper.load_json('tests/data/coco_dataset_saved/annotations/coco.json')
+    assert COCOValidator(ch_saved.to_json_dataset(), 'tests/data/coco_dataset_saved/annotations').validate_dataset()

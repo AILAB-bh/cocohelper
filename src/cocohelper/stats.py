@@ -206,6 +206,42 @@ class COCOStats:
         _df = _df.value_counts(normalize=True)
         return _df.to_dict()
 
+    def __get_category_ratios(
+            self,
+            return_nms: bool = True
+    ) -> dict:
+        """
+        Get the ratios of each category.
+
+        Args:
+            return_nms: if True, return the category name, otherwise return the
+                category id.
+
+        Returns:
+            Dict associating each category name or id with the fraction of images
+        """
+        if return_nms:
+            cats = self._coco_helper.cats['name'].tolist()
+            col = 'name'
+        else:
+            cats = self._coco_helper.cats.index.tolist()
+            col = 'category_id'
+
+        # join the annotations with the images and the categories, removes duplicates and NaN values
+        _df = self._coco_helper.cats.cocojoin(self._coco_helper.anns, how='outer').auto_reset_index()
+        _df = _df.cocojoin(self._coco_helper.imgs, how='outer').auto_reset_index()
+        _df = _df[['category_id', 'name', 'image_id']].drop_duplicates().dropna()
+        _df['category_id'] = _df['category_id'].astype(int)
+        # count the number of images for each category
+        _df = _df.value_counts(col)/self.nb_imgs
+        _df_dict = _df.to_dict()
+        # add missing categories
+        for cat in cats:
+            if cat not in _df_dict.keys():
+                _df_dict[cat] = 0.0
+
+        return _df_dict
+
     @cached_property
     def cat_nms_ratios(self) -> Dict:
         """
@@ -217,7 +253,7 @@ class COCOStats:
             in the dataset containing at least an annotation of that category
             (in [0, 1]).
         """
-        return self.__get_annotations_ratios('category_name', na_value='<NA>')
+        return self.__get_category_ratios(return_nms=True)
 
     @cached_property
     def cat_ids_ratios(self) -> Dict:
@@ -230,4 +266,4 @@ class COCOStats:
             in the dataset containing at least an annotation of that category
             (in [0, 1]).
         """
-        return self.__get_annotations_ratios('category_id', na_value=-1)
+        return self.__get_category_ratios(return_nms=False)

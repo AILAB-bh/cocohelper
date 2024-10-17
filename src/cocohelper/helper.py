@@ -25,6 +25,7 @@ from cocohelper.filters import cocofilters as cfilters
 from cocohelper.joins import COCOJoins, COCODataFrame
 from cocohelper.utils.timer import Timer
 from cocohelper.utils.types._types import IDXSelector
+from cocohelper.validator import COCOValidator
 
 
 # IMPORTS FOR TYPE-CHECKING ONLY
@@ -84,7 +85,7 @@ class COCOHelper:
             check is performed only if `validate=True`.
         """
         if lic_df is None:
-            lic_df = DataFrame()
+            lic_df = DataFrame(columns=['id', 'name', 'url'])
 
         self._root_path = coco_dir
         self._paths = paths if paths is not None else COCOHelperPaths()
@@ -95,12 +96,9 @@ class COCOHelper:
         self._info = info if info is not None else COCOHelper.new_info_dict()
         self._colmaps: COCOColsMapper = COCOColsMapper()
 
+        # validate the dataset
         if validate:
-            from cocohelper.validator import COCOValidator
-            is_valid = COCOValidator(self).validate_dataset()
-
-            if not is_valid:
-                raise COCOValidationError()
+            self._validate()
 
     def copy(
             self,
@@ -108,7 +106,8 @@ class COCOHelper:
             img_df: Optional[DataFrame] = None,
             ann_df: Optional[DataFrame] = None,
             lic_df: Optional[DataFrame] = None,
-            info: Optional[dict] = None
+            info: Optional[dict] = None,
+            validate: bool = False,
     ) -> COCOHelper:
         """
         Copy the dataset and optionally change some dataframes.
@@ -122,24 +121,30 @@ class COCOHelper:
             ann_df: New annotation dataframe, optional
             lic_df: New license dataframe, optional
             info: New info dict, optional
+            validate: If True, validate the COCO dataset and raise an error if
+              invalid
 
         Returns:
             A new `COCOHelper` object.
         """
         helper = copy.deepcopy(self)
         if cat_df is not None:
-            helper._cats = COCODataFrame(cat_df, 'category')
+            helper._cats = COCODataFrame(pd.DataFrame(cat_df), 'category')
         if img_df is not None:
-            helper._imgs = COCODataFrame(img_df, 'image')
+            helper._imgs = COCODataFrame(pd.DataFrame(img_df), 'image')
         if ann_df is not None:
-            helper._anns = COCODataFrame(ann_df, 'annotation')
+            helper._anns = COCODataFrame(pd.DataFrame(ann_df), 'annotation')
         if lic_df is not None:
-            helper._lics = COCODataFrame(lic_df, 'license')
+            helper._lics = COCODataFrame(pd.DataFrame(lic_df), 'license')
         if info is not None:
             helper._info = info
 
         helper._remove_unlinked_anns()
-        # helper.validator.validate() # TODO
+
+        # validate the dataset
+        if validate:
+            self._validate()
+
         return helper
 
     def _remove_unlinked_anns(self):
@@ -148,7 +153,19 @@ class COCOHelper:
         linked_cats = self.anns['category_id'].isin(self.cats.index)
 
         # Update the annotations in self to remove unlinked anns
-        self._anns = COCODataFrame(self.anns[linked_images & linked_cats], 'annotation')
+        self._anns = COCODataFrame(pd.DataFrame(self.anns[linked_images & linked_cats]), 'annotation')
+
+    def _validate(self) -> None:
+        """
+        Validate the COCO dataset and raise an error if invalid.
+        """
+        is_valid, error_dict = self.validator.validate_dataset()
+        num_checks = len(error_dict)
+        num_passed = sum(error_dict.values())
+        logging.info(f" Validation checks ({num_passed}/{num_checks}): {error_dict}")
+        if not is_valid:
+            logging.error(f" Validation checks ({num_passed}/{num_checks}): {error_dict}")
+            raise COCOValidationError()
 
     def to_coco(self) -> COCO:
         """Convert `COCOHelper` to `pycocotools.COCO`"""
@@ -369,6 +386,11 @@ class COCOHelper:
     def joins(self):
         """Get a COCOJoins object, that enable easy access to different joins dataset tables."""
         return COCOJoins(self)
+
+    @property
+    def validator(self):
+        """Get a COCOValidator object, that enable easy access to different validation methods."""
+        return COCOValidator(json_data=self.to_json_dataset(), dataset_dir=self.root_path)
 
     #
     # # # # # # # # # # # # # # #
@@ -792,7 +814,7 @@ class COCOHelper:
 
         image_path = self.root_path / self.paths.img_dir / image_file_name
         with Image.open(image_path) as img:
-            image_array = np.array(img)
+            image_array: np.ndarray = np.array(img)
         return image_array
 
     #
