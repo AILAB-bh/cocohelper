@@ -200,11 +200,16 @@ def get_segmentation_mode(
     Returns:
         The segmentation mode as a string.
     """
-    if type(segmentation) == list:
-        return 'polygon'
-    elif type(segmentation) == dict:
-        return 'RLE'
-    return 'cRLE'
+    if isinstance(segmentation, list):
+        mode = 'polygon'
+    elif isinstance(segmentation, dict):
+        mode = 'RLE'
+    elif isinstance(segmentation, str):
+        mode = 'cRLE'
+    else:
+        raise ValueError("Invalid argument type for argument `segmentation`. "
+                         "Input `segmentation` should have a list, dictionary, or string type.")
+    return mode
 
 
 def mask_to_rle(

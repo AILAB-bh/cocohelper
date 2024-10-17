@@ -89,6 +89,19 @@ def test_mask_to_rle(mask):
     assert np.array_equal(mask, decoded_mask)
 
 
+def test_get_segmentation_mode_exception():
+    try:
+        # Determine the format of the encoded mask
+        get_segmentation_mode(1)
+    except ValueError as e:
+        msg = e.args[0]
+
+    # Check if the Exception is raised
+    assert msg is not None
+    assert msg == "Invalid argument type for argument `segmentation`. " \
+                  "Input `segmentation` should have a list, dictionary, or string type."
+
+
 def test_get_segmentation_mode(mask, modes):
     for mode in modes:
         # Encode the mask
