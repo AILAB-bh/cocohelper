@@ -184,6 +184,11 @@ class COCOStats:
         """Number of annotations in the dataset"""
         return len(self._coco_helper.anns)
 
+    @property
+    def nb_imgs_wo_anns(self) -> int:
+        """Number of images in the dataset without annotations"""
+        return self._coco_helper.joins.imgs_anns['annotation_id'].isna().sum()
+
     def __get_annotations_ratios(
             self,
             col: str,

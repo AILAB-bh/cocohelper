@@ -11,6 +11,7 @@ from cocohelper.stats import COCOStats
 def ch():
     return COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
 
+
 @pytest.fixture
 def stats(ch):
     return COCOStats(ch)
@@ -62,3 +63,23 @@ def test_cat_nms_ratios(stats):
     # Assert:
     for key, ratio in nms_ratios.items():
         assert isclose(ratio, expected_nms_ratios[key], rtol=1e-6)
+
+
+def test_nb_imgs(ch):
+    coco_stats = COCOStats(ch)
+    assert coco_stats.nb_imgs == 14
+
+
+def test_nb_cats(ch):
+    coco_stats = COCOStats(ch)
+    assert coco_stats.nb_cats == 3
+
+
+def test_nb_anns(ch):
+    coco_stats = COCOStats(ch)
+    assert coco_stats.nb_anns == 46
+
+
+def test_nb_imgs_wo_anns(ch):
+    coco_stats = COCOStats(ch)
+    assert coco_stats.nb_imgs_wo_anns == 2
