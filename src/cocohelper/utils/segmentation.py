@@ -1,13 +1,13 @@
 """
 Utilities* for converting segmentation annotations between different formats.
 """
-from typing import List, Tuple, Dict, Union, Iterable, Optional, Callable, Any
-
+from abc import ABC, abstractmethod
+from typing import Any, List, Dict, Union, Optional
 import numpy.typing as npt
 from pycocotools import mask as coco_mask
+from pathlib import Path
 from shapely.geometry import Polygon
 from PIL import Image, ImageDraw
-from pathlib import Path
 import numpy as np
 import base64
 import zlib
@@ -15,109 +15,201 @@ import cv2
 from cocohelper import COCOHelper
 
 
-# TODO: improve software architecture for this file
-#  (use classes and polymorphism instead of common-interface functions)
+class MaskConverter(ABC):
+    @abstractmethod
+    def encode(self, mask: np.ndarray, **kwargs) -> Any:
+        pass
+
+    @abstractmethod
+    def decode(self, code: Any, **kwargs) -> np.ndarray:
+        pass
 
 
-def mask_to_compressed_rle(
-        mask: np.ndarray,
-        **kwargs
+class RLEMaskConverter(MaskConverter):
+    def encode(self, mask: np.ndarray, **kwargs) -> Any:
+        """
+        Converts a binary mask to RLE encoding.
+        Args:
+            mask: a binary mask as a numpy array.
+            **kwargs: extra parameters are ignored.
+
+        Returns:
+            The RLE encoding of the binary mask.
+        """
+        return mask_to_rle(mask, **kwargs)
+
+    def decode(self, code: Any, **kwargs) -> np.ndarray:
+        """
+        Converts an RLE to a binary mask with the given output dtype.
+        Args:
+            code: RLE encoding of the semantic mask.
+            **kwargs: extra parameters such as:
+                - `dtype` to indicate the type of the output mask.
+
+        Returns:
+            The RLE mask as a numpy array.
+        """
+        return rle_to_mask(code, **kwargs)
+
+
+class CompressedRLEMaskConverter(MaskConverter):
+    def encode(self, mask: np.ndarray, **kwargs) -> Any:
+        """
+        Converts a binary mask to compressed RLE format.
+        Args:
+            mask: a binary mask to encode.
+            **kwargs: extra parameters are ignored.
+
+        Returns:
+            A string encoding the mask as compressed RLE.
+        """
+        return mask_to_compressed_rle(mask, **kwargs)
+
+    def decode(self, code: Any, **kwargs) -> np.ndarray:
+        """
+        Converts a compressed RLE to a binary mask with the given output dtype.
+        Args:
+            code: RLE encoding of the semantic mask.
+            **kwargs: extra parameters such as:
+                - `height` and `width` to indicate the shape of the output mask.
+                - `dtype` to indicate the type of the output mask.
+
+        Returns:
+            The compressed RLE mask as a numpy array.
+        """
+        return compressed_rle_to_mask(code, **kwargs)
+
+
+class PolygonMaskConverter(MaskConverter):
+    def encode(self, mask: np.ndarray, **kwargs) -> Any:
+        """
+        Converts segmentation mask to a list of polygons.
+        Args:
+            mask: numpy array containing multiple segmentation masks. Each mask must
+            **kwargs: extra parameters are ignored.
+
+        Returns:
+            List of polygons segmentation masks.
+        """
+        return mask_to_polygon(mask, **kwargs)
+
+    def decode(self, code: Any, **kwargs) -> np.ndarray:
+        """
+        Creates and returns a mask from polygon in COCO format.
+        Args:
+            code: polygon coordinates.
+            **kwargs: extra parameters such as:
+                - `width` and `height` to indicate the shape of the output mask.
+                - `value` to indicate the value of the zero-valued pixels in the output mask.
+                - `dtype` to indicate the type of the output mask.
+
+        Returns:
+            The polygon mask as a numpy array.
+        """
+        return polygon_to_mask(code, **kwargs)
+
+
+# Mapping of segmentation modes to their respective converters
+MASK_CONVERTERS = {
+    'RLE': RLEMaskConverter(),
+    'cRLE': CompressedRLEMaskConverter(),
+    'polygon': PolygonMaskConverter()
+}
+
+
+def encode_mask(mask: np.ndarray, mode: str, **kwargs) -> Any:
+    """
+    Encodes a mask using the specified
+    Args:
+        mask: a binary mask as a numpy array.
+        mode: the mode to use for encoding the mask.
+        **kwargs: extra parameters are ignored.
+
+    Returns:
+        The encoded mask.
+    """
+    return MASK_CONVERTERS[mode].encode(mask, **kwargs)
+
+
+def decode_mask(code: Any, mode: str, **kwargs) -> np.ndarray:
+    """
+    Decodes a mask using the specified mode.
+    Args:
+        code: the encoded mask.
+        mode: the mode to use for decoding the mask.
+        **kwargs: extra parameters such as:
+            - `height` and `width` to indicate the shape of the output mask (if mode in [cRLE, polygon]).
+            - `value` to indicate the value of the zero-valued pixels in the output mask (if mode=polygon).
+            - `dtype` to indicate the type of the output mask (if mode in [RLE, cRLE, polygon]).
+
+    Returns:
+        The decoded mask as a numpy array.
+    """
+    return MASK_CONVERTERS[mode].decode(code, **kwargs)
+
+
+def convert_to_mask(segmentation: Any, height: int, width: int, **kwargs) -> np.ndarray:
+    """
+    Converts a segmentation to a binary mask.
+    Args:
+        segmentation: the segmentation to convert.
+        height: the height of the output mask.
+        width: the width of the output mask.
+        **kwargs: extra parameters
+
+    Returns:
+        The binary mask as a numpy array.
+    """
+    mode = get_segmentation_mode(segmentation)
+    return decode_mask(segmentation, mode, height=height, width=width, **kwargs)
+
+
+def convert_to_mode(segmentation: Any, mode: str, height: int, width: int, **kwargs) -> Any:
+    """
+    Converts a segmentation to the specified mode.
+    Args:
+        segmentation: the segmentation to convert.
+        mode: the mode to convert the segmentation to.
+        height: the height of the output mask.
+        width: the width of the output mask.
+        **kwargs: extra parameters
+
+    Returns:
+        The segmentation in the specified mode.
+    """
+    curr_mode = get_segmentation_mode(segmentation)
+    if curr_mode == mode:
+        return segmentation
+    mask = decode_mask(segmentation, curr_mode, height=height, width=width)
+    return encode_mask(mask, mode, **kwargs)
+
+
+def get_segmentation_mode(
+        segmentation: Union[List[List], Dict, str]
 ) -> str:
     """
-    Converts a binary mask to compressed RLE format.
+    Automatically detect the segmentation format: RLE, cRLE or polygon.
+
+    The detection is based on the standard of coco format, where polygons
+    are represented as lists, RLE as an object with size and counts properties,
+    and cRLE as a string.
 
     Args:
-        mask: a binary mask to encode.
-        **kwargs: extra parameters are ignored.
-    Returns:
-        A string encoding the mask as compressed RLE.
-    """
-
-    # convert input mask to expected COCO API input --
-    mask_to_encode = mask.reshape((mask.shape[0], mask.shape[1], 1))
-    mask_to_encode = mask_to_encode.astype(np.uint8)
-    mask_to_encode = np.asfortranarray(mask_to_encode)
-
-    # RLE encode mask --
-    encoded_mask = coco_mask.encode(mask_to_encode)[0]["counts"]
-
-    # compress and base64 encoding --
-    binary_str = zlib.compress(encoded_mask, zlib.Z_BEST_COMPRESSION)
-    base64_str = base64.b64encode(binary_str)
-    return base64_str.decode()
-
-
-def mask_to_polygon(
-        mask: np.ndarray,
-        compression_factor: Union[float, Tuple[float, float]] = 1.0,
-        **kwargs
-) -> List:
-    """
-    Converts segmentation mask to a list of polygons.
-
-    Args:
-        mask: numpy array containing multiple segmentation masks. Each mask must
-            be associated with a different number, where 0 is for background,
-            and other numbers related to different objects. For example, objects
-            of a class A may be associated with a value of 1, class B to values
-            10, class C to 255, and so on.
-        compression_factor: you can set this parameter > 1 to obtain
-            compressed polygons. The compression algorithm first downsample the 
-            input mask of a compression_factor along its dimensions, then 
-            computes the polygon, finally rescales the polygon to the original 
-            dimension. The resulting polygon has a reduced number of vertices.
-            Polygons are obtained with cv2.CHAIN_APPROX_SIMPLE approximation.
-
-        **kwargs: extra parameters are ignored.
+        segmentation: the segmentation to inspect.
 
     Returns:
-        List of polygons segmentation masks.
+        The segmentation mode as a string.
     """
-    polygons = []
-    classes = list(np.unique(mask))
-    if 0 in classes:
-        classes.remove(0)
-
-    if isinstance(compression_factor, float) or isinstance(compression_factor, int):
-        hv_compression_factor = (compression_factor, compression_factor)
+    if isinstance(segmentation, list):
+        mode = 'polygon'
+    elif isinstance(segmentation, dict):
+        mode = 'RLE'
+    elif isinstance(segmentation, str):
+        mode = 'cRLE'
     else:
-        hv_compression_factor = (compression_factor[0], compression_factor[1])
-
-    if np.any(np.array(compression_factor) > 1.0):
-        # resize mask to smaller dimension:
-        new_size = [int(np.round(dim / factor)) for dim, factor in zip(mask.shape, hv_compression_factor)]
-        # use cv2.INTER_NEAREST interpolation because we need to maintain the same numbers as in the initial mask
-        # (i.e. classes must not change):
-        mask = cv2.resize(mask, (new_size[1], new_size[0]), interpolation=cv2.INTER_NEAREST)
-        # compute multiplicative factors for rescaling the polygon to the new size:
-        multiplicative_factor = [1 / (int(np.round(dim / factor)) / dim)
-                                 for dim, factor in zip(mask.shape, hv_compression_factor)]
-    else:
-        multiplicative_factor = [1, 1]
-
-    # iterate over the different segmentations (classes) inside the mask:
-    for cls in classes:
-        # pick the class-related segmentation and convert it to binary:
-        binary = np.zeros_like(mask)
-        binary[mask == cls] = 1
-
-        # compute mask contours and then convert them to polygons:
-        binary = binary.astype(np.uint8)
-        contours, hierarchy = cv2.findContours(binary, mode=cv2.RETR_EXTERNAL, method=cv2.CHAIN_APPROX_SIMPLE)
-        for cnt in contours:
-            sqz_cnt = np.squeeze(cnt, axis=1)
-
-            if len(sqz_cnt) >= 3:  # a polygon must contain at least 3 points
-                polygon = Polygon(sqz_cnt).exterior.coords
-                # rescale polygons to the right size, if multiplicative_factors > 1
-                x_coords = [c[0] * multiplicative_factor[1] for c in polygon]
-                y_coords = [c[1] * multiplicative_factor[0] for c in polygon]
-                sgm = []
-                for x, y in zip(x_coords, y_coords):
-                    sgm.extend([float(x), float(y)])
-                polygons.append(sgm)
-
-    return polygons
+        raise ValueError("Invalid argument type for argument `segmentation`. "
+                         "Input `segmentation` should have a list, dictionary, or string type.")
+    return mode
 
 
 def mask_to_rle(
@@ -169,10 +261,38 @@ def rle_to_mask(
     return binary_mask
 
 
+def mask_to_compressed_rle(
+        mask: np.ndarray,
+        **kwargs
+) -> str:
+    """
+    Converts a binary mask to compressed RLE format.
+
+    Args:
+        mask: a binary mask to encode.
+        **kwargs: extra parameters are ignored.
+    Returns:
+        A string encoding the mask as compressed RLE.
+    """
+
+    # convert input mask to expected COCO API input --
+    mask_to_encode = mask.reshape((mask.shape[0], mask.shape[1], 1))
+    mask_to_encode = mask_to_encode.astype(np.uint8)
+    mask_to_encode = np.asfortranarray(mask_to_encode)
+
+    # RLE encode mask --
+    encoded_mask = coco_mask.encode(mask_to_encode)[0]["counts"]
+
+    # compress and base64 encoding --
+    binary_str = zlib.compress(encoded_mask, zlib.Z_BEST_COMPRESSION)
+    base64_str = base64.b64encode(binary_str)
+    return base64_str.decode()
+
+
 def compressed_rle_to_mask(
         rle_code: str,
-        height: int,
-        width: int,
+        height: int = 512,
+        width: int = 512,
         dtype: npt.DTypeLike = bool,
         **kwargs
 ) -> np.ndarray:
@@ -200,10 +320,73 @@ def compressed_rle_to_mask(
     return binary_mask[:, :, 0]
 
 
+def mask_to_polygon(
+        mask: np.ndarray,
+        simplify_tolerance: float = 1.0,
+        **kwargs
+) -> List:
+    """
+    Converts segmentation mask to a list of polygons.
+
+    To reduce the number of vertices in the obtained polygon, try to increase
+    the value of `polygon_simplify_tolerance`.
+
+    Args:
+        mask: numpy array containing multiple segmentation masks. Each mask must
+            be associated with a different number, where 0 is for background,
+            and other numbers related to different objects. For example, objects
+            of a class A may be associated with a value of 1, class B to values
+            10, class C to 255, and so on.
+        simplify_tolerance: a tolerance value used to remove redundant
+            vertexes for the polygons extracted from the mask.
+        **kwargs: extra parameters are ignored.
+
+    Returns:
+        List of polygons segmentation masks.
+    """
+    polygons = []
+    classes = list(np.unique(mask))
+    if 0 in classes:
+        classes.remove(0)
+
+    # iterate over the different segmentations (classes) inside the mask:
+    for cls in classes:
+        # pick the class-related segmentation and convert it to binary:
+        binary = np.zeros_like(mask)
+        binary[mask == cls] = 1
+
+        # compute mask contours and then convert them to polygons:
+        binary = binary.astype(np.uint8)
+        contours, hierarchy = cv2.findContours(binary, mode=cv2.RETR_EXTERNAL, method=cv2.CHAIN_APPROX_SIMPLE)
+
+        # simplify contours
+        contours = [cnt.reshape((-1, 2)) for cnt in contours]
+
+        for cnt in contours:
+            sqz_cnt = cnt
+            if cnt.shape[1] == 1:
+                sqz_cnt = np.squeeze(sqz_cnt, axis=1)
+
+            if len(sqz_cnt) >= 3:  # a polygon must contain at least 3 points
+                polygon = Polygon(sqz_cnt)
+                polygon = polygon.simplify(tolerance=simplify_tolerance, preserve_topology=True)
+                polygon = polygon.exterior.coords
+
+                # get coordinates
+                x_coords = [c[0] for c in polygon]
+                y_coords = [c[1] for c in polygon]
+                sgm = []
+                for x, y in zip(x_coords, y_coords):
+                    sgm.extend([float(x), float(y)])
+                polygons.append(sgm)
+
+    return polygons
+
+
 def polygon_to_mask(
         polygon_code: List[List],
-        width: int,
-        height: int,
+        width: int = 512,
+        height: int = 512,
         value: float = 0.0,
         dtype: npt.DTypeLike = np.float32,
         **kwargs,
@@ -239,150 +422,6 @@ def polygon_to_mask(
     return mask
 
 
-# TODO: fix this pseudo-polymorphism
-MASK_ENCODERS: Dict[str, Callable] = {
-    'RLE': mask_to_rle,
-    'cRLE': mask_to_compressed_rle,
-    'polygon': mask_to_polygon
-}
-
-# TODO: fix this pseudo-polymorphism
-MASK_DECODERS: Dict[str, Callable] = {
-    'RLE': rle_to_mask,
-    'cRLE': compressed_rle_to_mask,
-    'polygon': polygon_to_mask
-}
-
-
-def encode_mask(
-        mask: np.ndarray,
-        mode: str,
-        compression_factor: Union[float, Tuple[float, float]] = 1.0,
-) -> List:
-    """
-    Encodes a binary mask numpy array into another format.
-
-    Available formats are 'polygon', 'RLE', or compressed RLE 'cRLE' vector.
-
-    Args:
-        mask: numpy array containing the object mask
-        mode: encoding mode. Can be 'polygon', 'RLE', or compressed RLE 'cRLE'
-            vector.
-        compression_factor: a compression factor. You can set this
-            parameter > 1 to obtain compressed polygons. The compression
-            algorithm first down-samples the input mask of a compression_factor
-            along its dimensions, then computes the mask encoding.
-
-    Returns:
-        The encoded mask according to the given `mode`.
-    """
-    assert mode in MASK_ENCODERS.keys()
-    return MASK_ENCODERS[mode](mask, compression_factor)
-
-
-def decode_mask(
-        segmentation,
-        height: int,
-        width: int,
-        mode: str
-) -> np.ndarray:
-    """
-    Decodes a binary mask from another format.
-
-    Available conversion formats are 'polygon', 'RLE', or compressed RLE 'cRLE'
-    vector. The mask, in one of these formats can be converted to a binary
-    numpy array.
-
-    Args:
-        segmentation: a segmentation in COCO format.
-        height: height of the output image array.
-        width: width of the output image array.
-        mode: decoding mode. Can be 'polygon', 'RLE', or compressed RLE 'cRLE'
-            vector.
-
-    Returns:
-        The decoded mask according to the given `mode`.
-    """
-    assert mode in MASK_DECODERS.keys()
-    return MASK_DECODERS[mode](segmentation, height=height, width=width)
-
-
-def get_segmentation_mode(
-        segmentation: Union[List[List], Dict, str]
-):
-    """
-    Automatically detect the segmentation format: RLE, cRLE or polygon.
-
-    The detection is based on the standard of coco format, where polygons
-    are represented as lists, RLE as an object with size and counts properties,
-    and cRLE as a string.
-
-    Args:
-        segmentation: the segmentation to inspect.
-
-    Returns:
-        The segmentation mode as a string.
-    """
-    if type(segmentation) == list:
-        return 'polygon'
-    elif type(segmentation) == dict:
-        return 'RLE'
-    return 'cRLE'
-
-
-def convert_to_mask(
-        segmentation: Union[List[List], Dict, str],
-        height: int,
-        width: int
-) -> np.ndarray:
-    """
-    Convert segmentation from different formats to polygon format.
-
-    Supported formats are 'RLE', 'cRLE' and 'polygon'.
-
-    Args:
-        segmentation: the segmentation to convert.
-        height: height of the image.
-        width: width of the image.
-
-    Returns:
-        The segmentation converted to mask.
-    """
-    mode = get_segmentation_mode(segmentation)
-    return decode_mask(segmentation, height, width, mode=mode)
-
-
-def convert_to_mode(
-        segmentation: Union[List[List], Dict, str],
-        mode: str,
-        height: int, width: int,
-        compression_factor: Union[float, Tuple[float, float]] = 1.0
-):
-    """
-    Convert segmentation to the specified format.
-
-    Uses `pycocotools` to handle the RLE format.
-
-    Args:
-        segmentation: the segmentation to convert.
-        mode: the format to convert to.
-        height: height of the image.
-        width: width of the image.
-        compression_factor: setting this > 1 compress the segmentation if
-            `mode=polygon`.
-
-    Returns:
-        The converted segmentations.
-    """
-    curr_mode = get_segmentation_mode(segmentation)
-
-    if curr_mode == mode:
-        return segmentation
-
-    mask = decode_mask(segmentation, height, width, mode=curr_mode)
-    return encode_mask(mask, mode=mode, compression_factor=compression_factor)
-
-
 def compute_polygon_area(
         polygon
 ) -> float:
@@ -412,7 +451,7 @@ def coco_to_binary_masks(
         ch: COCOHelper,
         dest_dir: Union[str, Path],
         scaling: Optional[float] = 1.0
-):
+) -> None:
     """
     Converts annotations from COCO to binary masks.
 
@@ -442,5 +481,5 @@ def coco_to_binary_masks(
                                    width=image_dict['width'])
             label_mask[mask == 1] = (ann["category_id"] + 1) * scaling
 
-        mask_filename = dest_annotation_dir / f'{image_fname_prefix}_annotation.png'
-        cv2.imwrite(filename=str(mask_filename), img=label_mask)
+            mask_filename = dest_annotation_dir / f'{image_fname_prefix}_annotation.png'
+            cv2.imwrite(filename=str(mask_filename), img=label_mask)

@@ -285,6 +285,6 @@ class COCODataFrame(DataFrame):
             include_index: bool = False,
     ) -> Union[dict, List[dict]]:
         if include_index:
-            return self.reset_index().to_dict(orient, into)
-        return super().to_dict(orient, into)
+            return self.reset_index().to_dict(orient, into=into)
+        return super().to_dict(orient, into=into)
 

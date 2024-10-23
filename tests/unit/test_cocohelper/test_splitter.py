@@ -2,15 +2,20 @@ from cocohelper import COCOHelper
 from cocohelper.splitters.proportional import ProportionalDataSplitter
 from cocohelper.splitters.kfold import KFoldSplitter
 from cocohelper.splitters.stratified import StratifiedDataSplitter
+import pytest
 
 
-# TODO: improve test suite, use AAA approach (Arrange, Act, Assert), use pytest test Classes and fixtures.
+@pytest.fixture()
+def ch():
+    return COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
 
-ch = COCOHelper.load_json('tests/data/coco_dataset/annotations/coco.json')
-ch_stratified = COCOHelper.load_json('tests/data/coco_dataset/annotations/coco_stratified.json')
+
+@pytest.fixture()
+def ch_stratified():
+    return COCOHelper.load_json('tests/data/coco_dataset/annotations/coco_stratified.json')
 
 
-def test_input_list_split():
+def test_input_list_split(ch):
     """ Feeding a series of numbers or a list of numbers should be equivalent"""
     splitter = ProportionalDataSplitter(1, 2, 1)
     result1 = splitter.apply(ch)
@@ -20,7 +25,7 @@ def test_input_list_split():
         assert len(sset[0].imgs) == len(sset[1].imgs)
 
 
-def test_int_split():
+def test_int_split(ch):
     splitter = ProportionalDataSplitter(70, 30)
     train, test = splitter.apply(ch)
 
@@ -32,7 +37,7 @@ def test_int_split():
     assert len(test.imgs) == test_len
 
 
-def test_float_split():
+def test_float_split(ch):
     splitter = ProportionalDataSplitter(0.7, 0.3)
     train, test = splitter.apply(ch)
 
@@ -44,7 +49,7 @@ def test_float_split():
     assert len(test.imgs) == test_len
 
 
-def test_args_split():
+def test_args_split(ch):
     splitter = ProportionalDataSplitter(0.7, 0.3)
     train, test = splitter.apply(ch)
 
@@ -56,7 +61,7 @@ def test_args_split():
     assert len(test.imgs) == test_len
 
 
-def test_stratified_split():
+def test_stratified_split(ch_stratified):
     splitter = StratifiedDataSplitter(0.75, 0.25)
     splits = splitter.apply(ch_stratified)
 
@@ -67,7 +72,7 @@ def test_stratified_split():
     assert s0_props.equals(s1_props)
 
 
-def test_kfold_split():
+def test_kfold_split(ch):
     splitter = KFoldSplitter(n_fold=7)
     splits = splitter.apply(ch)
     assert len(splits) == 7
@@ -75,7 +80,7 @@ def test_kfold_split():
         assert len(split.imgs) == 2
 
 
-def test_stratified_kfold_split():
+def test_stratified_kfold_split(ch):
     splitter = KFoldSplitter(n_fold=3, stratified=True)
     splits = splitter.apply(ch)
     assert len(splits) == 3
@@ -83,7 +88,7 @@ def test_stratified_kfold_split():
         assert len(split.imgs) > 0
 
 
-def test_kfold_iter():
+def test_kfold_iter(ch):
     splitter = KFoldSplitter(n_fold=7)
     i = 0
     for train, val in splitter.iter(ch):

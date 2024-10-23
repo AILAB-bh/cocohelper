@@ -75,7 +75,7 @@ class ProportionalDataSplitter(Splitter):
         random.shuffle(list_of_image_ids)
 
         n_images = len(list_of_image_ids)
-        n_samples = [int(round(v * n_images)) for v in self.proportions]
+        n_samples = self._get_n_samples(n_images)
         ids_subset_images: List[List[int]] = [list() for _ in self.proportions]
         id_list = list_of_image_ids
         for k, n in enumerate(n_samples):
@@ -84,3 +84,23 @@ class ProportionalDataSplitter(Splitter):
             id_list = right
 
         return ids_subset_images
+
+    def _get_n_samples(self, n_images):
+        """
+        Get the number of samples for each split.
+        Args:
+            n_images: the total number of images in the dataset.
+
+        Returns:
+            A list of integers with the number of samples for each split.
+        """
+        n_samples = [int(round(v * n_images)) for v in self.proportions]
+        num = n_images - sum(n_samples)
+        for i in range(len(n_samples)):
+            if num > 0:
+                n_samples[i] += 1
+                num -= 1
+            else:
+                break
+
+        return n_samples
