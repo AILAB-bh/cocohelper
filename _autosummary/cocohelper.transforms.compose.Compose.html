@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Compose &mdash; cocohelper  documentation</title>
@@ -31,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -105,7 +109,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.transforms.html">transforms</a></li>
@@ -128,16 +132,12 @@
 <dd><p>Bases: <a class="reference internal" href="cocohelper.transforms.transform.Transform.html#cocohelper.transforms.transform.Transform" title="cocohelper.transforms.transform.Transform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transform</span></code></a></p>
 <p>Combine different Transform into one.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>transforms</strong> – The list of Transform to combine.</p>
 </dd>
 </dl>
 <p class="rubric">Method List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.transforms.compose.Compose.append" title="cocohelper.transforms.compose.Compose.append"><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code></a>(transform)</p></td>
 <td><p>Append transformations to be applied to the COCO data.</p></td>
@@ -170,10 +170,6 @@
 </table>
 <p class="rubric">Attributes List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.transforms.compose.Compose._abc_impl" title="cocohelper.transforms.compose.Compose._abc_impl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_abc_impl</span></code></a></p></td>
 <td><p></p></td>
@@ -186,10 +182,10 @@
 <span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transform</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/transforms/compose.html#Compose.append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.transforms.compose.Compose.append" title="Permalink to this definition"></a></dt>
 <dd><p>Append transformations to be applied to the COCO data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>transform</strong> (<a class="reference internal" href="cocohelper.transforms.transform.Transform.html#cocohelper.transforms.transform.Transform" title="cocohelper.transforms.transform.Transform"><em>Transform</em></a>) – a Transformation to be applied.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>self.</p>
 </dd>
 </dl>
@@ -200,16 +196,16 @@
 <span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anns</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/transforms/compose.html#Compose.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.transforms.compose.Compose.apply" title="Permalink to this definition"></a></dt>
 <dd><p>Apply the transformation to the image array and its annotations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>img</strong> (<em>ndarray</em>) – image array.</p></li>
 <li><p><strong>anns</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – annotations for this image.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Transformed image array and annotations.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Tuple</em>[<em>ndarray</em>, <em>List</em>[dict]]</p>
 </dd>
 </dl>
@@ -225,13 +221,13 @@
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_bbox_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cocohelper.transforms.compose.Compose.compute_bbox_area" title="Permalink to this definition"></a></dt>
 <dd><p>Compute area from a bounding box.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>bbox</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – bounding box.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The area inside the given bounding box.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -241,7 +237,7 @@
 <dt class="sig sig-object py" id="cocohelper.transforms.compose.Compose.insert">
 <span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/transforms/compose.html#Compose.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.transforms.compose.Compose.insert" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>transform</strong> (<a class="reference internal" href="cocohelper.transforms.transform.Transform.html#cocohelper.transforms.transform.Transform" title="cocohelper.transforms.transform.Transform"><em>Transform</em></a>) – </p></li>
 <li><p><strong>index</strong> (<em>int</em>) – </p></li>
@@ -254,7 +250,7 @@
 <dt class="sig sig-object py" id="cocohelper.transforms.compose.Compose.pop">
 <span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/transforms/compose.html#Compose.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.transforms.compose.Compose.pop" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – </p>
 </dd>
 </dl>
@@ -264,7 +260,7 @@
 <dt class="sig sig-object py" id="cocohelper.transforms.compose.Compose.remove">
 <span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transform</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/transforms/compose.html#Compose.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.transforms.compose.Compose.remove" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>transform</strong> (<a class="reference internal" href="cocohelper.transforms.transform.Transform.html#cocohelper.transforms.transform.Transform" title="cocohelper.transforms.transform.Transform"><em>Transform</em></a>) – </p>
 </dd>
 </dl>
@@ -288,13 +284,13 @@ when an element is retrieved.</p></li>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>coco</strong> (<a class="reference internal" href="cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a>) – </p></li>
 <li><p><strong>out_dir</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
 </dd>
 </dl>
@@ -303,7 +299,7 @@ when an element is retrieved.</p></li>
 <p class="rubric">Attribute Details</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cocohelper.transforms.compose.Compose._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cocohelper.transforms.compose.Compose._abc_impl" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cocohelper.transforms.compose.Compose._abc_impl" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

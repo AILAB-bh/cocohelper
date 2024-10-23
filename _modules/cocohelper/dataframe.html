@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -58,7 +62,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">cocohelper.dataframe</li>
       <li class="wy-breadcrumbs-aside">
@@ -88,7 +92,7 @@
             <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
             <span class="n">col_mappers</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ColMap</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extends pandas Dataframe to easy column remapping and join with COCO</span>
 <span class="sd">        Datasets.</span>
 
@@ -122,7 +126,7 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">deep</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;COCODataFrame&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a copy of the COCODataFrame. The copy is deep by default.</span>
 
 <span class="sd">        Args:</span>
@@ -145,7 +149,7 @@
             <span class="n">col_level</span><span class="p">:</span> <span class="n">Hashable</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
             <span class="n">col_fill</span><span class="p">:</span> <span class="n">Hashable</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Similar to reset_index but, index will drop if index name is None.</span>
 
 <span class="sd">        Args:</span>
@@ -172,7 +176,7 @@
             <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">verify_integrity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the DataFrame index using existing columns.</span>
 
 <span class="sd">        Set the DataFrame index (row labels) using one or more existing</span>
@@ -203,21 +207,21 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the DataFrame with columns mapped to the new names.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">orig_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the original DataFrame remapping columns to the original names.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unmap_dataframe_cols</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__col_mappers</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the name assigned to this dataframe.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
@@ -227,7 +231,7 @@
             <span class="n">cdf</span><span class="p">:</span> <span class="s2">&quot;COCODataFrame&quot;</span><span class="p">,</span>
             <span class="n">how</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;COCODataFrame&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Automatically join the dataframe with an input dataframe exploiting the index column names as foreign keys.</span>
 
 <span class="sd">        If the `cdf` has a column with the same name of the self dataframe index column, that column will be used as a</span>
@@ -267,7 +271,7 @@
 
 <div class="viewcode-block" id="COCODataFrame._invert_join_how"><a class="viewcode-back" href="../../_autosummary/cocohelper.dataframe.COCODataFrame.html#cocohelper.dataframe.COCODataFrame._invert_join_how">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_invert_join_how</span><span class="p">(</span><span class="n">how</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Inverts the join option.</span>
 
 <span class="sd">        Args:</span>
@@ -287,7 +291,7 @@
             <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
             <span class="n">col_mappers</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ColMap</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Applies a mapping to the DataFrame columns according to the provided column mappers.</span>
 
 <span class="sd">        Args:</span>
@@ -306,7 +310,7 @@
             <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
             <span class="n">col_mappers</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ColMap</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Unmaps a column in a DataFrame.</span>
 
 <span class="sd">        Args:</span>
@@ -326,7 +330,7 @@
             <span class="n">col_mapper</span><span class="p">:</span> <span class="n">ColMap</span><span class="p">,</span>
             <span class="n">to_orig</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attempts to remap a column in a DataFrame.</span>
 
 <span class="sd">        Args:</span>
@@ -357,8 +361,8 @@
             <span class="n">include_index</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]:</span>
         <span class="k">if</span> <span class="n">include_index</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="p">,</span> <span class="n">into</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="p">,</span> <span class="n">into</span><span class="p">)</span></div></div>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="p">,</span> <span class="n">into</span><span class="o">=</span><span class="n">into</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="p">,</span> <span class="n">into</span><span class="o">=</span><span class="n">into</span><span class="p">)</span></div></div>
 
 </pre></div>
 

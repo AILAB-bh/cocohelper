@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Timer &mdash; cocohelper  documentation</title>
@@ -31,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -99,7 +103,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.utils.html">utils</a></li>
@@ -124,25 +128,25 @@
 <p>Usage:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">math</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">time</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Timer</span><span class="p">():</span>
 <span class="gp">... </span>   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">42</span><span class="p">):</span>
 <span class="gp">... </span>       <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">! = </span><span class="si">{:.5}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">i</span><span class="o">**</span><span class="mi">2</span><span class="p">))))</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@Timer</span><span class="p">(</span><span class="n">end_msg</span><span class="o">=</span><span class="s2">&quot;Second&quot;</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">some_func</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="n">start_msg</span><span class="o">=</span><span class="s2">&quot;Starting operation.&quot;</span><span class="p">,</span> <span class="n">end_msg</span><span class="o">=</span><span class="s2">&quot;Operation executed.&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
 <span class="gp">... </span>   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">42</span><span class="p">):</span>
 <span class="gp">... </span>       <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">! = </span><span class="si">{:.5}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">i</span><span class="o">**</span><span class="mi">2</span><span class="p">))))</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">elapsed</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Instantiate new Timer.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>start_msg</strong> – message to print before starting the operation.</p></li>
 <li><p><strong>end_msg</strong> – message (prefix) to print at the end of operation.</p></li>
@@ -152,10 +156,6 @@
 </dl>
 <p class="rubric">Method List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.utils.timer.Timer._recreate_cm" title="cocohelper.utils.timer.Timer._recreate_cm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_recreate_cm</span></code></a>()</p></td>
 <td><p>Return a recreated instance of self.</p></td>
@@ -164,10 +164,6 @@
 </table>
 <p class="rubric">Attributes List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.utils.timer.Timer.elapsed" title="cocohelper.utils.timer.Timer.elapsed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">elapsed</span></code></a></p></td>
 <td><p></p></td>

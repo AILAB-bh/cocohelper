@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -58,7 +62,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">cocohelper.validator</li>
       <li class="wy-breadcrumbs-aside">
@@ -77,103 +81,147 @@
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">cocohelper</span> <span class="kn">import</span> <span class="n">COCOHelper</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="c1">#from cocohelper import COCOHelper</span>
 
 
 <div class="viewcode-block" id="COCOValidator"><a class="viewcode-back" href="../../_autosummary/cocohelper.validator.COCOValidator.html#cocohelper.validator.COCOValidator">[docs]</a><span class="k">class</span> <span class="nc">COCOValidator</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="n">coco_helper</span><span class="p">:</span> <span class="n">COCOHelper</span>
+            <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+            <span class="n">dataset_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This class validates COCO datasets.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">helper</span> <span class="o">=</span> <span class="n">coco_helper</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This class validates COCO datasets.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">json_data</span> <span class="o">=</span> <span class="n">json_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset_dir</span> <span class="o">=</span> <span class="n">dataset_dir</span>
 
 <div class="viewcode-block" id="COCOValidator.validate_dir"><a class="viewcode-back" href="../../_autosummary/cocohelper.validator.COCOValidator.html#cocohelper.validator.COCOValidator.validate_dir">[docs]</a>    <span class="k">def</span> <span class="nf">validate_dir</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="n">dataset_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
             <span class="n">json_fname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;coco.json&#39;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Checks the COCO dataset validity based on the dir structure.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks the COCO dataset validity based on the dir structure.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            json_fname: the name of the json file containing the COCO dataset.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True if this is a valid COCO dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: throw specific exception instead of returning or using asserts</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Checking COCO dataset validity...&quot;</span><span class="p">)</span>
         <span class="n">fail_message</span> <span class="o">=</span> <span class="s2">&quot; | Test failed: this is not a valid COCO dataset:&quot;</span>
 
         <span class="c1"># check folder tree:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_valid_dataset_tree</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_valid_dataset_tree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_dir</span><span class="p">):</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> Folders are not organised as expected by a COCO dataset.&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="c1"># make sure json_fname is a valid name for the json file:</span>
         <span class="n">suffix</span> <span class="o">=</span> <span class="n">json_fname</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_dir</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">),</span> <span class="n">suffix</span><span class="p">)</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_dir</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">),</span> <span class="n">suffix</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The annotation file name must end with the extension &#39;.json&#39;&quot;</span><span class="p">)</span>
 
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot; | Test passed.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="COCOValidator.validate_dataset"><a class="viewcode-back" href="../../_autosummary/cocohelper.validator.COCOValidator.html#cocohelper.validator.COCOValidator.validate_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">validate_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="COCOValidator.validate_dataset"><a class="viewcode-back" href="../../_autosummary/cocohelper.validator.COCOValidator.html#cocohelper.validator.COCOValidator.validate_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">validate_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if this is a valid COCO dataset.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            True if this is a valida dataset.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">error_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="kc">True</span>
+
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Checking COCO dataset validity...&quot;</span><span class="p">)</span>
         <span class="n">fail_message</span> <span class="o">=</span> <span class="s2">&quot; | Test failed: this is not a valid COCO dataset:&quot;</span>
 
-        <span class="c1"># check folder tree:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_valid_dataset_tree</span><span class="p">():</span>
+        <span class="c1"># check folder tree</span>
+        <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;has_valid_dataset_tree&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_valid_dataset_tree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_dir</span><span class="p">)</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span> <span class="ow">and</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;has_valid_dataset_tree&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;has_valid_dataset_tree&quot;</span><span class="p">]:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> Folders are not organised as expected by a COCO dataset.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
 
         <span class="c1"># start verifying dataset validity</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">helper</span><span class="o">.</span><span class="n">to_json_dataset</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_json_has_mandatory_keys</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;json_has_mandatory_keys&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_json_has_mandatory_keys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_data</span><span class="p">)</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span> <span class="ow">and</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;json_has_mandatory_keys&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;json_has_mandatory_keys&quot;</span><span class="p">]:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are missing mandatory keys in the json file.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_categories_have_mandatory_keys</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are missing mandatory keys in the COCO categories.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images_have_mandatory_keys</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are missing mandatory keys in the COCO images.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotations_have_mandatory_keys</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are missing mandatory keys in the COCO annotations.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_category_ids_are_unique</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are duplicated category ids.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_licenses_ids_are_unique</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are duplicated licenses ids.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_image_ids_are_unique</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are duplicated image ids.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_ids_are_unique</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are duplicated annotation ids.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotations_have_valid_image_id</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are annotations with invalid image id.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotations_have_valid_category_id</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are annotations with invalid category id.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot; | Test passed.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="COCOValidator._has_valid_dataset_tree"><a class="viewcode-back" href="../../_autosummary/cocohelper.validator.COCOValidator.html#cocohelper.validator.COCOValidator._has_valid_dataset_tree">[docs]</a>    <span class="k">def</span> <span class="nf">_has_valid_dataset_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="c1"># check if the categories have the mandatory keys</span>
+        <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;categories_have_mandatory_keys&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_categories_have_mandatory_keys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_data</span><span class="p">)</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span> <span class="ow">and</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;categories_have_mandatory_keys&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;categories_have_mandatory_keys&quot;</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are missing mandatory keys in the COCO categories.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># check if the images have the mandatory keys</span>
+        <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;images_have_mandatory_keys&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images_have_mandatory_keys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_data</span><span class="p">)</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span> <span class="ow">and</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;images_have_mandatory_keys&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;images_have_mandatory_keys&quot;</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are missing mandatory keys in the COCO images.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># check if the annotations have the mandatory keys</span>
+        <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotations_have_mandatory_keys&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotations_have_mandatory_keys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_data</span><span class="p">)</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span> <span class="ow">and</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotations_have_mandatory_keys&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotations_have_mandatory_keys&quot;</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are missing mandatory keys in the COCO annotations.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># check if the category ids are unique</span>
+        <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;category_ids_are_unique&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_category_ids_are_unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_data</span><span class="p">)</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span> <span class="ow">and</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;category_ids_are_unique&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;category_ids_are_unique&quot;</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are duplicated category ids.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># check if the licenses ids are unique</span>
+        <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;licenses_ids_are_unique&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_licenses_ids_are_unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_data</span><span class="p">)</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span> <span class="ow">and</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;licenses_ids_are_unique&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;licenses_ids_are_unique&quot;</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are duplicated licenses ids.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># check if the image ids are unique</span>
+        <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;image_ids_are_unique&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_image_ids_are_unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_data</span><span class="p">)</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span> <span class="ow">and</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;image_ids_are_unique&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;image_ids_are_unique&quot;</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are duplicated image ids.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># check if the annotation ids are unique</span>
+        <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotation_ids_are_unique&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_ids_are_unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_data</span><span class="p">)</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span> <span class="ow">and</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotation_ids_are_unique&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotation_ids_are_unique&quot;</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are duplicated annotation ids.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># check if the annotations have valid image id</span>
+        <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotations_have_valid_image_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotations_have_valid_image_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_data</span><span class="p">)</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span> <span class="ow">and</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotations_have_valid_image_id&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotations_have_valid_image_id&quot;</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are annotations with invalid image id.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># check if the annotations have valid category id</span>
+        <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotations_have_valid_category_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotations_have_valid_category_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">json_data</span><span class="p">)</span>
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span> <span class="ow">and</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotations_have_valid_category_id&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;annotations_have_valid_category_id&quot;</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fail_message</span><span class="si">}</span><span class="s2"> There are annotations with invalid category id.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_valid</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot; | Test passed.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">is_valid</span><span class="p">,</span> <span class="n">error_dict</span></div>
+
+<div class="viewcode-block" id="COCOValidator._has_valid_dataset_tree"><a class="viewcode-back" href="../../_autosummary/cocohelper.validator.COCOValidator.html#cocohelper.validator.COCOValidator._has_valid_dataset_tree">[docs]</a>    <span class="k">def</span> <span class="nf">_has_valid_dataset_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check dataset directory tree validity</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            True if the dataset tree is valid, False otherwise</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># 1) there exist a folder named annotations:</span>
-        <span class="n">cond1</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">helper</span><span class="o">.</span><span class="n">root_path</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">))</span>
+        <span class="n">cond1</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_dir</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">))</span>
 
         <span class="c1"># TODO: 2) all the data is under a separate sub-folder. Consider adding checks here</span>
         <span class="c1"># folder_content = glob(os.path.join(self.dataset_dir, &quot;*.*&quot;))</span>
@@ -188,7 +236,7 @@
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
             <span class="n">mandatory_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if the input COCO annotation json file has the mandatory keys.</span>
 
 <span class="sd">        Correct COCO annotation json files must have the following keys: &quot;images&quot;,</span>
@@ -215,7 +263,7 @@
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
             <span class="n">mandatory_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if images have the mandatory keys.</span>
 
 <span class="sd">        Args:</span>
@@ -250,7 +298,7 @@
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
             <span class="n">mandatory_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if annotations have the mandatory keys.</span>
 
 <span class="sd">        Args:</span>
@@ -291,7 +339,7 @@
             <span class="n">mandatory_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">recommended_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if categories have the mandatory keys.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
@@ -337,7 +385,7 @@
     <span class="k">def</span> <span class="nf">_annotations_have_valid_category_id</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check that annotations have a valid category id.</span>
 
 <span class="sd">        Args:</span>
@@ -354,7 +402,7 @@
     <span class="k">def</span> <span class="nf">_annotations_have_valid_image_id</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check that annotations have a valid image id.</span>
 
 <span class="sd">        Args:</span>
@@ -371,7 +419,7 @@
     <span class="k">def</span> <span class="nf">_category_ids_are_unique</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if there are duplicated category ids.</span>
 
 <span class="sd">        Args:</span>
@@ -386,7 +434,7 @@
     <span class="k">def</span> <span class="nf">_licenses_ids_are_unique</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if there are duplicated licenses ids.</span>
 
 <span class="sd">        Args:</span>
@@ -401,7 +449,7 @@
     <span class="k">def</span> <span class="nf">_image_ids_are_unique</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if there are duplicated image ids.</span>
 
 <span class="sd">        Args:</span>
@@ -416,7 +464,7 @@
     <span class="k">def</span> <span class="nf">_annotation_ids_are_unique</span><span class="p">(</span>
             <span class="n">json_data</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if there are duplicated annotations ids.</span>
 
 <span class="sd">        Args:</span>
@@ -437,7 +485,7 @@
         <span class="n">expected_types</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">],</span>
         <span class="n">msg_header</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if a dictionary item has the expected type under the given key.</span>
 
 <span class="sd">    Args:</span>

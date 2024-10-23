@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -58,7 +62,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">cocohelper.stats</li>
       <li class="wy-breadcrumbs-aside">
@@ -85,7 +89,7 @@
 <div class="viewcode-block" id="COCOStats"><a class="viewcode-back" href="../../_autosummary/cocohelper.stats.COCOStats.html#cocohelper.stats.COCOStats">[docs]</a><span class="k">class</span> <span class="nc">COCOStats</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coco_helper</span><span class="p">:</span> <span class="n">COCOHelper</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This class contains methods to calculate stats on a dataset.</span>
 
 <span class="sd">        Args:</span>
@@ -101,7 +105,7 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-16</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Obtain statistics about dataset images sizes for each individual axis.</span>
 
 <span class="sd">        Args:</span>
@@ -138,7 +142,7 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;bbox&quot;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Obtain dataset labels size statistics in the form of a dictionary.</span>
 
 <span class="sd">        The dictionary pairs each dataset size in the dataset to the list of the</span>
@@ -186,7 +190,7 @@
             <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;median&quot;</span><span class="p">,</span>
             <span class="n">n_pixels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Estimate optimal image size based on the dataset&#39;s image and</span>
 <span class="sd">        annotation statistics.</span>
 
@@ -243,25 +247,30 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">nb_imgs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Number of images in the dataset&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of images in the dataset&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">imgs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">nb_cats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Number of categories in the dataset&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of categories in the dataset&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">cats</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">nb_anns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Number of annotations in the dataset&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of annotations in the dataset&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">anns</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nb_imgs_wo_anns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of images in the dataset without annotations&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">joins</span><span class="o">.</span><span class="n">imgs_anns</span><span class="p">[</span><span class="s1">&#39;annotation_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__get_annotations_ratios</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
             <span class="n">na_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the ratios of annotations for each value in column.</span>
 
 <span class="sd">        The function picks the imgs/anns/cats join and uses value_counts to</span>
@@ -278,9 +287,45 @@
         <span class="n">_df</span> <span class="o">=</span> <span class="n">_df</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
 
+    <span class="k">def</span> <span class="nf">__get_category_ratios</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">return_nms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the ratios of each category.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            return_nms: if True, return the category name, otherwise return the</span>
+<span class="sd">                category id.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict associating each category name or id with the fraction of images</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">return_nms</span><span class="p">:</span>
+            <span class="n">cats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">cats</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;name&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">cats</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;category_id&#39;</span>
+
+        <span class="c1"># join the annotations with the images and the categories, removes duplicates and NaN values</span>
+        <span class="n">_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">cats</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">anns</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">()</span>
+        <span class="n">_df</span> <span class="o">=</span> <span class="n">_df</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coco_helper</span><span class="o">.</span><span class="n">imgs</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">()</span>
+        <span class="n">_df</span> <span class="o">=</span> <span class="n">_df</span><span class="p">[[</span><span class="s1">&#39;category_id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;image_id&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+        <span class="n">_df</span><span class="p">[</span><span class="s1">&#39;category_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_df</span><span class="p">[</span><span class="s1">&#39;category_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="c1"># count the number of images for each category</span>
+        <span class="n">_df</span> <span class="o">=</span> <span class="n">_df</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_imgs</span>
+        <span class="n">_df_dict</span> <span class="o">=</span> <span class="n">_df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="c1"># add missing categories</span>
+        <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">cats</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cat</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_df_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">_df_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">return</span> <span class="n">_df_dict</span>
+
     <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">cat_nms_ratios</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        For each category, compute how many images in the dataset contains at</span>
 <span class="sd">        least an annotation for that category.</span>
 
@@ -289,11 +334,11 @@
 <span class="sd">            in the dataset containing at least an annotation of that category</span>
 <span class="sd">            (in [0, 1]).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_annotations_ratios</span><span class="p">(</span><span class="s1">&#39;category_name&#39;</span><span class="p">,</span> <span class="n">na_value</span><span class="o">=</span><span class="s1">&#39;&lt;NA&gt;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_category_ratios</span><span class="p">(</span><span class="n">return_nms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">cat_ids_ratios</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        For each category, compute how many images in the dataset contains at</span>
 <span class="sd">        least an annotation for that category.</span>
 
@@ -302,7 +347,7 @@
 <span class="sd">            in the dataset containing at least an annotation of that category</span>
 <span class="sd">            (in [0, 1]).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_annotations_ratios</span><span class="p">(</span><span class="s1">&#39;category_id&#39;</span><span class="p">,</span> <span class="n">na_value</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_category_ratios</span><span class="p">(</span><span class="n">return_nms</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

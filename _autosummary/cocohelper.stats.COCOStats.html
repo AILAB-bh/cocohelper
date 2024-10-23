@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>COCOStats &mdash; cocohelper  documentation</title>
@@ -31,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -60,6 +64,7 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">COCOStats</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#cocohelper.stats.COCOStats"><code class="docutils literal notranslate"><span class="pre">COCOStats</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.__get_annotations_ratios"><code class="docutils literal notranslate"><span class="pre">COCOStats.__get_annotations_ratios()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.__get_category_ratios"><code class="docutils literal notranslate"><span class="pre">COCOStats.__get_category_ratios()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.get_annotation_size_stats"><code class="docutils literal notranslate"><span class="pre">COCOStats.get_annotation_size_stats()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.get_image_size_stats"><code class="docutils literal notranslate"><span class="pre">COCOStats.get_image_size_stats()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.get_optimal_image_size"><code class="docutils literal notranslate"><span class="pre">COCOStats.get_optimal_image_size()</span></code></a></li>
@@ -69,6 +74,7 @@
 <li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_anns"><code class="docutils literal notranslate"><span class="pre">COCOStats.nb_anns</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_cats"><code class="docutils literal notranslate"><span class="pre">COCOStats.nb_cats</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_imgs"><code class="docutils literal notranslate"><span class="pre">COCOStats.nb_imgs</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_imgs_wo_anns"><code class="docutils literal notranslate"><span class="pre">COCOStats.nb_imgs_wo_anns</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -98,7 +104,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.stats.html">stats</a></li>
@@ -120,16 +126,12 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class contains methods to calculate stats on a dataset.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>coco_helper</strong> – Coco dataset to calculate stats on.</p>
 </dd>
 </dl>
 <p class="rubric">Method List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.get_annotation_size_stats" title="cocohelper.stats.COCOStats.get_annotation_size_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_annotation_size_stats</span></code></a>([mode])</p></td>
 <td><p>Obtain dataset labels size statistics in the form of a dictionary.</p></td>
@@ -144,10 +146,6 @@
 </table>
 <p class="rubric">Attributes List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.cat_ids_ratios" title="cocohelper.stats.COCOStats.cat_ids_ratios"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cat_ids_ratios</span></code></a></p></td>
 <td><p>For each category, compute how many images in the dataset contains at least an annotation for that category.</p></td>
@@ -167,6 +165,9 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_imgs" title="cocohelper.stats.COCOStats.nb_imgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nb_imgs</span></code></a></p></td>
 <td><p>Number of images in the dataset</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.stats.COCOStats.nb_imgs_wo_anns" title="cocohelper.stats.COCOStats.nb_imgs_wo_anns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nb_imgs_wo_anns</span></code></a></p></td>
+<td><p>Number of images in the dataset without annotations</p></td>
+</tr>
 </tbody>
 </table>
 <p class="rubric">Methods Details</p>
@@ -179,17 +180,35 @@ return a dict with the ratio for each value. Values are normalized in
 [0, 1] by the argument <cite>normalize=True</cite>. Missing values in the column
 will be replaced by <cite>na_value</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dict associating each value in col with the fraction of annotations
 (in [0, 1]).</p>
 </dd>
-<dt class="field-even">Parameters</dt>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>col</strong> (<em>str</em>) – </p></li>
 <li><p><strong>na_value</strong> (<em>Any</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.__get_category_ratios">
+<span class="sig-name descname"><span class="pre">__get_category_ratios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">return_nms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cocohelper.stats.COCOStats.__get_category_ratios" title="Permalink to this definition"></a></dt>
+<dd><p>Get the ratios of each category.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>return_nms</strong> (<em>bool</em>) – if True, return the category name, otherwise return the
+category id.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict associating each category name or id with the fraction of images</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -204,14 +223,14 @@ smallest bounding box size inside the image. This can be useful to define
 the optimal rescaling of the image and avoid loosing small boxes when
 resizing data to a smaller dimension.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>mode</strong> (<em>str</em>) – annotation type to be used to extract size statistics. Default
 to bbox.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A dictionary with the statistics of the label size in the dataset.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Dict</em></p>
 </dd>
 </dl>
@@ -222,13 +241,13 @@ to bbox.</p>
 <span class="sig-name descname"><span class="pre">get_image_size_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-16</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/stats.html#COCOStats.get_image_size_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.stats.COCOStats.get_image_size_stats" title="Permalink to this definition"></a></dt>
 <dd><p>Obtain statistics about dataset images sizes for each individual axis.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>eps</strong> (<em>float</em>) – epsilon used to compute average height/width ratio.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Size information about dataset images in the form of a dictionary.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Dict</em></p>
 </dd>
 </dl>
@@ -263,7 +282,7 @@ and the height image axis AND the values computed in (3).</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mode</strong> (<em>str</em>) – statistics to be used to define the optimal image size.</p></li>
 <li><p><strong>n_pixels</strong> (<em>int</em>) – minimum number of annotation pixels remaining over the
@@ -271,12 +290,12 @@ width and height axis after resizing an image to the returned the
 optimal image size</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A tuple containing the optimal height and width for resizing all the
 images of the dataset to the same dimension while preserving label
 information.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Tuple</em></p>
 </dd>
 </dl>
@@ -289,7 +308,7 @@ information.</p>
 <dd><p>For each category, compute how many images in the dataset contains at
 least an annotation for that category.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A dictionary associating to each category id the fraction of images
 in the dataset containing at least an annotation of that category
 (in [0, 1]).</p>
@@ -303,7 +322,7 @@ in the dataset containing at least an annotation of that category
 <dd><p>For each category, compute how many images in the dataset contains at
 least an annotation for that category.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A dictionary associating to each category name the fraction of images
 in the dataset containing at least an annotation of that category
 (in [0, 1]).</p>
@@ -332,6 +351,12 @@ in the dataset containing at least an annotation of that category
 <dt class="sig sig-object py" id="cocohelper.stats.COCOStats.nb_imgs">
 <span class="sig-name descname"><span class="pre">nb_imgs</span></span><a class="headerlink" href="#cocohelper.stats.COCOStats.nb_imgs" title="Permalink to this definition"></a></dt>
 <dd><p>Number of images in the dataset</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cocohelper.stats.COCOStats.nb_imgs_wo_anns">
+<span class="sig-name descname"><span class="pre">nb_imgs_wo_anns</span></span><a class="headerlink" href="#cocohelper.stats.COCOStats.nb_imgs_wo_anns" title="Permalink to this definition"></a></dt>
+<dd><p>Number of images in the dataset without annotations</p>
 </dd></dl>
 
 </dd></dl>

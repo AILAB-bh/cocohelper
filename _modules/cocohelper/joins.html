@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -58,7 +62,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">cocohelper.joins</li>
       <li class="wy-breadcrumbs-aside">
@@ -85,7 +89,7 @@
 <div class="viewcode-block" id="COCOJoins"><a class="viewcode-back" href="../../_autosummary/cocohelper.joins.COCOJoins.html#cocohelper.joins.COCOJoins">[docs]</a><span class="k">class</span> <span class="nc">COCOJoins</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coco_helper</span><span class="p">:</span> <span class="s2">&quot;COCOHelper&quot;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Enable easy access to different joins of a COCO dataset tables.</span>
 
 <span class="sd">        Args:</span>
@@ -95,63 +99,63 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">anns_imgs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a left join between anns and imgs.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a left join between anns and imgs.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">anns</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">imgs</span><span class="p">)</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;image_id&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">imgs_anns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a left join between imgs and anns.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a left join between imgs and anns.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">anns</span><span class="p">)</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;image_id&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">anns_cats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a left join between anns and cats.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a left join between anns and cats.&quot;&quot;&quot;</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">anns</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">cats</span><span class="p">)</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;annotation_id&#39;</span><span class="p">)</span>
         <span class="n">data</span><span class="p">[</span><span class="s2">&quot;category_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>  <span class="c1"># remove &quot;name&quot; ambiguity adding a new column &quot;category_name&quot;</span>
         <span class="k">return</span> <span class="n">data</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cats_anns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a left join between cats and anns.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a left join between cats and anns.&quot;&quot;&quot;</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">cats</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">anns</span><span class="p">)</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;category_id&#39;</span><span class="p">)</span>
         <span class="n">data</span><span class="p">[</span><span class="s2">&quot;category_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>  <span class="c1"># remove &quot;name&quot; ambiguity adding a new column &quot;category_name&quot;</span>
         <span class="k">return</span> <span class="n">data</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">anns_cats_imgs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a left join between anns, cats and imgs.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a left join between anns, cats and imgs.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">anns_cats</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">imgs</span><span class="p">)</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;annotation_id&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">anns_imgs_cats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a left join between anns, imgs and cats.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a left join between anns, imgs and cats.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">anns_imgs</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">cats</span><span class="p">)</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;annotation_id&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">imgs_anns_cats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a left join between imgs, anns and cats.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a left join between imgs, anns and cats.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anns_cats</span><span class="p">)</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;image_id&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">imgs_cats_anns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a left join between imgs, cats and anns.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a left join between imgs, cats and anns.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cats_anns</span><span class="p">)</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;image_id&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cats_anns_imgs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a left join between cats, anns and imgs.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a left join between cats, anns and imgs.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cats_anns</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">imgs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cats_imgs_anns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCODataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns a left join between imgs, anns and cats.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a left join between imgs, anns and cats.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ch</span><span class="o">.</span><span class="n">cats</span><span class="o">.</span><span class="n">cocojoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imgs_anns</span><span class="p">)</span><span class="o">.</span><span class="n">auto_reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;category_id&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="COCOJoins.extract_cats"><a class="viewcode-back" href="../../_autosummary/cocohelper.joins.COCOJoins.html#cocohelper.joins.COCOJoins.extract_cats">[docs]</a>    <span class="k">def</span> <span class="nf">extract_cats</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">joined_cats</span><span class="p">:</span> <span class="n">DataFrame</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extract cats view from a cats dataframe merged with other dataframes.</span>
 
 <span class="sd">        Useful to extract columns compatible with standard coco categories and</span>
@@ -178,7 +182,7 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">joined_imgs</span><span class="p">:</span> <span class="n">DataFrame</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extract imgs view from an imgs dataframe merged with other dataframes.</span>
 
 <span class="sd">        Useful to extract columns compatible with standard coco images and</span>
@@ -205,7 +209,7 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">joined_anns</span><span class="p">:</span> <span class="n">DataFrame</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get annotation view from an annotation dataframe merged with other</span>
 <span class="sd">        dataframes.</span>
 

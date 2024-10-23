@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -58,7 +62,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
       <li class="breadcrumb-item active">cocohelper.utils.timer</li>
       <li class="wy-breadcrumbs-aside">
@@ -85,7 +89,7 @@
 
 
 <div class="viewcode-block" id="Timer"><a class="viewcode-back" href="../../../_autosummary/cocohelper.utils.timer.Timer.html#cocohelper.utils.timer.Timer">[docs]</a><span class="k">class</span> <span class="nc">Timer</span><span class="p">(</span><span class="n">ContextDecorator</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Timer class that can be used both as a context manager and function/method decorator.</span>
 
 <span class="sd">    Usage:</span>
@@ -114,7 +118,7 @@
             <span class="n">end_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;done.&quot;</span><span class="p">,</span>
             <span class="n">log_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">info</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Instantiate new Timer.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
@@ -132,11 +136,11 @@
         <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elapsed</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;An “informal” or nicely printable string representation of an object.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;An “informal” or nicely printable string representation of an object.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s2">&quot;Elapsed </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;The “official” string representation of an object.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The “official” string representation of an object.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Timer&#39;</span><span class="p">:</span>

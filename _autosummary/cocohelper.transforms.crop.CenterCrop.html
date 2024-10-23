@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CenterCrop &mdash; cocohelper  documentation</title>
@@ -31,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -107,7 +111,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.transforms.html">transforms</a></li>
@@ -130,7 +134,7 @@
 <dd><p>Bases: <a class="reference internal" href="cocohelper.transforms.transform.Transform.html#cocohelper.transforms.transform.Transform" title="cocohelper.transforms.transform.Transform"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transform</span></code></a></p>
 <p>Perform a crop around the center of the image.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>w</strong> – The width of the area to crop.</p></li>
 <li><p><strong>h</strong> – The height of the area to crop.</p></li>
@@ -140,10 +144,6 @@
 </dl>
 <p class="rubric">Method List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.transforms.crop.CenterCrop.apply" title="cocohelper.transforms.crop.CenterCrop.apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply</span></code></a>(img, anns)</p></td>
 <td><p>Apply the transformation to the image array and its annotations.</p></td>
@@ -158,10 +158,6 @@
 </table>
 <p class="rubric">Attributes List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.transforms.crop.CenterCrop._abc_impl" title="cocohelper.transforms.crop.CenterCrop._abc_impl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_abc_impl</span></code></a></p></td>
 <td><p></p></td>
@@ -174,16 +170,16 @@
 <span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anns</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/transforms/crop.html#CenterCrop.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.transforms.crop.CenterCrop.apply" title="Permalink to this definition"></a></dt>
 <dd><p>Apply the transformation to the image array and its annotations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>img</strong> (<em>ndarray</em>) – image array.</p></li>
 <li><p><strong>anns</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – annotations for this image.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Transformed image array and annotations.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Tuple</em>[<em>ndarray</em>, <em>List</em>[dict]]</p>
 </dd>
 </dl>
@@ -194,13 +190,13 @@
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_bbox_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cocohelper.transforms.crop.CenterCrop.compute_bbox_area" title="Permalink to this definition"></a></dt>
 <dd><p>Compute area from a bounding box.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>bbox</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – bounding box.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The area inside the given bounding box.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -219,13 +215,13 @@ when an element is retrieved.</p></li>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>coco</strong> (<a class="reference internal" href="cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a>) – </p></li>
 <li><p><strong>out_dir</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a></p>
 </dd>
 </dl>
@@ -234,7 +230,7 @@ when an element is retrieved.</p></li>
 <p class="rubric">Attribute Details</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cocohelper.transforms.crop.CenterCrop._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cocohelper.transforms.crop.CenterCrop._abc_impl" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cocohelper.transforms.crop.CenterCrop._abc_impl" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

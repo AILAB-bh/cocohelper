@@ -22,6 +22,7 @@ StratifiedDataSplitter
    
       ~StratifiedDataSplitter._compute_label_ratios
       ~StratifiedDataSplitter._get_ids
+      ~StratifiedDataSplitter._get_n_samples
       ~StratifiedDataSplitter.apply
    
    
@@ -46,6 +47,8 @@ StratifiedDataSplitter
       _compute_label_ratios
    .. automethod::
       _get_ids
+   .. automethod::
+      _get_n_samples
    .. automethod::
       apply
    

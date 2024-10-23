@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>segmentation &mdash; cocohelper  documentation</title>
@@ -22,7 +22,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="coco_to_binary_masks" href="cocohelper.utils.segmentation.coco_to_binary_masks.html" />
+    <link rel="next" title="CompressedRLEMaskConverter" href="cocohelper.utils.segmentation.CompressedRLEMaskConverter.html" />
     <link rel="prev" title="subtract" href="cocohelper.utils.path.subtract.html" /> 
 </head>
 
@@ -31,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,6 +67,10 @@
 <li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.dataframe.html">dataframe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.path.html">path</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">segmentation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.CompressedRLEMaskConverter.html">CompressedRLEMaskConverter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.MaskConverter.html">MaskConverter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.PolygonMaskConverter.html">PolygonMaskConverter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.RLEMaskConverter.html">RLEMaskConverter</a></li>
 <li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.coco_to_binary_masks.html">coco_to_binary_masks</a></li>
 <li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.compressed_rle_to_mask.html">compressed_rle_to_mask</a></li>
 <li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.compute_polygon_area.html">compute_polygon_area</a></li>
@@ -104,7 +112,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.utils.html">utils</a></li>
@@ -121,33 +129,46 @@
   <section id="module-cocohelper.utils.segmentation">
 <span id="segmentation"></span><h1>segmentation<a class="headerlink" href="#module-cocohelper.utils.segmentation" title="Permalink to this heading"></a></h1>
 <p>Utilities* for converting segmentation annotations between different formats.</p>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.CompressedRLEMaskConverter.html#cocohelper.utils.segmentation.CompressedRLEMaskConverter" title="cocohelper.utils.segmentation.CompressedRLEMaskConverter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CompressedRLEMaskConverter</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.MaskConverter.html#cocohelper.utils.segmentation.MaskConverter" title="cocohelper.utils.segmentation.MaskConverter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MaskConverter</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.PolygonMaskConverter.html#cocohelper.utils.segmentation.PolygonMaskConverter" title="cocohelper.utils.segmentation.PolygonMaskConverter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolygonMaskConverter</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.RLEMaskConverter.html#cocohelper.utils.segmentation.RLEMaskConverter" title="cocohelper.utils.segmentation.RLEMaskConverter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RLEMaskConverter</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.coco_to_binary_masks.html#cocohelper.utils.segmentation.coco_to_binary_masks" title="cocohelper.utils.segmentation.coco_to_binary_masks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coco_to_binary_masks</span></code></a>(ch, dest_dir[, scaling])</p></td>
 <td><p>Converts annotations from COCO to binary masks.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.compressed_rle_to_mask.html#cocohelper.utils.segmentation.compressed_rle_to_mask" title="cocohelper.utils.segmentation.compressed_rle_to_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compressed_rle_to_mask</span></code></a>(rle_code, height, width)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.compressed_rle_to_mask.html#cocohelper.utils.segmentation.compressed_rle_to_mask" title="cocohelper.utils.segmentation.compressed_rle_to_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compressed_rle_to_mask</span></code></a>(rle_code[, height, ...])</p></td>
 <td><p>Converts a compressed RLE to a binary mask with the given output dtype.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.compute_polygon_area.html#cocohelper.utils.segmentation.compute_polygon_area" title="cocohelper.utils.segmentation.compute_polygon_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_polygon_area</span></code></a>(polygon)</p></td>
 <td><p>Computes a segmentation area from its polygon coordinates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.convert_to_mask.html#cocohelper.utils.segmentation.convert_to_mask" title="cocohelper.utils.segmentation.convert_to_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_to_mask</span></code></a>(segmentation, height, width)</p></td>
-<td><p>Convert segmentation from different formats to polygon format.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.convert_to_mask.html#cocohelper.utils.segmentation.convert_to_mask" title="cocohelper.utils.segmentation.convert_to_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_to_mask</span></code></a>(segmentation, height, width, ...)</p></td>
+<td><p>Converts a segmentation to a binary mask.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.convert_to_mode.html#cocohelper.utils.segmentation.convert_to_mode" title="cocohelper.utils.segmentation.convert_to_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_to_mode</span></code></a>(segmentation, mode, height, ...)</p></td>
-<td><p>Convert segmentation to the specified format.</p></td>
+<td><p>Converts a segmentation to the specified mode.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.decode_mask.html#cocohelper.utils.segmentation.decode_mask" title="cocohelper.utils.segmentation.decode_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decode_mask</span></code></a>(segmentation, height, width, mode)</p></td>
-<td><p>Decodes a binary mask from another format.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.decode_mask.html#cocohelper.utils.segmentation.decode_mask" title="cocohelper.utils.segmentation.decode_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decode_mask</span></code></a>(code, mode, **kwargs)</p></td>
+<td><p>Decodes a mask using the specified mode. :param code: the encoded mask. :param mode: the mode to use for decoding the mask. :param **kwargs: extra parameters such as:                    - <cite>height</cite> and <cite>width</cite> to indicate the shape of the output mask (if mode in [cRLE, polygon]). - <cite>value</cite> to indicate the value of the zero-valued pixels in the output mask (if mode=polygon). - <cite>dtype</cite> to indicate the type of the output mask (if mode in [RLE, cRLE, polygon]).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.encode_mask.html#cocohelper.utils.segmentation.encode_mask" title="cocohelper.utils.segmentation.encode_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">encode_mask</span></code></a>(mask, mode[, compression_factor])</p></td>
-<td><p>Encodes a binary mask numpy array into another format.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.encode_mask.html#cocohelper.utils.segmentation.encode_mask" title="cocohelper.utils.segmentation.encode_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">encode_mask</span></code></a>(mask, mode, **kwargs)</p></td>
+<td><p>Encodes a mask using the specified :param mask: a binary mask as a numpy array.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.get_segmentation_mode.html#cocohelper.utils.segmentation.get_segmentation_mode" title="cocohelper.utils.segmentation.get_segmentation_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_segmentation_mode</span></code></a>(segmentation)</p></td>
 <td><p>Automatically detect the segmentation format: RLE, cRLE or polygon.</p></td>
@@ -155,13 +176,13 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.mask_to_compressed_rle.html#cocohelper.utils.segmentation.mask_to_compressed_rle" title="cocohelper.utils.segmentation.mask_to_compressed_rle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mask_to_compressed_rle</span></code></a>(mask, **kwargs)</p></td>
 <td><p>Converts a binary mask to compressed RLE format.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.mask_to_polygon.html#cocohelper.utils.segmentation.mask_to_polygon" title="cocohelper.utils.segmentation.mask_to_polygon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mask_to_polygon</span></code></a>(mask[, compression_factor])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.mask_to_polygon.html#cocohelper.utils.segmentation.mask_to_polygon" title="cocohelper.utils.segmentation.mask_to_polygon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mask_to_polygon</span></code></a>(mask[, simplify_tolerance])</p></td>
 <td><p>Converts segmentation mask to a list of polygons.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.mask_to_rle.html#cocohelper.utils.segmentation.mask_to_rle" title="cocohelper.utils.segmentation.mask_to_rle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mask_to_rle</span></code></a>(binary_mask, **kwargs)</p></td>
 <td><p>Converts a binary mask to RLE encoding.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.polygon_to_mask.html#cocohelper.utils.segmentation.polygon_to_mask" title="cocohelper.utils.segmentation.polygon_to_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polygon_to_mask</span></code></a>(polygon_code, width, height)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.polygon_to_mask.html#cocohelper.utils.segmentation.polygon_to_mask" title="cocohelper.utils.segmentation.polygon_to_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polygon_to_mask</span></code></a>(polygon_code[, width, ...])</p></td>
 <td><p>Creates and returns a mask from polygon in COCO format.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="cocohelper.utils.segmentation.rle_to_mask.html#cocohelper.utils.segmentation.rle_to_mask" title="cocohelper.utils.segmentation.rle_to_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rle_to_mask</span></code></a>(rle_code[, dtype])</p></td>
@@ -176,7 +197,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="cocohelper.utils.path.subtract.html" class="btn btn-neutral float-left" title="subtract" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="cocohelper.utils.segmentation.coco_to_binary_masks.html" class="btn btn-neutral float-right" title="coco_to_binary_masks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cocohelper.utils.segmentation.CompressedRLEMaskConverter.html" class="btn btn-neutral float-right" title="CompressedRLEMaskConverter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

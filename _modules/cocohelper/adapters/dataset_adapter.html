@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -58,7 +62,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
       <li class="breadcrumb-item active">cocohelper.adapters.dataset_adapter</li>
       <li class="wy-breadcrumbs-aside">
@@ -81,7 +85,7 @@
 <div class="viewcode-block" id="DatasetAdapter"><a class="viewcode-back" href="../../../_autosummary/cocohelper.adapters.dataset_adapter.DatasetAdapter.html#cocohelper.adapters.dataset_adapter.DatasetAdapter">[docs]</a><span class="k">class</span> <span class="nc">DatasetAdapter</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        DatasetAdapter interface that converts a dataset format to COCOHelper</span>
 <span class="sd">        format.</span>
 
@@ -92,7 +96,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the next sample in the sequence.</span>
 
 <span class="sd">        Returns:</span>
@@ -111,7 +115,7 @@
 
 <div class="viewcode-block" id="DatasetAdapter.get_categories"><a class="viewcode-back" href="../../../_autosummary/cocohelper.adapters.dataset_adapter.DatasetAdapter.html#cocohelper.adapters.dataset_adapter.DatasetAdapter.get_categories">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the categories.</span>
 
 <span class="sd">        Returns:</span>
@@ -124,7 +128,7 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method for loading samples. To be implemented.</span>
 
 <span class="sd">        Args:</span>
@@ -140,7 +144,7 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method for reading images. To be implemented.</span>
 
 <span class="sd">        Args:</span>

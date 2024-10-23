@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; cocohelper  documentation</title>
@@ -31,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -44,7 +48,7 @@
               <p class="caption" role="heading"><span class="caption-text">User Reference:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation-inside-ailab-bh">Installation inside AILAB-BH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-from-wheel-file">Install from Wheel File</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
@@ -64,7 +68,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Installation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/installation.md.txt" rel="nofollow"> View page source</a>
@@ -77,19 +81,11 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
-<p>We didn’t publish the wheel file to the public <em>pypiserver</em> yet, so you can
-install COCOHelper package from the wheel file provided in one of the releases
-provided in the
-<a class="reference external" href="https://github.com/AILAB-bh/cocohelper/releases">releases page</a>.</p>
+<section id="install-from-wheel-file">
+<h2>Install from Wheel File<a class="headerlink" href="#install-from-wheel-file" title="Permalink to this heading"></a></h2>
+<p>You can install COCOHelper package from the wheel file provided in the <a class="reference external" href="https://github.com/AILAB-bh/cocohelper/releases">releases page</a>.</p>
 <p>You can use pip to install the wheel, e.g.:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ pip install cocohelper-0.3.3-py3-none-any.whl
-</pre></div>
-</div>
-<section id="installation-inside-ailab-bh">
-<h2>Installation inside AILAB-BH<a class="headerlink" href="#installation-inside-ailab-bh" title="Permalink to this heading"></a></h2>
-<p>If you are part of AILAB-BH you can install COCOHelper from the
-<em>ailab-pypi-server</em> in the local network as every other package.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ pip install cocohelper --extra-index-url  http://10.79.85.55:28080/simple --trusted-host <span class="m">10</span>.79.85.55
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>cocohelper-1.0.0-py3-none-any.whl
 </pre></div>
 </div>
 </section>

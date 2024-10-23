@@ -21,6 +21,7 @@ ProportionalDataSplitter
       :recursive:
    
       ~ProportionalDataSplitter._get_ids
+      ~ProportionalDataSplitter._get_n_samples
       ~ProportionalDataSplitter.apply
    
    
@@ -43,6 +44,8 @@ ProportionalDataSplitter
    
    .. automethod::
       _get_ids
+   .. automethod::
+      _get_n_samples
    .. automethod::
       apply
    

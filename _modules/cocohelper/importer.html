@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -58,7 +62,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">cocohelper.importer</li>
       <li class="wy-breadcrumbs-aside">
@@ -90,7 +94,7 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">adapter</span><span class="p">:</span> <span class="n">DatasetAdapter</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Importer can generate COCOHelper objects from a generic interface.</span>
 
 <span class="sd">        We delegate to DatasetAdapter hierarchy the strategy used to load data</span>
@@ -114,7 +118,7 @@
             <span class="n">img_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">COCOHelperPaths</span><span class="o">.</span><span class="n">img_dir</span><span class="p">,</span>
             <span class="n">save_images</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">COCOHelper</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the new COCOHelper, and optionally save it.</span>
 
 <span class="sd">        Args:</span>
@@ -151,7 +155,7 @@
 
 
 <div class="viewcode-block" id="_get_empty_json"><a class="viewcode-back" href="../../_autosummary/cocohelper.importer._get_empty_json.html#cocohelper.importer._get_empty_json">[docs]</a><span class="k">def</span> <span class="nf">_get_empty_json</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get an empty COCO dataset as a dict.</span>
 
 <span class="sd">    Returns:</span>

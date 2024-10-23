@@ -12,6 +12,17 @@ segmentation
 
 
 
+.. rubric:: Classes
+
+.. autosummary::
+  :toctree:
+
+  CompressedRLEMaskConverter
+  MaskConverter
+  PolygonMaskConverter
+  RLEMaskConverter
+
+
 
 
 

@@ -1,0 +1,59 @@
+CompressedRLEMaskConverter
+==========================
+
+.. currentmodule:: cocohelper.utils.segmentation
+
+.. autoclass:: CompressedRLEMaskConverter
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~CompressedRLEMaskConverter.decode
+      ~CompressedRLEMaskConverter.encode
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~CompressedRLEMaskConverter._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      decode
+   .. automethod::
+      encode
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

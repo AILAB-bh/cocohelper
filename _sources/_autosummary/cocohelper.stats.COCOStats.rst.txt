@@ -21,6 +21,7 @@ COCOStats
       :recursive:
    
       ~COCOStats.__get_annotations_ratios
+      ~COCOStats.__get_category_ratios
       ~COCOStats.get_annotation_size_stats
       ~COCOStats.get_image_size_stats
       ~COCOStats.get_optimal_image_size
@@ -40,6 +41,7 @@ COCOStats
       ~COCOStats.nb_anns
       ~COCOStats.nb_cats
       ~COCOStats.nb_imgs
+      ~COCOStats.nb_imgs_wo_anns
    
    
 
@@ -50,6 +52,8 @@ COCOStats
    
    .. automethod::
       __get_annotations_ratios
+   .. automethod::
+      __get_category_ratios
    .. automethod::
       get_annotation_size_stats
    .. automethod::
@@ -76,5 +80,7 @@ COCOStats
        nb_cats
    .. autoattribute::
        nb_imgs
+   .. autoattribute::
+       nb_imgs_wo_anns
    
    

@@ -23,6 +23,7 @@ COCOHelper
       ~COCOHelper._copy_images
       ~COCOHelper._read_annotations_file
       ~COCOHelper._remove_unlinked_anns
+      ~COCOHelper._validate
       ~COCOHelper.copy
       ~COCOHelper.drop_duplicate_anns
       ~COCOHelper.drop_duplicate_cats
@@ -69,6 +70,7 @@ COCOHelper
       ~COCOHelper.paths
       ~COCOHelper.root_path
       ~COCOHelper.unlabelled_imgs
+      ~COCOHelper.validator
    
    
 
@@ -83,6 +85,8 @@ COCOHelper
       _read_annotations_file
    .. automethod::
       _remove_unlinked_anns
+   .. automethod::
+      _validate
    .. automethod::
       copy
    .. automethod::
@@ -163,5 +167,7 @@ COCOHelper
        root_path
    .. autoattribute::
        unlabelled_imgs
+   .. autoattribute::
+       validator
    
    

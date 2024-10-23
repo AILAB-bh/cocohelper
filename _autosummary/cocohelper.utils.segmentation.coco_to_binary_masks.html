@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>coco_to_binary_masks &mdash; cocohelper  documentation</title>
@@ -23,7 +23,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="compressed_rle_to_mask" href="cocohelper.utils.segmentation.compressed_rle_to_mask.html" />
-    <link rel="prev" title="segmentation" href="cocohelper.utils.segmentation.html" /> 
+    <link rel="prev" title="RLEMaskConverter" href="cocohelper.utils.segmentation.RLEMaskConverter.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,6 +67,10 @@
 <li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.dataframe.html">dataframe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.path.html">path</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="cocohelper.utils.segmentation.html">segmentation</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.CompressedRLEMaskConverter.html">CompressedRLEMaskConverter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.MaskConverter.html">MaskConverter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.PolygonMaskConverter.html">PolygonMaskConverter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.RLEMaskConverter.html">RLEMaskConverter</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">coco_to_binary_masks</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#cocohelper.utils.segmentation.coco_to_binary_masks"><code class="docutils literal notranslate"><span class="pre">coco_to_binary_masks()</span></code></a></li>
 </ul>
@@ -107,7 +115,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.utils.html">utils</a></li>
@@ -129,7 +137,7 @@
 <span class="sig-prename descclassname"><span class="pre">cocohelper.utils.segmentation.</span></span><span class="sig-name descname"><span class="pre">coco_to_binary_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/utils/segmentation.html#coco_to_binary_masks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.utils.segmentation.coco_to_binary_masks" title="Permalink to this definition"></a></dt>
 <dd><p>Converts annotations from COCO to binary masks.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ch</strong> (<a class="reference internal" href="cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a>) – a COCOHelper containing the source COCO dataset.</p></li>
 <li><p><strong>dest_dir</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – a destination directory for the output (converted) files.</p></li>
@@ -137,8 +145,11 @@
 improve their visibility by the human eye when opened with GUI tools.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None. Outputs the converted dataset in the given destination directory.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -149,7 +160,7 @@ improve their visibility by the human eye when opened with GUI tools.</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="cocohelper.utils.segmentation.html" class="btn btn-neutral float-left" title="segmentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cocohelper.utils.segmentation.RLEMaskConverter.html" class="btn btn-neutral float-left" title="RLEMaskConverter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="cocohelper.utils.segmentation.compressed_rle_to_mask.html" class="btn btn-neutral float-right" title="compressed_rle_to_mask" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

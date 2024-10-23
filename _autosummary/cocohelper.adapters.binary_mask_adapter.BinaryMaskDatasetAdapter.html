@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BinaryMaskDatasetAdapter &mdash; cocohelper  documentation</title>
@@ -31,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -98,7 +102,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.adapters.html">adapters</a></li>
@@ -121,7 +125,7 @@
 <dd><p>Bases: <a class="reference internal" href="cocohelper.adapters.dataset_adapter.DatasetAdapter.html#cocohelper.adapters.dataset_adapter.DatasetAdapter" title="cocohelper.adapters.dataset_adapter.DatasetAdapter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatasetAdapter</span></code></a></p>
 <p>A DatasetAdapter to convert dataset with binary masks to COCO format.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data_paths</strong> – A dictionary that maps image filenames to its masks
 filenames.</p></li>
@@ -135,10 +139,6 @@ filenames.</p></li>
 </dl>
 <p class="rubric">Method List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.extract_bbox_from_binary_mask" title="cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.extract_bbox_from_binary_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_bbox_from_binary_mask</span></code></a>(binary_mask)</p></td>
 <td><p>Extracts bounding box from segmentation mask.</p></td>
@@ -159,10 +159,6 @@ filenames.</p></li>
 </table>
 <p class="rubric">Attributes List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter._abc_impl" title="cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter._abc_impl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_abc_impl</span></code></a></p></td>
 <td><p></p></td>
@@ -176,13 +172,13 @@ filenames.</p></li>
 <dd><p>Extracts bounding box from segmentation mask.</p>
 <p>NB: we do not support rotated bounding boxes.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>binary_mask</strong> (<em>ndarray</em>) – binary semantic mask of an object.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A bounding box surrounding the input semantic mask.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>List</em></p>
 </dd>
 </dl>
@@ -193,10 +189,10 @@ filenames.</p></li>
 <span class="sig-name descname"><span class="pre">get_categories</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/adapters/binary_mask_adapter.html#BinaryMaskDatasetAdapter.get_categories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.get_categories" title="Permalink to this definition"></a></dt>
 <dd><p>Get the list of categories.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A list of categories</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>List</em>[dict]</p>
 </dd>
 </dl>
@@ -222,7 +218,7 @@ filenames.</p></li>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mask</strong> (<em>ndarray</em>) – numpy array containing the semantic masks.</p></li>
 <li><p><strong>mode</strong> (<em>str</em>) – encoding mode for the semantic mask. Can be ‘RLE’, ‘cRLE’, or
@@ -236,11 +232,11 @@ COCO format.</p></li>
 <li><p><strong>**kwargs</strong> – optional keyword parameters for the encoding.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Segmentations, bounding boxes, and categories contained in the input
 array.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Tuple</em>[<em>List</em>, <em>List</em>, <em>List</em>]</p>
 </dd>
 </dl>
@@ -251,13 +247,13 @@ array.</p>
 <span class="sig-name descname"><span class="pre">get_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/adapters/binary_mask_adapter.html#BinaryMaskDatasetAdapter.get_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.get_sample" title="Permalink to this definition"></a></dt>
 <dd><p>Get the COCO representation for a specific sample and its index.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – sample index.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The values of <cite>image</cite>, and <cite>image_annotations</cite> in COCO format.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Optional</em>[<em>Tuple</em>[dict, <em>List</em>[dict]]]</p>
 </dd>
 </dl>
@@ -268,13 +264,13 @@ array.</p>
 <span class="sig-name descname"><span class="pre">read_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/adapters/binary_mask_adapter.html#BinaryMaskDatasetAdapter.read_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter.read_image" title="Permalink to this definition"></a></dt>
 <dd><p>Reads an image in from its positional id in the data paths.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – image index.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>An image array corresponding to the given index in the data paths.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>ndarray</em></p>
 </dd>
 </dl>
@@ -283,7 +279,7 @@ array.</p>
 <p class="rubric">Attribute Details</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter._abc_impl" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cocohelper.adapters.binary_mask_adapter.BinaryMaskDatasetAdapter._abc_impl" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

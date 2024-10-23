@@ -1,0 +1,59 @@
+PolygonMaskConverter
+====================
+
+.. currentmodule:: cocohelper.utils.segmentation
+
+.. autoclass:: PolygonMaskConverter
+   :show-inheritance:
+
+
+   
+   
+
+   ..
+      REMOVE THIS COMMENTO TO ADD INIT, REMEMBER TO CHANGE autoclass_content IN conf.py
+      .. automethod:: __init__
+         :noindex:
+
+
+   .. rubric:: Method List
+   .. autosummary::
+      :recursive:
+   
+      ~PolygonMaskConverter.decode
+      ~PolygonMaskConverter.encode
+   
+   
+
+
+
+   
+   
+   .. rubric:: Attributes List
+   .. autosummary::
+   
+      ~PolygonMaskConverter._abc_impl
+   
+   
+
+
+
+   
+   .. rubric:: Methods Details
+   
+   .. automethod::
+      decode
+   .. automethod::
+      encode
+   
+
+
+   
+   
+   .. rubric:: Attribute Details
+
+   
+   .. autoattribute::
+       _abc_impl
+   
+   

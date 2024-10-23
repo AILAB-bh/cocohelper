@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>mask_to_rle &mdash; cocohelper  documentation</title>
@@ -31,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,6 +67,10 @@
 <li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.dataframe.html">dataframe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cocohelper.utils.path.html">path</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="cocohelper.utils.segmentation.html">segmentation</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.CompressedRLEMaskConverter.html">CompressedRLEMaskConverter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.MaskConverter.html">MaskConverter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.PolygonMaskConverter.html">PolygonMaskConverter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.RLEMaskConverter.html">RLEMaskConverter</a></li>
 <li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.coco_to_binary_masks.html">coco_to_binary_masks</a></li>
 <li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.compressed_rle_to_mask.html">compressed_rle_to_mask</a></li>
 <li class="toctree-l5"><a class="reference internal" href="cocohelper.utils.segmentation.compute_polygon_area.html">compute_polygon_area</a></li>
@@ -107,7 +115,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.utils.html">utils</a></li>
@@ -129,16 +137,16 @@
 <span class="sig-prename descclassname"><span class="pre">cocohelper.utils.segmentation.</span></span><span class="sig-name descname"><span class="pre">mask_to_rle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary_mask</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/utils/segmentation.html#mask_to_rle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.utils.segmentation.mask_to_rle" title="Permalink to this definition"></a></dt>
 <dd><p>Converts a binary mask to RLE encoding.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>binary_mask</strong> (<em>ndarray</em>) – a binary mask as a numpy array.</p></li>
 <li><p><strong>**kwargs</strong> – extra parameters are ignored.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The RLE encoding of the binary mask.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Dict</em>[str, list]</p>
 </dd>
 </dl>

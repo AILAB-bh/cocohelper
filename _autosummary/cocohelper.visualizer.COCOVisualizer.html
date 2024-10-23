@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>COCOVisualizer &mdash; cocohelper  documentation</title>
@@ -30,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -94,7 +98,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.visualizer.html">visualizer</a></li>
@@ -116,16 +120,12 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class contains methods to visualize COCO images and annotations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>helper</strong> – Coco dataset to visualize.</p>
 </dd>
 </dl>
 <p class="rubric">Method List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.visualizer.COCOVisualizer._visualize" title="cocohelper.visualizer.COCOVisualizer._visualize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_visualize</span></code></a>(image, annotations[, show_bbox, ...])</p></td>
 <td><p>Draws an image and its annotations using matplotlib.</p></td>
@@ -156,7 +156,7 @@
 <span class="sig-name descname"><span class="pre">_visualize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_segmentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer._visualize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer._visualize" title="Permalink to this definition"></a></dt>
 <dd><p>Draws an image and its annotations using matplotlib.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>image</strong> (<em>ndarray</em>) – image to be shown.</p></li>
 <li><p><strong>annotations</strong> (<em>list</em>) – annotations for the given the image.</p></li>
@@ -183,10 +183,10 @@ matplotlib <cite>plt.figure()</cite>).</p></li>
 <li><p><strong>**kwargs</strong> – additional kwargs for matplotlib <cite>plt.figure()</cite>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
 </dl>
@@ -197,7 +197,7 @@ matplotlib <cite>plt.figure()</cite>).</p></li>
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(128,</span> <span class="pre">128,</span> <span class="pre">128)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox_thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer.draw_bounding_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer.draw_bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>Draws a bounding box on top of the input image.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>image</strong> (<em>ndarray</em>) – numpy array with the image.</p></li>
 <li><p><strong>bbox</strong> (<em>Sequence</em>) – bounding box coordinates.</p></li>
@@ -208,10 +208,10 @@ make the boxes more visible in large images.</p></li>
 <li><p><strong>**kwargs</strong> – optional kwargs for plotting bounding boxes.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Numpy array with the given image and a bounding box drawn on top of it.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>ndarray</em></p>
 </dd>
 </dl>
@@ -222,7 +222,7 @@ make the boxes more visible in large images.</p></li>
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_segmentation_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segmentation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(128,</span> <span class="pre">128,</span> <span class="pre">128)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer.draw_segmentation_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer.draw_segmentation_mask" title="Permalink to this definition"></a></dt>
 <dd><p>Draw segmentation mask on top of the input image.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>image</strong> (<em>ndarray</em>) – numpy array with the image.</p></li>
 <li><p><strong>segmentation</strong> (<em>Sequence</em>) – segmentation mask.</p></li>
@@ -230,10 +230,10 @@ make the boxes more visible in large images.</p></li>
 <li><p><strong>**kwargs</strong> – optional kwargs for plotting the segmentation mask.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Numpy array with the given image and a segmentation drawn on top of it.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>ndarray</em></p>
 </dd>
 </dl>
@@ -244,14 +244,14 @@ make the boxes more visible in large images.</p></li>
 <span class="sig-name descname"><span class="pre">load_image_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer.load_image_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer.load_image_array" title="Permalink to this definition"></a></dt>
 <dd><p>Load image with a given image id and returns it as numpy array.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>img_id</strong> (<em>int</em>) – image id.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A numpy array with the image associated with the image id in the
 COCO dataset.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>ndarray</em></p>
 </dd>
 </dl>
@@ -262,15 +262,15 @@ COCO dataset.</p>
 <span class="sig-name descname"><span class="pre">pick_color_palette</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer.pick_color_palette"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer.pick_color_palette" title="Permalink to this definition"></a></dt>
 <dd><p>Returns standard RGB colors palette (+ random colors, if needed).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>number</strong> (<em>int</em>) – the number of RGB color triplets to fetch.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of triplets with a <cite>number</cite> RGB colors. The first twelve
 colors follow a standard palette, the remaining colors will be
 randomly picked.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>List</em></p>
 </dd>
 </dl>
@@ -281,13 +281,13 @@ randomly picked.</p>
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pick_random_colors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/visualizer.html#COCOVisualizer.pick_random_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.visualizer.COCOVisualizer.pick_random_colors" title="Permalink to this definition"></a></dt>
 <dd><p>Generate random RGB colors.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>number</strong> (<em>int</em>) – the number of RGB color triplets to fetch</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of triplets containing a <cite>number</cite> RGB colors. The colors are randomly picked.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>List</em></p>
 </dd>
 </dl>
@@ -300,7 +300,7 @@ randomly picked.</p>
 <p>If <cite>show_bbox</cite> or <cite>show_segmentation</cite> are True, show also the image
 annotations on top of the plotted image.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>img_id</strong> (<em>int</em>) – image id in the COCO dataset.</p></li>
 <li><p><strong>show_bbox</strong> (<em>bool</em>) – if true, show bounding boxes on top of the image.</p></li>
@@ -309,10 +309,10 @@ annotations on top of the plotted image.</p>
 (see <cite>COCOVisualizer._visualize()</cite> docs).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
 </dl>

@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -58,7 +62,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
       <li class="breadcrumb-item active">cocohelper.transforms.resize</li>
       <li class="wy-breadcrumbs-aside">
@@ -97,7 +101,7 @@
             <span class="n">img</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
             <span class="n">anns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply the transformation to the image array and its annotations.</span>
 
 <span class="sd">        Args:</span>
@@ -140,7 +144,7 @@
             <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
             <span class="n">output_size</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Resize image array to the given output size.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resize image array to the given output size.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">output_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">output_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
             <span class="n">interp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span>  <span class="c1"># area is the suggested interpolation when shrinking the image</span>
             <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">output_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">output_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">interp</span><span class="p">)</span>
@@ -155,7 +159,7 @@
             <span class="n">bbox</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
             <span class="n">ratios</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Resize bounding box with the given ratios.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resize bounding box with the given ratios.&quot;&quot;&quot;</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">bbox</span>
         <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">ratios</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span>
                 <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">ratios</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
@@ -167,7 +171,7 @@
             <span class="n">segmentations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">],</span>
             <span class="n">ratios</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Resize the segmentation with the given ratios.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resize the segmentation with the given ratios.&quot;&quot;&quot;</span>
         <span class="n">rs_segmentations</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">segm</span> <span class="ow">in</span> <span class="n">segmentations</span><span class="p">:</span>
             <span class="n">x_coords</span> <span class="o">=</span> <span class="n">segm</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>

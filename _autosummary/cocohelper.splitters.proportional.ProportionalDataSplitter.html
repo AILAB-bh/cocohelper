@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ProportionalDataSplitter &mdash; cocohelper  documentation</title>
@@ -31,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> cocohelper
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            cocohelper
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -61,6 +65,7 @@
 <li class="toctree-l5 current"><a class="current reference internal" href="#">ProportionalDataSplitter</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#cocohelper.splitters.proportional.ProportionalDataSplitter"><code class="docutils literal notranslate"><span class="pre">ProportionalDataSplitter</span></code></a><ul>
 <li class="toctree-l7"><a class="reference internal" href="#cocohelper.splitters.proportional.ProportionalDataSplitter._get_ids"><code class="docutils literal notranslate"><span class="pre">ProportionalDataSplitter._get_ids()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#cocohelper.splitters.proportional.ProportionalDataSplitter._get_n_samples"><code class="docutils literal notranslate"><span class="pre">ProportionalDataSplitter._get_n_samples()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#cocohelper.splitters.proportional.ProportionalDataSplitter.apply"><code class="docutils literal notranslate"><span class="pre">ProportionalDataSplitter.apply()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#cocohelper.splitters.proportional.ProportionalDataSplitter._abc_impl"><code class="docutils literal notranslate"><span class="pre">ProportionalDataSplitter._abc_impl</span></code></a></li>
 </ul>
@@ -97,7 +102,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../apigen.html">API Reference</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.html">cocohelper</a></li>
           <li class="breadcrumb-item"><a href="cocohelper.splitters.html">splitters</a></li>
@@ -122,31 +127,26 @@
 <p>Each split will contain a part of the original dataset samples
 proportionally to the arguments.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>*proportions</strong> – Describe the split proportions for each split.</p>
 </dd>
 </dl>
 <p class="rubric">Method List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.splitters.proportional.ProportionalDataSplitter._get_ids" title="cocohelper.splitters.proportional.ProportionalDataSplitter._get_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_get_ids</span></code></a>(ch)</p></td>
 <td><p>For each split, GET a list of image ids for a target COCOHelper dataset, respecting the splitting proportions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.splitters.proportional.ProportionalDataSplitter.apply" title="cocohelper.splitters.proportional.ProportionalDataSplitter.apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply</span></code></a>(coco)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#cocohelper.splitters.proportional.ProportionalDataSplitter._get_n_samples" title="cocohelper.splitters.proportional.ProportionalDataSplitter._get_n_samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_get_n_samples</span></code></a>(n_images)</p></td>
+<td><p>Get the number of samples for each split.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.splitters.proportional.ProportionalDataSplitter.apply" title="cocohelper.splitters.proportional.ProportionalDataSplitter.apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply</span></code></a>(coco)</p></td>
 <td><p>Applies the splitter to the given COCOHelper.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Attributes List</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#cocohelper.splitters.proportional.ProportionalDataSplitter._abc_impl" title="cocohelper.splitters.proportional.ProportionalDataSplitter._abc_impl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_abc_impl</span></code></a></p></td>
 <td><p></p></td>
@@ -160,14 +160,26 @@ proportionally to the arguments.</p>
 <dd><p>For each split, GET a list of image ids for a target COCOHelper
 dataset, respecting the splitting proportions.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ch</strong> (<a class="reference internal" href="cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a>) – target COCOHelper dataset.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of indices lists (a list of indices per each split).</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>List</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cocohelper.splitters.proportional.ProportionalDataSplitter._get_n_samples">
+<span class="sig-name descname"><span class="pre">_get_n_samples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_images</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/splitters/proportional.html#ProportionalDataSplitter._get_n_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.splitters.proportional.ProportionalDataSplitter._get_n_samples" title="Permalink to this definition"></a></dt>
+<dd><p>Get the number of samples for each split.
+:param n_images: the total number of images in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of integers with the number of samples for each split.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -177,13 +189,13 @@ dataset, respecting the splitting proportions.</p>
 <span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coco</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cocohelper/splitters/proportional.html#ProportionalDataSplitter.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cocohelper.splitters.proportional.ProportionalDataSplitter.apply" title="Permalink to this definition"></a></dt>
 <dd><p>Applies the splitter to the given COCOHelper.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>coco</strong> (<a class="reference internal" href="cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a>) – a COCOHelper containing the source dataset to be split.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list containing the splits of the source COCO dataset.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>List</em>[<a class="reference internal" href="cocohelper.helper.COCOHelper.html#cocohelper.helper.COCOHelper" title="cocohelper.helper.COCOHelper"><em>COCOHelper</em></a>]</p>
 </dd>
 </dl>
@@ -192,7 +204,7 @@ dataset, respecting the splitting proportions.</p>
 <p class="rubric">Attribute Details</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cocohelper.splitters.proportional.ProportionalDataSplitter._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cocohelper.splitters.proportional.ProportionalDataSplitter._abc_impl" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cocohelper.splitters.proportional.ProportionalDataSplitter._abc_impl" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
